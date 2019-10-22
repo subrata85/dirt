@@ -9,8 +9,8 @@ import {
   TextInput,
   TouchableOpacity,
   Image,
-	ActivityIndicator,
-
+  ActivityIndicator,
+  Keyboard
 } from 'react-native';
 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -45,7 +45,7 @@ export default class OtpVerifyScreen extends Component {
 		this._bootstrapAsync();
 	  }
 	
-	  _bootstrapAsync = async () => {
+	  _bootstrapAsync = async () => {	
 		AsyncStorage.multiGet([
 		  'rememberToken',
 		  'email',
@@ -65,7 +65,8 @@ export default class OtpVerifyScreen extends Component {
 		//this.props.navigation.navigate(userToken ? 'App' : 'Auth');
 	  };
 	
-	  _doSubmit = () => {
+	_doSubmit = () => {
+		Keyboard.dismiss();
 		this.setState({
 		  errorMessage: '',
 		  successMessage: ''
@@ -104,10 +105,9 @@ export default class OtpVerifyScreen extends Component {
 					} else {
 						that.setState(
 						{
-							success: true
-						},
-						() => {}
-						);
+								success: true,
+								loader:false
+						});
 		
 						setTimeout(
 						function() {

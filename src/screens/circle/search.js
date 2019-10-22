@@ -268,7 +268,6 @@ export default class SearchParticipantsScreen extends Component {
 
   _doSearch = () => {
     Keyboard.dismiss();
-    console.log("do search phone");
     this.setState({
       errorPhone: false,
       errorMessage: "",
