@@ -95,7 +95,6 @@ export default class LoginScreen extends Component {
 								device_token:this.state.device_token
 							}
 						};
-				console.log("login obj", obj)
 					this.setState({
 						loader: true
 					});
@@ -112,6 +111,7 @@ export default class LoginScreen extends Component {
 							}
 							);
 						} else {
+							AsyncStorage.clear();
 							AsyncStorage.multiSet(
 								[
 									['user_id', response.result.id.toString()],

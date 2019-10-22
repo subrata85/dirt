@@ -329,14 +329,22 @@ export default class RegisterTwoScreen extends Component {
 						}
 						);
 					} else {
+						AsyncStorage.clear();
 						AsyncStorage.multiSet(
 						[
 							['user_id', response.result.id.toString()],
 							['rememberToken', that.state.rememberToken],
 							['loggedIn', 'success'],
 							['first_name', response.result.first_name],
+							['last_name', response.result.last_name],
+							['dob', response.result.dob],
+							['email', response.result.email],
+							['mobile_number', (response.result.mobile_number).toString()],
 							['avatar_location', response.result.avatar_location]
-						],
+							],
+							
+
+
 						function(error) {
 							that.setState({loader: false});
 							setTimeout(()=>{

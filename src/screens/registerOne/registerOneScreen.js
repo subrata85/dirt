@@ -188,7 +188,7 @@ export default class RegisterOneScreen extends Component {
 							});
 						  }
 						);
-		
+						AsyncStorage.clear();
 						AsyncStorage.multiSet(
 						  [
 							['email', that.state.email],

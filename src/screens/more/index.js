@@ -26,12 +26,6 @@ export default class MoreScreen extends Component {
     };
   }
 
-  componentWillMount() {}
-
-  componentDidUpdate() {}
-
-  componentWillUnmount() {}
-
   componentDidMount() {
     this._bootstrapAsync();
   }
@@ -48,7 +42,7 @@ export default class MoreScreen extends Component {
 
   _doLogout = () => {
     Alert.alert(
-      "Alert",
+      "Logout",
       "Are you sure you want to logout?",
       [
         {
@@ -59,22 +53,8 @@ export default class MoreScreen extends Component {
         {
           text: "OK",
           onPress: () => {
-            // AsyncStorage.clear().then(response => {
-            //   this.props.navigation.navigate('authStack');
-            // });
-
-            let keys = [
-              "user_id",
-              "rememberToken",
-              "first_name",
-              "avatar_location",
-              "loggedIn",
-              "email",
-              "mobile_number"
-            ];
-            AsyncStorage.multiRemove(keys, err => {
-              this.props.navigation.navigate("authStack");
-            });
+            AsyncStorage.clear();
+            this.props.navigation.navigate("authStack");
           }
         }
       ],

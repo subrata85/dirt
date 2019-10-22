@@ -116,11 +116,11 @@ export default class EditProfileScreen extends Component {
 			this.setState({
 			  rememberToken: response[0][1],
 			  email: response[1][1],
-				phone: response[2][1],
-				dob: response[3][1],
-				first_name: response[4][1],
-				last_name:response[5][1],
-				avatar:URL.public_url+'storage/'+response[6][1]
+			  phone: response[2][1],
+			  dob: response[3][1],
+			  first_name: response[4][1],
+			  last_name:response[5][1],
+			  avatar:URL.public_url+'storage/'+response[6][1]
 			});
 		  }
 		);
@@ -375,6 +375,7 @@ export default class EditProfileScreen extends Component {
 						}
 						);
 					} else {
+						AsyncStorage.clear();
 						AsyncStorage.multiSet(
 						[
 							['user_id', response.result.id.toString()],
