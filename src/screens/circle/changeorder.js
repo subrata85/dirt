@@ -183,64 +183,21 @@ export default class ChangeOrderParticipantsScreen extends Component {
               position: "relative"
             }}
           >
-            <HeaderCurve />
-
-            <View style={styles.headerMenu}>
-              <TouchableOpacity
-                style={styles.containerBackBlock}
-                onPress={() => this.props.navigation.goBack()}
-              >
-                <FeatherIcon name="arrow-left" size={25} color="#FFFFFF" />
-              </TouchableOpacity>
-
-              <View
-                style={{
-                  flex: 1,
-                  alignItems: "center",
-                  justifyContent: "center"
-                }}
-              >
-                <View style={styles.avatarImageWrapper}>
-                  <Image
-                    style={{
-                      width: 40,
-                      height: 40,
-                      borderRadius: 20
-                    }}
-                    source={{
-                      uri:
-                        ApiConfig.public_url +
-                        "storage/" +
-                        this.state.avatar_location
-                    }}
-                  />
-                </View>
-                <Text style={styles.avatarName}>{this.state.first_name}</Text>
-              </View>
-
-              <TouchableOpacity
-                style={styles.containerBackBlock}
-                onPress={() => this.props.navigation.goBack()}
-              >
-                <Image
-                  style={{
-                    width: 20,
-                    height: 20,
-                    alignSelf: "flex-end"
-                  }}
-                  source={require("../../../assets/images/notification.png")}
-                />
-
-                <View style={styles.notificationBadge}>
-                  <Text style={styles.notificationText}>99</Text>
-                </View>
-              </TouchableOpacity>
-            </View>
+            <HeaderCurve
+              backButton={true}
+              //title={"Create Circle"}
+              navigation={this.props.navigation}
+              avatar_location={
+                ApiConfig.public_url + "storage/" + this.state.avatar_location
+              }
+              first_name={this.state.first_name}
+              //admin={item.is_admin}
+              bellIcon={true}
+            />
 
             <View
               style={{
                 flex: 1,
-                marginTop: hp("5%"),
                 marginBottom: 20
               }}
             >

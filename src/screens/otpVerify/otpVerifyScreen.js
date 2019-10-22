@@ -10,8 +10,7 @@ import {
   TouchableOpacity,
   Image,
 	ActivityIndicator,
-	BackHandler,
-	Alert
+
 } from 'react-native';
 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -30,18 +29,8 @@ import httpService from '../../services/http/httpService';
 import HeaderCurve from '../includes/headercurve';
 
 export default class OtpVerifyScreen extends Component {
-	_didFocusSubscription;
-	_willBlurSubscription;
 	constructor(props) {
 		super(props);
-		this._didFocusSubscription = props.navigation.addListener(
-			'didFocus',
-			payload =>
-			  BackHandler.addEventListener(
-				'hardwareBackPress',
-				this.onBackButtonPressAndroid
-			  )
-		  );
 		this.state = {
 		  loader: false,
 		  loaderResendOtp: false,
@@ -54,15 +43,6 @@ export default class OtpVerifyScreen extends Component {
 	
 	  componentDidMount() {
 		this._bootstrapAsync();
-	  }
-	  onBackButtonPressAndroid = () => {
-		  Alert.alert("","You can not back to previous page")
-		  return true
-	  };
-	
-	  componentWillUnmount() {
-		this._didFocusSubscription && this._didFocusSubscription.remove();
-		this._willBlurSubscription && this._willBlurSubscription.remove();
 	  }
 	
 	  _bootstrapAsync = async () => {

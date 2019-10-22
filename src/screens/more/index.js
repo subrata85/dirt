@@ -80,7 +80,7 @@ export default class MoreScreen extends Component {
               title={"More Options"}
               navigation={this.props.navigation}
               // avatar_location={this.state.avatar_location}
-              backButton={true}
+              backButton={false}
               //first_name={this.state.first_name}
               bellIcon={true}
             />
