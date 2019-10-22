@@ -145,13 +145,14 @@ export default class RegisterOneScreen extends Component {
 			if (!this.state.errorMessage) {
 				let that = this;
 				let thatNavigation = this.props.navigation;
-		
+				let countyCode = this.state.mobile_number.substring(0, 3);
+				let mobileNo = this.state.mobile_number.substr(3);
 				let obj = {
 					url:'signup',
 					data:{
 						email: this.state.email,
-						mobile_number: (this.state.mobile_number).toString().split(this.state.value)[1],
-						mobile_country_code:this.state.value,
+						mobile_number:mobileNo,
+						mobile_country_code:countyCode,
 						password: this.state.password,
 						device_token:this.state.device_token
 					},
@@ -161,7 +162,8 @@ export default class RegisterOneScreen extends Component {
 					loader: true
 				});
 
-				httpService.postHttpCall(obj).then((response)=>{
+				httpService.postHttpCall(obj).then((response) => {
+					console.log("obj", response)
 					if (response.status == 300) {
 						that.setState(
 						  {
@@ -257,7 +259,10 @@ export default class RegisterOneScreen extends Component {
 		}
 	
 	render() {
-		  console.log("devices token state", this.state.device_token)	
+			console.log("state email", this.state.email)	
+			console.log("state mobile_number", this.state.mobile_number)	
+			console.log("state password", this.state.password)	
+		
 		const eyeIcon = this.state.isSecured
 		  ? require('../../../assets/images/eye_cross.png')
 		  : require('../../../assets/images/eye.png');
