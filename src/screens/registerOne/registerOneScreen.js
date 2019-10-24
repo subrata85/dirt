@@ -159,6 +159,7 @@ export default class RegisterOneScreen extends Component {
 					},
 					authtoken:'XYZ'
 				};
+				console.log("test object", obj)
 				this.setState({
 					loader: true
 				});
@@ -233,8 +234,13 @@ export default class RegisterOneScreen extends Component {
 		this.props.navigation.navigate('LoginScreen1');
 		};
 		
-		updateInfo() {
-			this.setState({value:this.phone.getDialCode(),mobile_number:this.phone.getDialCode(),valid:this.phone.isValidNumber()});
+	updateInfo() {
+		this.setState({
+			value: this.phone.getDialCode(),
+			mobile_number: this.phone.getDialCode(),
+			valid: this.phone.isValidNumber(),
+			countyCode:'+' + this.phone.getCountryCode()
+		});
 		}
 
 	onChangePhoneNumber() {
