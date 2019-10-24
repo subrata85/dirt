@@ -35,49 +35,57 @@ export default class PhoneContacsScreen extends Component {
   getContactList() {
     this.loading = Loading.show(CommonService.loaderObj);
     Contacts.getAll((err, contacts) => {
-      if (err === "denied") {
+      console.log("err", err);
+      if (err !== null) {
         // Sleep
+        alert("get error in phone contact");
+        console.log("error", err);
       } else {
-        let sortedContact = contacts.sort(function(a, b) {
-          var nameA = a.displayName.toUpperCase(); // ignore upper and lowercase
-          var nameB = b.displayName.toUpperCase(); // ignore upper and lowercase
-          if (nameA < nameB) {
-            return -1;
-          }
-          if (nameA > nameB) {
-            return 1;
-          }
+        console.log("in contact else ");
+        try {
+          let sortedContact = contacts.sort(function(a, b) {
+            var nameA = a.displayName.toUpperCase(); // ignore upper and lowercase
+            var nameB = b.displayName.toUpperCase(); // ignore upper and lowercase
+            if (nameA < nameB) {
+              return -1;
+            }
+            if (nameA > nameB) {
+              return 1;
+            }
 
-          // names must be equal
-          return 0;
-        });
-        let contactArr = [];
-        const regex = /^\*|\#+$/;
-        sortedContact.forEach(ele => {
-          if (ele.phoneNumbers.length) {
-            if (!regex.test(ele.phoneNumbers[0].number)) {
-              if (
-                ele.displayName != "" &&
-                ele.displayName != null &&
-                ele.displayName != undefined &&
-                ele.displayName.toLowerCase() != "unknown"
-              ) {
-                let phone = ele.phoneNumbers[0].number;
-                phone = phone.split(".").join("");
-                phone = phone.split(" ").join("");
-                phone = phone.split("-").join("");
-                phone = phone.split("(").join("");
-                phone = phone.split(")").join("");
-                let obj = { username: ele.displayName, mobile: phone };
-                contactArr.push(obj);
+            // names must be equal
+            return 0;
+          });
+          let contactArr = [];
+          const regex = /^\*|\#+$/;
+          sortedContact.forEach(ele => {
+            if (ele.phoneNumbers.length) {
+              if (!regex.test(ele.phoneNumbers[0].number)) {
+                if (
+                  ele.displayName != "" &&
+                  ele.displayName != null &&
+                  ele.displayName != undefined &&
+                  ele.displayName.toLowerCase() != "unknown"
+                ) {
+                  let phone = ele.phoneNumbers[0].number;
+                  phone = phone.split(".").join("");
+                  phone = phone.split(" ").join("");
+                  phone = phone.split("-").join("");
+                  phone = phone.split("(").join("");
+                  phone = phone.split(")").join("");
+                  let obj = { username: ele.displayName, mobile: phone };
+                  contactArr.push(obj);
+                }
               }
             }
+          });
+          list = contactArr;
+          this.setState({ contactList: true });
+          if (list.length) {
+            Loading.hide(this.loading);
           }
-        });
-        list = contactArr;
-        this.setState({ contactList: true });
-        if (list.length) {
-          Loading.hide(this.loading);
+        } catch (err) {
+          alert("catch error in contact" + err.message);
         }
       }
     });
