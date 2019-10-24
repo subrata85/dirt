@@ -21,15 +21,6 @@ const barStyle = "light-content";
 import HeaderCurve from "../includes/headercurve";
 import AsyncStorage from "@react-native-community/async-storage";
 import * as RNLocalize from "react-native-localize";
-//new Stripe(context, "pk_test_yourkey");
-//import language
-import LanguagePicker from "../../components/language/languagePicker";
-import {
-  PowerTranslator,
-  ProviderTypes,
-  TranslatorConfiguration,
-  TranslatorFactory
-} from "react-native-power-translator";
 
 export default class StartScreen extends Component {
   constructor(props) {
@@ -42,10 +33,6 @@ export default class StartScreen extends Component {
     if (value !== "null" && value != undefined) {
       this.props.navigation.navigate("loginPage", { result: value });
     }
-    console.log(RNLocalize.getLocales());
-    console.log(RNLocalize.getCurrencies());
-    console.log(RNLocalize.getNumberFormatSettings());
-    console.log(RNLocalize.findBestAvailableLanguage(["en-US", "en", "fr"]));
   }
 
   _doRedirectLogin = () => {
@@ -56,13 +43,6 @@ export default class StartScreen extends Component {
     this.props.navigation.navigate("registerOnePage");
   };
 
-  componentDidMount() {
-    <PowerTranslator
-      text={
-        "Engineering physics or engineering science refers to the study of the combined disciplines of physics"
-      }
-    />;
-  }
   render() {
     const toasTStyle = this.state.success
       ? { backgroundColor: "#00CC2C" }

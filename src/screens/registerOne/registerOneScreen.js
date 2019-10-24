@@ -63,7 +63,8 @@ export default class RegisterOneScreen extends Component {
 			cca2:'',
 			valid: true,
 			type: "",
-			value: ""
+			value: "",
+			countyCode:""
 		};
 		//this.updateInfo = this.updateInfo.bind(this);
 	  }
@@ -145,14 +146,14 @@ export default class RegisterOneScreen extends Component {
 			if (!this.state.errorMessage) {
 				let that = this;
 				let thatNavigation = this.props.navigation;
-				let countyCode = this.state.mobile_number.substring(0, 3);
-				let mobileNo = this.state.mobile_number.substr(3);
+				//let countyCode = this.state.mobile_number.substring(0, 3);
+				let mobileNo = this.state.mobile_number.replace(this.state.countyCode, ""); 
 				let obj = {
 					url:'signup',
 					data:{
 						email: this.state.email,
 						mobile_number:mobileNo,
-						mobile_country_code:countyCode,
+						mobile_country_code:this.state.countyCode,
 						password: this.state.password,
 						device_token:this.state.device_token
 					},
@@ -161,7 +162,6 @@ export default class RegisterOneScreen extends Component {
 				this.setState({
 					loader: true
 				});
-
 				httpService.postHttpCall(obj).then((response) => {
 					console.log("obj", response)
 					if (response.status == 300) {
@@ -190,7 +190,7 @@ export default class RegisterOneScreen extends Component {
 							});
 						  }
 						);
-						AsyncStorage.clear();
+						//AsyncStorage.clear();
 						AsyncStorage.multiSet(
 						  [
 							['email', that.state.email],
@@ -237,8 +237,12 @@ export default class RegisterOneScreen extends Component {
 			this.setState({value:this.phone.getDialCode(),mobile_number:this.phone.getDialCode(),valid:this.phone.isValidNumber()});
 		}
 
-		onChangePhoneNumber(){
-			this.setState({mobile_number:this.phone.getValue(),valid:this.phone.isValidNumber()});
+	onChangePhoneNumber() {
+		this.setState({
+			mobile_number: this.phone.getValue(),
+			valid: this.phone.isValidNumber(),
+			countyCode:'+' + this.phone.getCountryCode()
+		});
 		}
 
 		onGoBack = () =>{
@@ -259,10 +263,6 @@ export default class RegisterOneScreen extends Component {
 		}
 	
 	render() {
-			console.log("state email", this.state.email)	
-			console.log("state mobile_number", this.state.mobile_number)	
-			console.log("state password", this.state.password)	
-		
 		const eyeIcon = this.state.isSecured
 		  ? require('../../../assets/images/eye_cross.png')
 		  : require('../../../assets/images/eye.png');
@@ -398,6 +398,7 @@ export default class RegisterOneScreen extends Component {
 						onSelectCountry={()=>this.updateInfo()}
 						returnKeyType="next"
 						onSubmitEditing={()=>this.password.focus()}
+						
 						/>
 
 					  {/* <View
