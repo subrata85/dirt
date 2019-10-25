@@ -41,52 +41,58 @@ export default class PhoneContacsScreen extends Component {
         alert("get error in phone contact");
         console.log("error", err);
       } else {
-        console.log("in contact else ");
-        try {
-          let sortedContact = contacts.sort(function(a, b) {
-            var nameA = a.displayName.toUpperCase(); // ignore upper and lowercase
-            var nameB = b.displayName.toUpperCase(); // ignore upper and lowercase
-            if (nameA < nameB) {
-              return -1;
-            }
-            if (nameA > nameB) {
-              return 1;
-            }
+        // alert("Phone book else part if no error");
+        // try {
+        //   let sortedContact = contacts.sort(function(a, b) {
+        //     alert("sort number a " + a.displayName);
+        //     alert("sort number b " + b.displayName);
+        //     if (a.displayName !== null && b.displayName !== null) {
+        //       var nameA = a.displayName.toUpperCase(); // ignore upper and lowercase
+        //       var nameB = b.displayName.toUpperCase(); // ignore upper and lowercase
+        //       if (nameA < nameB) {
+        //         return -1;
+        //       }
+        //       if (nameA > nameB) {
+        //         return 1;
+        //       }
+        //     }
+        //     // names must be equal
+        //     return 0;
+        //   });
 
-            // names must be equal
-            return 0;
-          });
-          let contactArr = [];
-          const regex = /^\*|\#+$/;
-          sortedContact.forEach(ele => {
-            if (ele.phoneNumbers.length) {
-              if (!regex.test(ele.phoneNumbers[0].number)) {
-                if (
-                  ele.displayName != "" &&
-                  ele.displayName != null &&
-                  ele.displayName != undefined &&
-                  ele.displayName.toLowerCase() != "unknown"
-                ) {
-                  let phone = ele.phoneNumbers[0].number;
-                  phone = phone.split(".").join("");
-                  phone = phone.split(" ").join("");
-                  phone = phone.split("-").join("");
-                  phone = phone.split("(").join("");
-                  phone = phone.split(")").join("");
-                  let obj = { username: ele.displayName, mobile: phone };
-                  contactArr.push(obj);
-                }
+        let contactArr = [];
+        const regex = /^\*|\#+$/;
+        contacts.forEach(ele => {
+          if (ele.phoneNumbers.length) {
+            if (!regex.test(ele.phoneNumbers[0].number)) {
+              if (
+                ele.displayName != "" &&
+                ele.displayName != null &&
+                ele.displayName != undefined &&
+                ele.displayName.toLowerCase() != "unknown"
+              ) {
+                let phone = ele.phoneNumbers[0].number;
+                phone = phone.split(".").join("");
+                phone = phone.split(" ").join("");
+                phone = phone.split("-").join("");
+                phone = phone.split("(").join("");
+                phone = phone.split(")").join("");
+                let obj = { username: ele.displayName, mobile: phone };
+                contactArr.push(obj);
               }
             }
-          });
-          list = contactArr;
-          this.setState({ contactList: true });
-          if (list.length) {
-            Loading.hide(this.loading);
           }
-        } catch (err) {
-          alert("catch error in contact" + err.message);
+        });
+        list = contactArr;
+        this.setState({ contactList: true });
+        if (list.length) {
+          Loading.hide(this.loading);
         }
+        // } catch (err) {
+        //   if (err !== null) {
+        //     alert("catch error in contact " + err);
+        //   }
+        // }
       }
     });
   }
