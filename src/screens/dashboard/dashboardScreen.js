@@ -51,7 +51,6 @@ export default class DashboardScreen extends Component{
 
   async componentDidMount() {
     const language = await AsyncStorage.getItem('language');
-    console.log("dahs language", language)
     if (language) {
       this.setState({language:language})
     }
