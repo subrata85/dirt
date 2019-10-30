@@ -55,6 +55,6 @@ dart.keystore
 # Bundle artifact
 *.jsbundle
 /log
-logfile.txt
-myfile
+logfile.txt/
+myfile/
 

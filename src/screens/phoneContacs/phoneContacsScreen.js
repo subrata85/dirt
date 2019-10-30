@@ -75,7 +75,6 @@ export default class PhoneContacsScreen extends Component {
           const regex = /^\*|\#+$/;
           sortedContact.forEach(ele => {
             if (ele.phoneNumbers.length) {
-              console.log("elem", ele);
               if (!regex.test(ele.phoneNumbers[0].number)) {
                 if (
                   ele.displayName != "" &&
