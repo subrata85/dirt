@@ -70,6 +70,7 @@ export default class PhoneContacsScreen extends Component {
           //   // names must be equal
           //   return 0;
           // });
+          //
 
           let contactArr = [];
           const regex = /^\*|\#+$/;
