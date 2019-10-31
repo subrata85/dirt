@@ -127,13 +127,11 @@ export default class InvitationCercleTwoScreen extends Component {
 				"user_type":1,   //1->admin, 2->user
 				"screen": 1   //1->waiting, 2->block
 			}
-			console.log("jjjjj", obj)
 			axios.post('https://nodejsdapldevelopments.com/dart/public/api/send-reminder', JSON.stringify(obj), {
 				headers: {
 				  Authorization: "Bearer " + rememberToken
 				}
 			}).then(res => {
-				  console.log("res", res)
 				this.setState({btnLoader:false})
 				  ToastAndroid.showWithGravityAndOffset(
 					  res.data.message,

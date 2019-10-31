@@ -14,7 +14,8 @@ import {
   Picker,
   Keyboard,
   Alert,
-  BackHandler
+  BackHandler,
+  ToastAndroid
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import DateTimePicker from "react-native-modal-datetime-picker";
@@ -100,25 +101,15 @@ export default class CreateCircleScreen extends Component {
       "avatar_location",
       "mobile_number"
     ]).then(response => {
-      console.log("respon", response);
-      this.setState(
-        {
-          rememberToken: response[0][1],
-          cicle_code: response[1][1],
-          first_name: response[2][1],
-          avatar_location: {
-            uri: ApiConfig.public_url + "storage/" + response[3][1]
-          },
-          mobile_number: response[4][1]
+      this.setState({
+        rememberToken: response[0][1],
+        cicle_code: response[1][1],
+        first_name: response[2][1],
+        avatar_location: {
+          uri: ApiConfig.public_url + "storage/" + response[3][1]
         },
-        () => {
-          console.log(
-            ApiConfig.public_url +
-              "storage/avatars/" +
-              this.state.avatar_location
-          );
-        }
-      );
+        mobile_number: response[4][1]
+      });
     });
   };
 
@@ -276,7 +267,6 @@ export default class CreateCircleScreen extends Component {
               }
             })
             .then(function(response) {
-              console.log("create response", response);
               if (response.data.status == 300) {
                 that.setState(
                   {
@@ -333,10 +323,13 @@ export default class CreateCircleScreen extends Component {
               }
             })
             .catch(function(error) {
-              console.log("error==" + error.response);
+              ToastAndroid.showWithGravity(
+                error.response,
+                ToastAndroid.LONG,
+                ToastAndroid.BOTTOM
+              );
             })
             .finally(function() {
-              console.log("always executed");
               that.setState({
                 loader: false
               });
@@ -365,7 +358,6 @@ export default class CreateCircleScreen extends Component {
 
   temporaryData() {
     this.setState({ tempData: global.perticipant_info });
-    console.log(global.perticipant_info);
   }
 
   _doRedirectLanding = () => {
@@ -388,7 +380,6 @@ export default class CreateCircleScreen extends Component {
   };
 
   onError(error) {
-    console.log(error);
     this.setState({
       avatar_location: require("../../../assets/images/contact.png")
     });
@@ -403,7 +394,6 @@ export default class CreateCircleScreen extends Component {
       [
         {
           text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
           style: "cancel"
         },
         {
@@ -425,15 +415,17 @@ export default class CreateCircleScreen extends Component {
                 }
               )
               .then(res => {
-                console.log("delete res", res);
-
                 tempData.splice(index, 1);
                 this.setState({
                   tempData
                 });
               })
               .catch(err => {
-                console.log("error", err.message);
+                ToastAndroid.showWithGravity(
+                  err,
+                  ToastAndroid.LONG,
+                  ToastAndroid.BOTTOM
+                );
               });
           }
         }

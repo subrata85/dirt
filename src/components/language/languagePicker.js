@@ -12,7 +12,6 @@ export default class LanguagePicker extends Component {
   }
 
   async onValueChange(value) {
-    console.log("value", value);
     this.setState({
       selectedLanguage: value
     });

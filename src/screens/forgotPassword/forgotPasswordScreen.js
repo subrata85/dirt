@@ -54,15 +54,10 @@ export default class ForgotPasswordScreen extends Component {
 
   _bootstrapAsync = async () => {
     AsyncStorage.multiGet(["rememberToken"]).then(response => {
-      console.log(response[0][0]); // Key1
-      console.log(response[0][1]); // Value1
-      //alert(response[0][1]);
       this.setState({
         rememberToken: response[0][1]
       });
     });
-
-    //this.props.navigation.navigate(userToken ? 'App' : 'Auth');
   };
 
   _doRecoverPassword = () => {
@@ -99,7 +94,6 @@ export default class ForgotPasswordScreen extends Component {
           httpService
             .postHttpCall(obj)
             .then(response => {
-              console.log(response);
               if (response.status == 300) {
                 that.setState(
                   {

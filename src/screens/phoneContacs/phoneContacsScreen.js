@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, ToastAndroid } from "react-native";
 import StatusBarComponent from "../../components/statusBar/statusBarComponent";
 import headerStyle from "../../assets/css/header/headerStyle";
 import HeaderCurve from "../includes/headercurve";
@@ -35,11 +35,12 @@ export default class PhoneContacsScreen extends Component {
   getContactList() {
     this.loading = Loading.show(CommonService.loaderObj);
     Contacts.getAll((err, contacts) => {
-      console.log("err", err);
       if (err !== null) {
-        // Sleep
-        alert("get error in phone contact");
-        console.log("error", err);
+        ToastAndroid.showWithGravity(
+          err,
+          ToastAndroid.LONG,
+          ToastAndroid.BOTTOM
+        );
       } else {
         try {
           let sortedContact = contacts.sort(function(a, b) {
@@ -53,25 +54,6 @@ export default class PhoneContacsScreen extends Component {
               }
             }
           });
-          // let sortedContact = contacts.sort(function(a, b) {
-          //   // console.log("sort a ", a);
-          //   if (a.displayName != null && b.displayName != null) {
-          //     console.log("null display name", a);
-          //   }
-          //   var nameA = a.displayName.toUpperCase(); // ignore upper and lowercase
-          //   var nameB = b.displayName.toUpperCase(); // ignore upper and lowercase
-          //   if (nameA < nameB) {
-          //     return -1;
-          //   }
-          //   if (nameA > nameB) {
-          //     return 1;
-          //   }
-
-          //   // names must be equal
-          //   return 0;
-          // });
-          //
-
           let contactArr = [];
           const regex = /^\*|\#+$/;
           sortedContact.forEach(ele => {
@@ -89,7 +71,11 @@ export default class PhoneContacsScreen extends Component {
                   phone = phone.split("-").join("");
                   phone = phone.split("(").join("");
                   phone = phone.split(")").join("");
-                  let obj = { username: ele.displayName, mobile: phone };
+                  let obj = {
+                    username: ele.displayName,
+                    mobile: phone,
+                    rawContactId: ele.rawContactId
+                  };
                   contactArr.push(obj);
                 }
               }
@@ -131,14 +117,16 @@ export default class PhoneContacsScreen extends Component {
   };
 
   chooseContact = (listItem, mobile, index) => {
+    // (l, l.mobile, i)
     let { isChecked, selectedLists } = this.state;
+    let dIndex = selectedLists.indexOf(listItem.rawContactId);
     //let index = list.map(e => e.mobile).indexOf(mobile);
     // let index_t = selectedLists.map(e => e.mobile).indexOf(mobile);
-    isChecked[index] = !isChecked[index];
+    isChecked[listItem.rawContactId] = !isChecked[listItem.rawContactId];
     this.setState({ isChecked: isChecked });
-    isChecked[index] == true
+    isChecked[listItem.rawContactId] == true
       ? selectedLists.push(listItem)
-      : selectedLists.splice(index, 1);
+      : selectedLists.splice(dIndex, 1);
   };
 
   submitContactsData() {
@@ -278,7 +266,7 @@ export default class PhoneContacsScreen extends Component {
             uncheckedIcon={
               <Ionicons name="ios-radio-button-off" size={20} color="#ccc" />
             }
-            checked={this.state.isChecked[i]}
+            checked={this.state.isChecked[l.rawContactId]}
             onPress={() => this.chooseContact(l, l.mobile, i)}
           />
         }

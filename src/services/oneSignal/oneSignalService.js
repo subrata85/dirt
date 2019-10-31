@@ -11,25 +11,11 @@ class OneSignalService {
   }
 
   oneSignalAddLitener() {
-    // OneSignal.getPermissionSubscriptionState((status) => {
-    // 	console.log(status);
-    // });
-    // this.onReceived = this.onReceived.bind(this);
-    // this.onOpened = this.onOpened.bind(this);
-    // this.onIds = this.onIds.bind(this);
-    // this.onInAppMessageClicked = this.onInAppMessageClicked.bind(this);
-
-    // OneSignal.addEventListener('received', this.onReceived);
-    // OneSignal.addEventListener('opened', this.onOpened);
     OneSignal.addEventListener("ids", this.onIds);
-    // OneSignal.addEventListener('inAppMessageClicked', this.onInAppMessageClicked);
   }
 
   removeLitener() {
-    //OneSignal.removeEventListener('received', this.onReceived);
-    //OneSignal.removeEventListener('opened', this.onOpened);
     OneSignal.removeEventListener("ids", this.onIds);
-    //OneSignal.removeEventListener('inAppMessageClicked', this.onInAppMessageClicked);
   }
 
   onReceived(notification) {
@@ -44,7 +30,6 @@ class OneSignalService {
   }
 
   async onIds(device) {
-    console.log("in oneSignal service", device);
     try {
       await AsyncStorage.setItem("device_token", device.userId);
     } catch (error) {

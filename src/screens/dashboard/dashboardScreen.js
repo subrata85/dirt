@@ -141,7 +141,6 @@ export default class DashboardScreen extends Component{
     }
 
   render() {
-    console.log("dhs", multiLang.dashboard[this.state.language].headerTitle)
         return(
           <Container>
           <View style={[styles.container]}>

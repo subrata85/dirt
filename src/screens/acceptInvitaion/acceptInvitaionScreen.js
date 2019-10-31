@@ -48,7 +48,6 @@ export default class AcceptInvitaionScreen extends Component {
       "avatar_location",
       "user_id"
     ]).then(response => {
-      console.log(response);
       this.setState(
         {
           rememberToken: response[0][1],
@@ -85,7 +84,6 @@ export default class AcceptInvitaionScreen extends Component {
     httpService
       .postHttpCall(payload)
       .then(res => {
-        console.log(res);
         Loading.hide(this.loading);
         if (res.status !== undefined) {
           if (res.status == 100) {

@@ -15,7 +15,8 @@ import {
   FlatList,
   Alert,
   PermissionsAndroid,
-  Keyboard
+  Keyboard,
+  ToastAndroid
 } from "react-native";
 import EventEmitter from "react-native-eventemitter";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -77,12 +78,6 @@ export default class SearchParticipantsScreen extends Component {
   _bootstrapAsync = async () => {
     let that = this;
     AsyncStorage.multiGet(["rememberToken", "circle_code"]).then(response => {
-      console.log(response[0][0]);
-      console.log(response[0][1]);
-
-      console.log(response[1][0]);
-      console.log(response[1][1]);
-
       this.setState({
         rememberToken: response[0][1],
         cicle_code: response[1][1]
@@ -102,7 +97,6 @@ export default class SearchParticipantsScreen extends Component {
         this.props.navigation.navigate("phoneContactPage");
       } else {
         this.setState({ loadContact: false });
-        console.log("Contacts permission denied");
       }
     } catch (err) {
       this.setState({ loadContact: false });
@@ -117,7 +111,6 @@ export default class SearchParticipantsScreen extends Component {
       user_info: contact,
       flag: 2
     };
-    console.log(obj);
     this.loading = Loading.show(CommonService.loaderObj);
     axios
       .post(ApiConfig.base_url + "create-circle-user", JSON.stringify(obj), {
@@ -127,7 +120,6 @@ export default class SearchParticipantsScreen extends Component {
       })
       .then(function(response) {
         global.phone_data = null;
-        console.log(response);
         Loading.hide(that.loading);
         if (response.data.status == 300) {
           that.setState(
@@ -165,11 +157,13 @@ export default class SearchParticipantsScreen extends Component {
         }
       })
       .catch(function(error) {
-        console.log("error==");
-        console.log(JSON.stringify(error.response));
+        ToastAndroid.showWithGravity(
+          JSON.stringify(error.response),
+          ToastAndroid.LONG,
+          ToastAndroid.Button
+        );
       })
       .finally(function() {
-        console.log("always executed");
         Loading.hide(that.loading);
       });
   }
@@ -238,10 +232,13 @@ export default class SearchParticipantsScreen extends Component {
         }
       })
       .catch(function(error) {
-        console.log("error==" + error.message);
+        ToastAndroid.showWithGravity(
+          error,
+          ToastAndroid.LONG,
+          ToastAndroid.BOTTOM
+        );
       })
       .finally(function() {
-        console.log("always executed");
         that.setState({
           loader: false
         });
@@ -262,10 +259,6 @@ export default class SearchParticipantsScreen extends Component {
     return unique;
   }
 
-  _doConfirm = () => {
-    console.log(this.state.selectedParticipants);
-  };
-
   _doSearch = () => {
     Keyboard.dismiss();
     this.setState({
@@ -285,16 +278,11 @@ export default class SearchParticipantsScreen extends Component {
     setTimeout(
       function() {
         if (!this.state.errorMessage) {
-          console.log("request uri==" + ApiConfig.base_url + "searchByMobile");
           let that = this;
-
           let obj = {
             circle_code: this.state.cicle_code,
             mobile: this.state.mobile
           };
-
-          console.log("final request params==" + JSON.stringify(obj));
-          console.log("Token ==" + that.state.rememberToken);
 
           this.setState({
             loaderSearchPhone: true
@@ -307,7 +295,6 @@ export default class SearchParticipantsScreen extends Component {
               }
             })
             .then(function(response) {
-              console.log("response", response.data);
               if (response.data.status == 300) {
                 that.setState(
                   {
@@ -334,10 +321,13 @@ export default class SearchParticipantsScreen extends Component {
               }
             })
             .catch(function(error) {
-              console.log("error==" + error.response);
+              ToastAndroid.showWithGravity(
+                error,
+                ToastAndroid.LONG,
+                ToastAndroid.BOTTOM
+              );
             })
             .finally(function() {
-              console.log("always executed");
               that.setState({
                 loaderSearchPhone: false
               });

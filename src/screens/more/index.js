@@ -36,8 +36,6 @@ export default class MoreScreen extends Component {
         rememberToken: response[0][1]
       });
     });
-
-    //this.props.navigation.navigate(userToken ? 'App' : 'Auth');
   };
 
   _doLogout = () => {
@@ -47,7 +45,6 @@ export default class MoreScreen extends Component {
       [
         {
           text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
           style: "cancel"
         },
         {

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StatusBar, StyleSheet, Text, View } from "react-native";
+import { StatusBar, StyleSheet, Text, View, ToastAndroid } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
 import {
   SwitchStackAuthStack,
@@ -43,8 +43,6 @@ class AppContainer extends Component {
   }
 
   onOpened(openResult) {
-    // let data = openResult.notification.payload.additionalData;
-    // notificationDetails = data;
     console.log("Notification open: ", openResult);
   }
 
@@ -52,7 +50,11 @@ class AppContainer extends Component {
     try {
       await AsyncStorage.setItem("device_token", device.userId);
     } catch (error) {
-      console.log(error);
+      ToastAndroid.showWithGravity(
+        error,
+        ToastAndroid.LONG,
+        ToastAndroid.BOTTOM
+      );
     }
   }
 

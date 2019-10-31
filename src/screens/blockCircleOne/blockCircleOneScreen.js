@@ -259,7 +259,6 @@ onSendReminder = (userType, screen) =>{
 }
 	render(){
 		const item = this.state.details;
-		console.log("state", this.state.cicle_code)
 		return(
 			<Container>
 				<Content>

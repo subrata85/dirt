@@ -159,12 +159,10 @@ export default class RegisterOneScreen extends Component {
 					},
 					authtoken:'XYZ'
 				};
-				console.log("test object", obj)
 				this.setState({
 					loader: true
 				});
 				httpService.postHttpCall(obj).then((response) => {
-					console.log("obj", response)
 					if (response.status == 300) {
 						that.setState(
 						  {

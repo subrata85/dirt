@@ -79,37 +79,6 @@ export default class WaitingListScreen extends Component {
         1000
       );
     });
-
-    // axios
-    //   .post(ApiConfig.base_url + 'create-circle', JSON.stringify(obj), {
-    //     headers: {
-    //       Authorization: 'Bearer ' + that.state.rememberToken
-    //     }
-    //   })
-    //   .then(function(response) {})
-    //   .catch(function(error) {
-    //     console.log('error==' + error.response);
-    //   })
-    //   .finally(function() {
-    //     console.log('always executed');
-    //     that.setState(
-    //       {
-    //         loader: false
-    //       },
-    //       () => {
-    //         AsyncStorage.multiSet([['circle_code', circle_code]], function(
-    //           error
-    //         ) {
-    //           setTimeout(
-    //             function() {
-    //               that.props.navigation.navigate('CreateCircleScreen');
-    //             }.bind(this),
-    //             1000
-    //           );
-    //         });
-    //       }
-    //     );
-    //   });
   };
 
   makeid(length) {
@@ -124,39 +93,6 @@ export default class WaitingListScreen extends Component {
 
   _getWaitingList = () => {
     let obj = {};
-
-    // axios
-    //   .post(ApiConfig.base_url + 'create-circle', JSON.stringify(obj), {
-    //     headers: {
-    //       Authorization: 'Bearer ' + that.state.rememberToken
-    //     }
-    //   })
-    //   .then(function(response) {
-    //     console.log(response);
-    //   })
-    //   .catch(function(error) {
-    //     console.log('error==' + error.response);
-    //   })
-    //   .finally(function() {
-    //     console.log('always executed');
-    //     that.setState(
-    //       {
-    //         loader: false
-    //       },
-    //       () => {
-    //         AsyncStorage.multiSet([['circle_code', circle_code]], function(
-    //           error
-    //         ) {
-    //           setTimeout(
-    //             function() {
-    //               that.props.navigation.navigate('CreateCircleScreen');
-    //             }.bind(this),
-    //             1000
-    //           );
-    //         });
-    //       }
-    //     );
-    //   });
   };
 
   _getOngoingList = () => {
