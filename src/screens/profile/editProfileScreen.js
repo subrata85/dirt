@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-  Platform,
   StyleSheet,
   Text,
   View,
@@ -10,7 +9,6 @@ import {
   TouchableOpacity,
   Image,
   ActivityIndicator,
-  Button,
   Keyboard,
   Alert,
   BackHandler,
@@ -20,13 +18,11 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import ImagePicker from 'react-native-image-crop-picker';
 import RNFetchBlob from 'rn-fetch-blob';
-import FeatherIcon from 'react-native-vector-icons/Feather';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen';
 import AsyncStorage from '@react-native-community/async-storage';
-const width = Math.round(Dimensions.get('window').width);
 const height = Math.round(Dimensions.get('window').height);
 
 const statusBarBackgroundColor = '#1CCBE6';
@@ -177,7 +173,6 @@ export default class EditProfileScreen extends Component {
 		  height: 200,
 		  mediaType: 'photo',
 		  includeBase64: true
-		  //cropping: true
 		}).then(image => {
 		  var type = image.mime.split('/')[1];
 		  this.setState({
@@ -267,14 +262,12 @@ export default class EditProfileScreen extends Component {
 				  {
 					loaderID: false,
 					success: false
-					//avatar: URL.public_url + 'avatar/default_avatar.png',
 				  },
 				  () => {
 					thatRef.toast.show(json.message, DURATION.LENGTH_LONG);
 				  }
 				);
 			  } else {
-				//alert(json.message)
 				this.setState({
 				  loaderID: false,
 				  idScanFile: json.message
@@ -438,9 +431,7 @@ export default class EditProfileScreen extends Component {
 				 <HeaderCurve
               title={"Update Profile"}
               navigation={this.props.navigation}
-              //avatar_location={this.state.avatar_location}
               backButton={true}
-              //first_name={this.state.first_name}
 			  bellIcon={true}
 			  />
 				<View

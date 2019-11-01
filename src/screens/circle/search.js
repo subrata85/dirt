@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import {
-  Platform,
   StyleSheet,
   Text,
   View,
@@ -10,27 +9,19 @@ import {
   TouchableOpacity,
   Image,
   ActivityIndicator,
-  Button,
-  Picker,
   FlatList,
-  Alert,
   PermissionsAndroid,
   Keyboard,
   ToastAndroid
 } from "react-native";
-import EventEmitter from "react-native-eventemitter";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import FeatherIcon from "react-native-vector-icons/Feather";
 import AsyncStorage from "@react-native-community/async-storage";
 import { NavigationEvents } from "react-navigation";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from "react-native-responsive-screen";
-//import ContactsWrapper from 'react-native-contacts-wrapper';
 const width = Math.round(Dimensions.get("window").width);
-const height = Math.round(Dimensions.get("window").height);
-import Contacts from "react-native-contacts";
 const statusBarBackgroundColor = "#1CCBE6";
 const barStyle = "light-content";
 import HeaderCurve from "../includes/headercurve";
@@ -40,15 +31,12 @@ const ApiConfig = URL;
 import CommonService from "../../services/common/commonService";
 import Loading from "react-native-loader-overlay";
 import global from "../../services/global/globalService";
-let selectedUserCount = 0;
 
 export default class SearchParticipantsScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
       participants: [],
-      selectedContacts: [],
-      selectedParticipants: [],
       countSelected: 0,
 
       loaderSearchPhone: false,
@@ -62,13 +50,18 @@ export default class SearchParticipantsScreen extends Component {
   }
 
   componentDidMount() {
+    console.log("global.contacts_data", global.contacts_data);
+    //this.state.participants = global.contacts_data;
     this._bootstrapAsync();
   }
 
   __getContact() {
     let data = global.contacts_data;
+    console.log("data".data);
+    console.log("global.perticipant_info", global.perticipant_info);
+
     this.setState({ countSelected: global.perticipant_info.length });
-    if (data !== null && data !== undefined && data.length) {
+    if (data !== null || data !== undefined || data.length) {
       if (global.update_contact_data) {
         this._getContact(data);
       }
@@ -78,6 +71,7 @@ export default class SearchParticipantsScreen extends Component {
   _bootstrapAsync = async () => {
     let that = this;
     AsyncStorage.multiGet(["rememberToken", "circle_code"]).then(response => {
+      console.log("response", response);
       this.setState({
         rememberToken: response[0][1],
         cicle_code: response[1][1]
@@ -100,7 +94,6 @@ export default class SearchParticipantsScreen extends Component {
       }
     } catch (err) {
       this.setState({ loadContact: false });
-      console.warn(err);
     }
   }
   _getContact(contact) {
@@ -120,6 +113,7 @@ export default class SearchParticipantsScreen extends Component {
       })
       .then(function(response) {
         global.phone_data = null;
+        global.update_contact_data = false;
         Loading.hide(that.loading);
         if (response.data.status == 300) {
           that.setState(
@@ -157,11 +151,7 @@ export default class SearchParticipantsScreen extends Component {
         }
       })
       .catch(function(error) {
-        ToastAndroid.showWithGravity(
-          JSON.stringify(error.response),
-          ToastAndroid.LONG,
-          ToastAndroid.Button
-        );
+        console.log("err", error);
       })
       .finally(function() {
         Loading.hide(that.loading);
@@ -178,9 +168,7 @@ export default class SearchParticipantsScreen extends Component {
       errorMessage: "",
       successMessage: ""
     });
-
     let that = this;
-
     let obj = {
       circle_code: this.state.cicle_code,
       user_info: [{ mobile: code + phone, username: name }],
@@ -232,6 +220,7 @@ export default class SearchParticipantsScreen extends Component {
         }
       })
       .catch(function(error) {
+        console.log("errrrr", error);
         ToastAndroid.showWithGravity(
           error,
           ToastAndroid.LONG,
@@ -352,7 +341,7 @@ export default class SearchParticipantsScreen extends Component {
     const errorPhone = this.state.errorPhone
       ? styles.searchInputRequired
       : styles.searchInput;
-
+    console.log("in search", this.state.participants);
     return (
       <View style={styles.container}>
         <NavigationEvents onWillFocus={() => this.__getContact()} />
@@ -374,37 +363,11 @@ export default class SearchParticipantsScreen extends Component {
             <HeaderCurve
               title={"Search Participants"}
               navigation={this.props.navigation}
-              //avatar_location={this.state.avatar_location}
               backButton={true}
-              //first_name={this.state.first_name}
-              //	admin = {item.is_admin}
             />
-
-            {/* <View style={styles.headerMenu}>
-              <TouchableOpacity
-                style={styles.containerBackBlock}
-                onPress={() => this.props.navigation.goBack()}
-              >
-                <FeatherIcon name="arrow-left" size={25} color="#FFFFFF" />
-              </TouchableOpacity>
-
-              <View
-                style={{
-                  flex: 1,
-                  alignItems: "center",
-                  justifyContent: "center"
-                }}
-              >
-                <Text style={styles.headingBold}>Search Participants</Text>
-              </View>
-
-              <View style={styles.containerBackBlock} />
-            </View> */}
-
             <View
               style={{
                 flex: 1,
-                // marginTop: hp("5%"),
                 marginBottom: 20
               }}
             >

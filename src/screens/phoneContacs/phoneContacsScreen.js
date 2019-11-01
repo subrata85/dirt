@@ -1,9 +1,7 @@
 import React, { Component } from "react";
-import { View, Text, TouchableOpacity, ToastAndroid } from "react-native";
+import { View, TouchableOpacity, ToastAndroid } from "react-native";
 import StatusBarComponent from "../../components/statusBar/statusBarComponent";
-import headerStyle from "../../assets/css/header/headerStyle";
 import HeaderCurve from "../includes/headercurve";
-import FeatherIcon from "react-native-vector-icons/Feather";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { ListItem, CheckBox } from "react-native-elements";
 import SearchBar from "react-native-searchbar";
@@ -29,6 +27,10 @@ export default class PhoneContacsScreen extends Component {
   }
 
   componentDidMount() {
+    console.log("in phone contact", global.contacts_data);
+    this.setState({
+      selectedLists: global.contacts_data
+    });
     this.getContactList();
   }
 
@@ -117,11 +119,9 @@ export default class PhoneContacsScreen extends Component {
   };
 
   chooseContact = (listItem, mobile, index) => {
-    // (l, l.mobile, i)
+    console.log("listItem", listItem);
     let { isChecked, selectedLists } = this.state;
     let dIndex = selectedLists.indexOf(listItem.rawContactId);
-    //let index = list.map(e => e.mobile).indexOf(mobile);
-    // let index_t = selectedLists.map(e => e.mobile).indexOf(mobile);
     isChecked[listItem.rawContactId] = !isChecked[listItem.rawContactId];
     this.setState({ isChecked: isChecked });
     isChecked[listItem.rawContactId] == true
@@ -132,6 +132,7 @@ export default class PhoneContacsScreen extends Component {
   submitContactsData() {
     global.contacts_data = this.state.selectedLists;
     global.update_contact_data = true;
+    console.log("submit", global.contacts_data);
     this.props.navigation.goBack();
   }
 
@@ -144,6 +145,7 @@ export default class PhoneContacsScreen extends Component {
   }
 
   render() {
+    console.log("in po", this.state.selectedLists);
     return (
       <Container>
         <Content>
@@ -156,9 +158,7 @@ export default class PhoneContacsScreen extends Component {
                 navigation={this.props.navigation}
                 searchIcon={true}
                 showSearchBar={this.showSearchBar}
-                //avatar_location={this.state.avatar_location}
                 backButton={true}
-                //first_name={this.state.first_name}
                 bellIcon={true}
               />
             ) : (
@@ -167,9 +167,6 @@ export default class PhoneContacsScreen extends Component {
                 searchIcon={true}
                 showSearchBar={this.showSearchBar}
                 bellIcon={false}
-                //avatar_location={this.state.avatar_location}
-                // backButton={true}
-                //first_name={this.state.first_name}
               />
             )}
 
@@ -183,33 +180,6 @@ export default class PhoneContacsScreen extends Component {
               heightAdjust={16}
               onBack={() => this.hideSearchBar()}
             />
-            {/* {this.state.defaultIcon ? (
-              <View style={headerStyle.headerMenu}>
-                <TouchableOpacity
-                  style={[headerStyle.containerBackBlock]}
-                  onPress={() => this.props.navigation.goBack()}
-                >
-                  <FeatherIcon name="arrow-left" size={25} color="#FFFFFF" />
-                </TouchableOpacity>
-
-                <View
-                  style={{
-                    flex: 1,
-                    alignItems: "center",
-                    justifyContent: "center"
-                  }}
-                >
-                  <Text style={headerStyle.headingBold}>Phone Contacts</Text>
-                </View>
-
-                <TouchableOpacity
-                  onPress={() => this.showSearchBar()}
-                  style={headerStyle.containerBackBlock}
-                >
-                  <FeatherIcon name="search" size={25} color="#FFFFFF" />
-                </TouchableOpacity>
-              </View>
-            ) : null} */}
           </View>
           <View style={{ paddingBottom: "10%" }}>
             {this.state.searchResult.length

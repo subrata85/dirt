@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View,Dimensions,Text,Image,StatusBar,ScrollView,Button,TouchableOpacity,
+import {View,Text,ScrollView,TouchableOpacity,
 	ToastAndroid, Alert, ActivityIndicator} from 'react-native';
 import {Container,Content} from 'native-base';
 import blockCircleOneStyle from './blockCircleOneStyle';
@@ -7,9 +7,7 @@ import call from 'react-native-phone-call';
 import axios from "axios";
 import URL from '../../config/url';
 import AsyncStorage from '@react-native-community/async-storage';
-import headerStyle from '../../assets/css/header/headerStyle';
 import HeaderCurve from '../includes/headercurve';
-import FeatherIcon from 'react-native-vector-icons/Feather';
 import CommonService from '../../services/common/commonService';
 import httpService from '../../services/http/httpService';
 import Loading from 'react-native-loader-overlay';
@@ -262,9 +260,7 @@ onSendReminder = (userType, screen) =>{
 		return(
 			<Container>
 				<Content>
-				{/* <HeaderCurve/> */}
 				<HeaderCurve
-						//title={"Create Circle"}
 						navigation={this.props.navigation}
 						avatar_location={this.state.avatar_location}
 						backButton={true}
@@ -272,58 +268,6 @@ onSendReminder = (userType, screen) =>{
 						admin = {item.is_admin}
 						bellIcon={true}
            			 />
-					{/* <View style={headerStyle.headerMenu}>
-						<TouchableOpacity
-							style={headerStyle.containerBackBlock}
-							onPress={()=>this.props.navigation.goBack()}
-						>
-							<FeatherIcon name="arrow-left" size={25} color="#FFFFFF" />
-						</TouchableOpacity>
-
-						<View
-							style={{
-							flex: 1,
-							alignItems: 'center',
-							justifyContent: 'center'
-							}}
-						>
-						<View style={headerStyle.avatarImageWrapper}>
-						<Image
-							style={{
-							width: 40,
-							height: 40,
-							borderRadius: 20
-							}}
-							source={this.state.avatar_location}
-                    		onError={this.onError.bind(this)}
-						/>
-						</View>
-						<Text style={headerStyle.avatarName}>
-						{this.state.first_name}
-						{
-							item.is_admin == 1 ?
-							<Text>(Admin)</Text>:null
-						}
-						</Text>
-						</View>
-
-						<TouchableOpacity
-							style={headerStyle.containerBackBlock}
-						>
-							<Image
-							style={{
-								width: 20,
-								height: 20,
-								alignSelf: 'flex-end'
-							}}
-							source={require('../../../assets/images/notification.png')}
-							/>
-
-							<View style={headerStyle.notificationBadge}>
-							<Text style={headerStyle.notificationText}>99</Text>
-							</View>
-						</TouchableOpacity>
-					</View> */}
 					{
 						this.state.errorText !=''?
 						<View style={{alignItems:'center',marginTop:'50%'}}>
@@ -345,10 +289,7 @@ onSendReminder = (userType, screen) =>{
 										<Text>N° {item.circle_code}</Text>
 									</View>
 								
-								{/* <Text style={blockCircleOneStyle.baseText}>
-									<Text style={[blockCircleOneStyle.titleText,{color:'#2B2B2B'}]}>Circle({item.circle_code})- </Text>
-									<Text style={[blockCircleOneStyle.titleText,{color:'#E65C6B'}]} numberOfLines={5}>Blocked</Text>
-								</Text> */}
+								
 								<View style={[blockCircleOneStyle.tableContent]}>
 									<ScrollView>
 										<View style={blockCircleOneStyle.tablePart}>

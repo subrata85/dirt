@@ -1,13 +1,11 @@
 import React, { Component } from "react";
-import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
+import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import { Container, Content, Icon } from "native-base";
 import acceptInvitaionStyle from "./acceptInvitaionStyle";
 
 import URL from "../../config/url";
 import AsyncStorage from "@react-native-community/async-storage";
-import headerStyle from "../../assets/css/header/headerStyle";
 import HeaderCurve from "../includes/headercurve";
-import FeatherIcon from "react-native-vector-icons/Feather";
 import CommonService from "../../services/common/commonService";
 import httpService from "../../services/http/httpService";
 import Loading from "react-native-loader-overlay";

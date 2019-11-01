@@ -63,17 +63,6 @@ export default class StartScreen extends Component {
             }}
           >
             <HeaderCurve />
-            {/*  multiLang picker start */}
-            {/* <View
-              style={{
-                alignItems: "flex-end",
-                marginRight: 25
-              }}
-            >
-              <LanguagePicker />
-            </View> */}
-            {/*  multiLang picker end */}
-
             <View
               style={{
                 flex: 1,

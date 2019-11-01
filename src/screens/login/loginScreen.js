@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import {
-  Platform,
   StyleSheet,
   Text,
   View,
-  StatusBar,
   Dimensions,
   TextInput,
   TouchableOpacity,
@@ -12,8 +10,6 @@ import {
   ActivityIndicator
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import FeatherIcon from 'react-native-vector-icons/Feather';
-//import { LoginButton, AccessToken } from 'react-native-fbsdk';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
@@ -49,7 +45,6 @@ export default class LoginScreen extends Component {
 		componentWillUnmount(){
 			let keys = ['notification_data'];
 			AsyncStorage.multiRemove(keys, (err) => {
-				//Sleep
 			});
 		}
 
@@ -75,12 +70,6 @@ export default class LoginScreen extends Component {
 				}
 			}
 			
-			// if(this.state.device_token == null){
-			// 	this.setState({
-			// 		errorMessage: httpService.appMessege.device_token_error
-			// 	});
-			// }
-		
 			setTimeout(
 				function() {
 				if (!this.state.errorMessage) {
@@ -155,7 +144,6 @@ export default class LoginScreen extends Component {
 		this.setState({
 		  isSecured: !this.state.isSecured
 		});
-		//alert(this.state.val)
 	  };
 	
 	  _doRedirectPrev = () => {
@@ -189,32 +177,8 @@ export default class LoginScreen extends Component {
 			  <HeaderCurve
               title={" Login to Your Account"}
               navigation={this.props.navigation}
-              //avatar_location={this.state.avatar_location}
               backButton={true}
-              //first_name={this.state.first_name}
-              //bellIcon={true}
             />
-				
-				{/* <View style={styles.headerMenu}>
-				  <TouchableOpacity
-					style={styles.containerBackBlock}
-					onPress={() => this._doRedirectPrev()}
-				  >
-					<FeatherIcon name="arrow-left" size={25} color="#FFFFFF" />
-				  </TouchableOpacity>
-				  <View
-					style={{
-					  flex: 1,
-					  alignItems: 'center',
-					  justifyContent: 'center'
-					}}
-				  >
-					<Text style={styles.headingBold}>
-					  Login <Text style={styles.headingLight}>to Your</Text> Account
-					</Text>
-				  </View>
-				  <View style={styles.containerBackBlock} />
-				</View> */}
 	
 				<View style={{ flex: 1 }}>
 				  <View
@@ -481,7 +445,6 @@ export default class LoginScreen extends Component {
 		fontWeight: '200'
 	  },
 	  loading: {
-		//justifyContent: 'center',
 		marginLeft: 10
 	  },
 	  borderReqired: {

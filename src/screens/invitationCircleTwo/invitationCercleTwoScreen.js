@@ -184,9 +184,7 @@ export default class InvitationCercleTwoScreen extends Component {
 		return(
 			<Container>
 				<Content>
-					{/* <HeaderCurve/> */}
 					<HeaderCurve
-             		 //title={"Create Circle"}
 					navigation={this.props.navigation}
 					avatar_location={this.state.avatar_location}
 					backButton={true}

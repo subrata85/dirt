@@ -17,6 +17,7 @@ import FooterTabComponent from "../../components/footerTab/footerTabComponent";
 const statusBarBackgroundColor = "#1CCBE6";
 const barStyle = "light-content";
 import HeaderCurve from "../includes/headercurve";
+
 export default class MoreScreen extends Component {
   constructor(props) {
     super(props);
@@ -76,25 +77,9 @@ export default class MoreScreen extends Component {
             <HeaderCurve
               title={"More Options"}
               navigation={this.props.navigation}
-              // avatar_location={this.state.avatar_location}
               backButton={false}
-              //first_name={this.state.first_name}
               bellIcon={true}
             />
-
-            {/* <View style={styles.headerMenu}>
-              <View style={styles.containerBackBlock} />
-              <View
-                style={{
-                  flex: 1,
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}
-              >
-                <Text style={styles.headingBold}>More Options</Text>
-              </View>
-              <View style={styles.containerBackBlock} />
-            </View> */}
 
             <View style={{ flex: 1 }}>
               <View

@@ -1,33 +1,16 @@
-import React, { Component } from 'react';
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  View,
-  StatusBar,
-  Dimensions,
-  TouchableOpacity,
-  Image,
-  ScrollView,
-  FlatList
-} from 'react-native';
-import FeatherIcon from 'react-native-vector-icons/Feather';
+import React, { Component } from "react";
+import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
+import FeatherIcon from "react-native-vector-icons/Feather";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
-} from 'react-native-responsive-screen';
-
+} from "react-native-responsive-screen";
 
 export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
-
-  componentDidMount() {}
-
-  componentWillUnmount() {}
-
   render() {
     return (
       <View style={styles.curveHeaderBlock}>
@@ -52,23 +35,23 @@ export default class App extends Component {
         ) : null}
 
         <View
-          style={{ justifyContent: 'center', alignItems: 'center', top: 10 }}
+          style={{ justifyContent: "center", alignItems: "center", top: 10 }}
         >
           {this.props.has_avatar ? (
             <View>
               <Image
-                source={require('../../assets/images/avatar.png')}
+                source={require("../../assets/images/avatar.png")}
                 style={{
-                  width: hp('7%'),
-                  height: hp('7%'),
+                  width: hp("7%"),
+                  height: hp("7%"),
                   borderWidth: 2,
                   borderRadius: 40,
-                  borderColor: '#FFFFFF'
+                  borderColor: "#FFFFFF"
                 }}
               />
               <Text style={styles.username}>Debanjan</Text>
             </View>
-          ) : this.props.screen == 'login2' ? (
+          ) : this.props.screen == "login2" ? (
             <Text style={styles.headingBold}>
               Login <Text style={styles.headingLight}>to Your</Text> Account
             </Text>
@@ -81,7 +64,7 @@ export default class App extends Component {
             onPress={() => this._doRedirectLanding()}
           >
             <Image
-              source={require('../../assets/images/notification.png')}
+              source={require("../../assets/images/notification.png")}
               style={{ width: 25, height: 25 }}
             />
           </TouchableOpacity>
@@ -98,44 +81,43 @@ export default class App extends Component {
 
 const styles = StyleSheet.create({
   curveHeaderBlock: {
-    position: 'absolute',
-    width: '100%',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    position: "absolute",
+    width: "100%",
+    justifyContent: "space-between",
+    alignItems: "center",
     top: 20,
-    flexDirection: 'row',
+    flexDirection: "row",
     paddingLeft: 20,
     paddingRight: 20
   },
 
   containerBackBlock: {
-    justifyContent: 'center',
+    justifyContent: "center",
     bottom: 20
   },
   username: {
-    color: '#FFFFFF',
-    fontSize: hp('2%'),
-    fontFamily: 'Roboto-Medium',
-    //marginTop:2,
-    fontWeight: '600'
+    color: "#FFFFFF",
+    fontSize: hp("2%"),
+    fontFamily: "Roboto-Medium",
+    fontWeight: "600"
   },
   userNameWidthoutAvatar: {
-    color: '#FFFFFF',
-    fontSize: hp('3%'),
-    fontFamily: 'Roboto-Medium',
-    fontWeight: '600',
+    color: "#FFFFFF",
+    fontSize: hp("3%"),
+    fontFamily: "Roboto-Medium",
+    fontWeight: "600",
     marginTop: 30
   },
   headingBold: {
-    color: '#FFFFFF',
-    fontSize: hp('2.5%'),
-    fontFamily: 'Roboto-Reguler',
-    fontWeight: '600'
+    color: "#FFFFFF",
+    fontSize: hp("2.5%"),
+    fontFamily: "Roboto-Reguler",
+    fontWeight: "600"
   },
   headingLight: {
-    color: '#FFFFFF',
-    fontSize: hp('2.5%'),
-    fontFamily: 'Roboto-Reguler',
-    fontWeight: '200'
+    color: "#FFFFFF",
+    fontSize: hp("2.5%"),
+    fontFamily: "Roboto-Reguler",
+    fontWeight: "200"
   }
 });

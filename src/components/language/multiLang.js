@@ -1,5 +1,3 @@
-import LocalizedStrings from "react-native-localization";
-
 const multiLang = {
   startScreen: {
     en: {

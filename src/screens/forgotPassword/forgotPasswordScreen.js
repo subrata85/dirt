@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import {
-  Platform,
   StyleSheet,
   Text,
   View,
@@ -20,7 +19,6 @@ import {
 } from "react-native-responsive-screen";
 import AsyncStorage from "@react-native-community/async-storage";
 
-const width = Math.round(Dimensions.get("window").width);
 const height = Math.round(Dimensions.get("window").height);
 
 const statusBarBackgroundColor = "#1CCBE6";
@@ -41,12 +39,6 @@ export default class ForgotPasswordScreen extends Component {
       successMessage: ""
     };
   }
-
-  componentWillMount() {}
-
-  componentDidUpdate() {}
-
-  componentWillUnmount() {}
 
   componentDidMount() {
     this._bootstrapAsync();
@@ -148,36 +140,19 @@ export default class ForgotPasswordScreen extends Component {
           keyboardShouldPersistTaps="handled"
         >
           <View style={{ flex: 1, position: "relative" }}>
-            <HeaderCurve />
-
-            <View style={styles.headerMenu}>
-              <TouchableOpacity
-                style={styles.containerBackBlock}
-                onPress={() => this.props.navigation.goBack()}
-              >
-                <FeatherIcon name="arrow-left" size={25} color="#FFFFFF" />
-              </TouchableOpacity>
-              <View
-                style={{
-                  flex: 1,
-                  alignItems: "center",
-                  justifyContent: "center"
-                }}
-              >
-                <Text style={styles.headingBold}>
-                  Forgot <Text style={styles.headingLight}> your </Text>Password
-                </Text>
-              </View>
-              <View style={styles.containerBackBlock} />
-            </View>
-
-            <View style={{ flex: 1, marginTop: hp("5%") }}>
+            <HeaderCurve
+              backButton={true}
+              title={"Forgot your Password"}
+              navigation={this.props.navigation}
+              bellIcon={false}
+              backAlert={this.state.email ? true : false}
+            />
+            <View style={{ flex: 1 }}>
               <View
                 style={{
                   flex: 1,
                   marginLeft: 20,
-                  marginRight: 20,
-                  marginTop: 20
+                  marginRight: 20
                 }}
               >
                 <View style={styles.imageWrapper}>

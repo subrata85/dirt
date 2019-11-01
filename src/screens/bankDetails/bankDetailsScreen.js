@@ -1,22 +1,19 @@
 import React, {Component} from 'react';
-import {View, Text,TextInput,TouchableOpacity,Image,ActivityIndicator, Modal,TouchableHighlight} from 'react-native';
+import {View, Text,TouchableOpacity} from 'react-native';
 import {Container,Content,Icon} from 'native-base';
 import bankDetailsStyle from './bankDetailsStyle';
 import moment from "moment";
 import URL from '../../config/url';
 import AsyncStorage from '@react-native-community/async-storage';
-import headerStyle from '../../assets/css/header/headerStyle';
 import HeaderCurve from '../includes/headercurve';
-import FeatherIcon from 'react-native-vector-icons/Feather';
 import CommonService from '../../services/common/commonService';
 import httpService from '../../services/http/httpService';
 import Loading from 'react-native-loader-overlay';
 import { ErrorTemplate } from '../../components/error/errorComponent';
 import OnlinePaymentModal from "../../components/onlinePayment/onlinePayment"
-import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 let selectedId = 1;
-export default class BankDetailsScreen extends Component {
 
+export default class BankDetailsScreen extends Component {
 	constructor(props){
 		super(props);
 		this.state= {
@@ -47,7 +44,6 @@ export default class BankDetailsScreen extends Component {
 
 	_bootstrapAsync = async () => {
 		let selectedDetails = this.props.navigation.getParam('result');
-		console.log("selected details", selectedDetails)
 		AsyncStorage.multiGet([
 		  'rememberToken',
 		  'circle_code',
@@ -55,7 +51,6 @@ export default class BankDetailsScreen extends Component {
 		  'avatar_location',
 		  'user_id'
 		]).then(response => {
-		  console.log(response);
 		  this.setState(
 			{
 			  rememberToken: response[0][1],
@@ -82,7 +77,6 @@ export default class BankDetailsScreen extends Component {
 		};
 
 		httpService.getHttpCall(payload).then((res)=>{
-		console.log(res);
 		Loading.hide(this.loading);
 		if(res.status !== undefined){
 			if (res.status == 100) {
@@ -95,7 +89,6 @@ export default class BankDetailsScreen extends Component {
 		}
 		this.setState({apiExecute:true});
 		}).catch((err)=>{
-			console.log(err);
 			Loading.hide(this.loading);
 			this.setState({errorText: err.message,apiExecute:true});
 			if(err.status == 4){
@@ -130,10 +123,7 @@ export default class BankDetailsScreen extends Component {
 			},
 			authtoken:this.state.rememberToken 
 		};
-		console.log(payload);
-	
 		httpService.postHttpCall(payload).then((res)=>{
-		console.log(res);
 		Loading.hide(this.loading);
 		if(res.status !== undefined){
 			if (res.status == 100) {
@@ -149,7 +139,6 @@ export default class BankDetailsScreen extends Component {
 			this.setState({errPaymentMsg: httpService.appMessege.unknown_error});
 		}
 		}).catch((err)=>{
-			console.log(err);
 			Loading.hide(this.loading);
 			this.setState({errPaymentMsg: err.message});
 		});
@@ -172,10 +161,7 @@ export default class BankDetailsScreen extends Component {
 			},
 			authtoken:this.state.rememberToken 
 		};
-		console.log(payload);
-	
 		httpService.postHttpCall(payload).then((res)=>{
-		console.log(res);
 		Loading.hide(this.loading);
 		if(res.status !== undefined){
 			if (res.status == 100) {
@@ -191,7 +177,6 @@ export default class BankDetailsScreen extends Component {
 			this.setState({errPaymentMsg: httpService.appMessege.unknown_error});
 		}
 		}).catch((err)=>{
-			console.log(err);
 			Loading.hide(this.loading);
 			this.setState({errPaymentMsg: err.message});
 		});
@@ -213,10 +198,7 @@ export default class BankDetailsScreen extends Component {
 			},
 			authtoken:this.state.rememberToken 
 		};
-		console.log(payload);
-	
 		httpService.postHttpCall(payload).then((res)=>{
-		console.log(res);
 		Loading.hide(this.loading);
 		if(res.status !== undefined){
 			if (res.status == 100) {
@@ -232,7 +214,6 @@ export default class BankDetailsScreen extends Component {
 			this.setState({errPaymentMsg: httpService.appMessege.unknown_error});
 		}
 		}).catch((err)=>{
-			console.log(err);
 			Loading.hide(this.loading);
 			this.setState({errPaymentMsg: err.message});
 		});
@@ -253,8 +234,6 @@ export default class BankDetailsScreen extends Component {
 			  },
 			  authtoken:this.state.rememberToken 
 		  };
-	  console.log("payload", payload)
-		
 		  httpService.postHttpCall(payload).then((res)=>{
 		  Loading.hide(this.loading);
 		  if(res.status !== undefined){
@@ -271,7 +250,6 @@ export default class BankDetailsScreen extends Component {
 			  this.setState({errPaymentMsg: httpService.appMessege.unknown_error});
 		  }
 		  }).catch((err)=>{
-			  console.log(err);
 			  Loading.hide(this.loading);
 			  this.setState({errPaymentMsg: err.message});
 		  });

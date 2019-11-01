@@ -5,17 +5,12 @@ import {
   Text,
   View,
   StatusBar,
-  Dimensions,
-  TextInput,
   TouchableOpacity,
-  Image,
   ActivityIndicator,
-  Button,
-  Picker,
   Animated,
-  Easing
+  Easing,
+  ToastAndroid
 } from "react-native";
-import FeatherIcon from "react-native-vector-icons/Feather";
 import AsyncStorage from "@react-native-community/async-storage";
 import {
   widthPercentageToDP as wp,
@@ -51,8 +46,6 @@ export default class ChangeOrderParticipantsScreen extends Component {
       participantList: participants
     });
 
-    console.log(participants);
-
     setTimeout(
       function() {
         this.setState({
@@ -70,12 +63,6 @@ export default class ChangeOrderParticipantsScreen extends Component {
       "first_name",
       "avatar_location"
     ]).then(response => {
-      console.log(response[0][0]);
-      console.log(response[0][1]);
-
-      console.log(response[1][0]);
-      console.log(response[1][1]);
-
       this.setState({
         rememberToken: response[0][1],
         cicle_code: response[1][1],
@@ -90,7 +77,6 @@ export default class ChangeOrderParticipantsScreen extends Component {
   };
 
   onRelease = (key, currentOrder) => {
-    console.log(currentOrder);
     this.setState(
       {
         newOrder: currentOrder
@@ -100,7 +86,6 @@ export default class ChangeOrderParticipantsScreen extends Component {
   };
 
   _doContinue = () => {
-    console.log("this.state", this.state.participantList);
     let reorderList = "";
     let reorder = this.state.newOrder;
     let participantList = "";
@@ -114,10 +99,7 @@ export default class ChangeOrderParticipantsScreen extends Component {
     }
 
     reorderList = reorderList.replace(/,\s*$/, "");
-    console.log(reorderList);
     participantList = participantList.replace(/,\s*$/, "");
-    console.log(participantList);
-
     setTimeout(
       function() {
         let obj = {
@@ -125,14 +107,6 @@ export default class ChangeOrderParticipantsScreen extends Component {
           reorder: reorderList,
           plist: participantList
         };
-
-        console.log("objecttttttt", obj);
-        console.log(
-          "request uri==" + ApiConfig.base_url + "reorder-circle-user"
-        );
-        console.log("final request params==" + JSON.stringify(obj));
-        console.log("Token ==" + this.state.rememberToken);
-
         this.setState({
           loader: true
         });
@@ -149,16 +123,18 @@ export default class ChangeOrderParticipantsScreen extends Component {
             }
           )
           .then(function(response) {
-            console.log("responsessssssssssssssssss", response);
             that.props.navigation.navigate("circlePreviewPage", {
               participants: response.data.result
             });
           })
           .catch(function(error) {
-            console.log("error==" + error);
+            ToastAndroid.showWithGravity(
+              ERROR,
+              ToastAndroid.LONG,
+              ToastAndroid.BOTTOM
+            );
           })
           .finally(function() {
-            console.log("always executed");
             that.setState({
               loader: false
             });

@@ -8,9 +8,7 @@ import {
   ToastAndroid,
   ActivityIndicator
 } from "react-native";
-
 import axios from "axios";
-
 import Stripe from "react-native-stripe-api";
 import moment from "moment";
 const apiKey = "pk_test_EGuGzdY9Zr4vL4rICJN5gjHl";

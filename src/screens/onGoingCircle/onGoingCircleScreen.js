@@ -1,13 +1,11 @@
 import React, {Component} from 'react';
-import {View,Dimensions,Text,Image,StatusBar,ScrollView,Button,TouchableOpacity,ActivityIndicator} from 'react-native';
+import {View,Text,ScrollView,TouchableOpacity} from 'react-native';
 import {Container,Content} from 'native-base';
 import onGoingCircleStyle from './onGoingCircleStyle';
 var moment = require('moment');
 import URL from '../../config/url';
 import AsyncStorage from '@react-native-community/async-storage';
-import headerStyle from '../../assets/css/header/headerStyle';
 import HeaderCurve from '../includes/headercurve';
-import FeatherIcon from 'react-native-vector-icons/Feather';
 import CommonService from '../../services/common/commonService';
 import httpService from '../../services/http/httpService';
 import Loading from 'react-native-loader-overlay';
@@ -88,22 +86,15 @@ export default class OnGoingCircleScreen extends Component {
 				if(details.status === 1){
 					if(details.previous_round_payment_date !==undefined ){
 					let currentDate = moment(new Date()).format("YYYY-MM-DD");
-					console.log("currentDate", currentDate)
 					let oldDate = CommonService.allInOneFormatDate(details.previous_round_payment_date,'/','-','reverse');
-					
-					console.log("oldDate", oldDate)
-						
 			      if(currentDate > oldDate){
-						console.log("true")
 						this.setState({paybuttonVisible:true})
 						paybutton = true;
 					}else{
-						console.log("false")
 						this.setState({paybuttonVisible:false})
 						paybutton = false;
 					}
 					if(details.previous_round_payment_date === ""){
-						console.log("previous_round_payment_date")
 						this.setState({paybuttonVisible:true})
 					}
 					}
@@ -122,7 +113,6 @@ export default class OnGoingCircleScreen extends Component {
 		}
 		this.setState({apiExecute:true});
 		}).catch((err)=>{
-			console.log(err);
 			Loading.hide(this.loading);
 			this.setState({errorText: err.message,apiExecute:true});
 			if(err.status == 4){
@@ -150,36 +140,6 @@ export default class OnGoingCircleScreen extends Component {
 
 	render(){
 		 const item = this.state.details;
-		 console.log(item)
-		// console.log("itemmmmmmmmmmmmmmmmmmm", item)
-		// console.log("item", item.previous_round_payment_date)
-		// if(item.previous_round_payment_date !==undefined && !flag ){
-		// 	console.log("in if condition")
-		// 	flag = true;
-		// 	let oldDate = CommonService.allInOneFormatDate(item.previous_round_payment_date,'/','-','reverse');
-		// 	let CurrentDate = new Date();
-		// 	console.log("curent", CurrentDate)
-		// 	oldDate = new Date(oldDate);
-		// 	console.log("old date", oldDate)
-		// 	//let formatDate = moment(oldDate).format('llll');
-		// 	//let difff = CurrentDate > formatDate
-		// 	//console.log("ddddddddddddddddddddddiii", difff)
-		// 	let check =CurrentDate > oldDate
-		// 	console.log("check data", check)
-		// 	if(CurrentDate > oldDate){
-		// 		console.log("true")
-		// 		this.setState({paybuttonVisible:true})
-		// 		paybutton = true;
-		// 	}else{
-		// 		console.log("false")
-		// 		this.setState({paybuttonVisible:false})
-		// 		paybutton = false;
-		// 	}
-		// 	if(item.previous_round_payment_date ===""){
-		// 		console.log("previous_round_payment_date")
-		// 		this.setState({paybuttonVisible:true})
-		// 	}
-		// }
 		return(
 			<Container>
 				<Content>
@@ -193,58 +153,7 @@ export default class OnGoingCircleScreen extends Component {
 						admin = {item.is_admin}
 						bellIcon={true}
            			 />
-					{/* <View style={headerStyle.headerMenu}>
-						<TouchableOpacity
-							style={headerStyle.containerBackBlock}
-							onPress={()=>this.props.navigation.goBack()}
-						>
-							<FeatherIcon name="arrow-left" size={25} color="#FFFFFF" />
-						</TouchableOpacity>
-
-						<View
-							style={{
-							flex: 1,
-							alignItems: 'center',
-							justifyContent: 'center'
-							}}
-						>
-						<View style={headerStyle.avatarImageWrapper}>
-						<Image
-							style={{
-							width: 40,
-							height: 40,
-							borderRadius: 20
-							}}
-							source={this.state.avatar_location}
-                    		onError={this.onError.bind(this)}
-						/>
-						</View>
-						<Text style={headerStyle.avatarName}>
-						{this.state.first_name}
-						{
-							item.is_admin == 1 ?
-							<Text>(Admin)</Text>:null
-						}
-						</Text>
-						</View>
-
-						<TouchableOpacity
-							style={headerStyle.containerBackBlock}
-						>
-							<Image
-							style={{
-								width: 20,
-								height: 20,
-								alignSelf: 'flex-end'
-							}}
-							source={require('../../../assets/images/notification.png')}
-							/>
-
-							<View style={headerStyle.notificationBadge}>
-							<Text style={headerStyle.notificationText}>99</Text>
-							</View>
-						</TouchableOpacity>
-					</View> */}
+					
 					{
 						this.state.errorText !=''?
 						<View style={{alignItems:'center',marginTop:'50%'}}>
@@ -265,10 +174,6 @@ export default class OnGoingCircleScreen extends Component {
 											paddingTop:5,}}>Circle {item.completed_round == item.estimate_round ? 'Completed':'Ongoing'}</Text>
 										<Text>N° {item.circle_code}</Text>
 									</View>
-								{/* <Text style={onGoingCircleStyle.baseText}>
-									<Text style={[onGoingCircleStyle.titleText,{color:'#494949'}]}>Circle ({item.circle_code})- </Text>
-									<Text style={[onGoingCircleStyle.titleText,{color:'#24D19B'}]} numberOfLines={5}>{item.completed_round == item.estimate_round ? 'Completed':'Ongoing'}</Text>
-								</Text> */}
 								<View style={{borderBottomWidth:1,borderColor:'#ccc',padding:5}}>
 									<View style={onGoingCircleStyle.rowView}>
 										<View style={onGoingCircleStyle.rowViewLeftItem}>

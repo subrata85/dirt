@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-  Platform,
   StyleSheet,
   Text,
   View,
@@ -19,9 +18,6 @@ import {
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen';
 import AsyncStorage from '@react-native-community/async-storage';
-
-const width = Math.round(Dimensions.get('window').width);
-const height = Math.round(Dimensions.get('window').height);
 
 const statusBarBackgroundColor = '#1CCBE6';
 const barStyle = 'light-content';
@@ -61,8 +57,6 @@ export default class OtpVerifyScreen extends Component {
 			user_id:response[4][1]
 		  });
 		});
-	
-		//this.props.navigation.navigate(userToken ? 'App' : 'Auth');
 	  };
 	
 	_doSubmit = () => {
@@ -190,7 +184,6 @@ export default class OtpVerifyScreen extends Component {
 	  };
 	
 	  render() {
-		let { fadeAnim } = this.state;
 		const toasTStyle = this.state.success
 		  ? { backgroundColor: '#00CC2C' }
 		  : { backgroundColor: '#A40B0B' };
@@ -205,12 +198,12 @@ export default class OtpVerifyScreen extends Component {
 			<KeyboardAwareScrollView contentContainerStyle={{ flexGrow: 1 }}>
 			  <View style={{ flex: 1, position: 'relative' }}>
 			  <HeaderCurve
-            title={"Verify your Number"}
-            navigation={this.props.navigation}
-            avatar_location={this.state.avatar_location}
-            backButton={false}
-            bellIcon={false}
-          />
+				title={"Verify your Number"}
+				navigation={this.props.navigation}
+				avatar_location={this.state.avatar_location}
+				backButton={false}
+				bellIcon={false}
+              />
 	
 				<View style={{ flex: 1}}>
 				  <View

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-  Platform,
   StyleSheet,
   Text,
   View,
@@ -9,8 +8,8 @@ import {
   TextInput,
   TouchableOpacity,
   Image,
-  ActivityIndicator,
-  Button
+	ActivityIndicator,
+	ToastAndroid
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import DateTimePicker from 'react-native-modal-datetime-picker';
@@ -21,9 +20,7 @@ import {
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen';
 import AsyncStorage from '@react-native-community/async-storage';
-const width = Math.round(Dimensions.get('window').width);
 const height = Math.round(Dimensions.get('window').height);
-
 const statusBarBackgroundColor = '#1CCBE6';
 const barStyle = 'light-content';
 import URL from '../../config/url';
@@ -31,7 +28,6 @@ import HeaderCurve from '../includes/headercurve';
 import httpService from '../../services/http/httpService';
 
 export default class RegisterTwoScreen extends Component {
-
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -58,25 +54,14 @@ export default class RegisterTwoScreen extends Component {
 		};
 	  }
 	
-	componentWillMount() {
-		ImagePicker.clean()
-		  .then(() => {
-			console.log('removed all tmp images from tmp directory');
-		  })
-		  .catch(e => {
-			alert(e);
-		  });
-	}
-	
 	componentDidMount() {
+		ImagePicker.clean()
 		this._bootstrapAsync();
 	}
 	
 	_bootstrapAsync = async () => {
 		AsyncStorage.multiGet(['rememberToken', 'email', 'mobile_number']).then(
 		  response => {
-			console.log(response[0][0]); // Key1
-			console.log(response[0][1]); // Value1
 			this.setState({
 			  rememberToken: response[0][1],
 			  email: response[1][1],
@@ -99,10 +84,6 @@ export default class RegisterTwoScreen extends Component {
 	  };
 	
 	  handleDatePicked = date => {
-		//alert(date)
-		console.log('A date has been picked: ', date);
-		//  this.hideDateTimePicker();
-
 		var day = date.getDate();
 		var month = date.getMonth()+1;
 		var year = date.getFullYear();
@@ -143,7 +124,6 @@ export default class RegisterTwoScreen extends Component {
 		  includeBase64: true
 		  //cropping: true
 		}).then(image => {
-		  console.log(image);
 		  var type = image.mime.split('/')[1];
 		  this.setState({
 			loaderAvatar: true
@@ -167,7 +147,6 @@ export default class RegisterTwoScreen extends Component {
 		  )
 			.then(resp => {
 			  let json = resp.json();
-			  console.log(resp.data);
 			  if (json.status == 300) {
 				that.setState(
 				  {
@@ -188,7 +167,11 @@ export default class RegisterTwoScreen extends Component {
 			  }
 			})
 			.catch(err => {
-			  console.log(err);
+				ToastAndroid.showWithGravity(
+				err.message,
+				ToastAndroid.LONG,
+				ToastAndroid.BOTTOM,
+				  );
 			});
 		});
 	  };
@@ -201,7 +184,6 @@ export default class RegisterTwoScreen extends Component {
 		  mediaType: 'photo',
 		  includeBase64: true
 		}).then(image => {
-		  console.log(image);
 		  var type = image.mime.split('/')[1];
 		  this.setState({
 			loaderID: true
@@ -225,20 +207,17 @@ export default class RegisterTwoScreen extends Component {
 		  )
 			.then(resp => {
 			  let json = resp.json();
-			  console.log(resp.data);
 			  if (json.status == 300) {
 				that.setState(
 				  {
 					loaderID: false,
 					success: false
-					//avatar: URL.public_url + 'avatar/default_avatar.png',
 				  },
 				  () => {
 					thatRef.toast.show(json.message, DURATION.LENGTH_LONG);
 				  }
 				);
 			  } else {
-				//alert(json.message)
 				this.setState({
 				  loaderID: false,
 				  idScanFile: json.message
@@ -246,7 +225,11 @@ export default class RegisterTwoScreen extends Component {
 			  }
 			})
 			.catch(err => {
-			  console.log(err);
+				ToastAndroid.showWithGravity(
+					err.message,
+					ToastAndroid.LONG,
+					ToastAndroid.BOTTOM,
+				);
 			});
 		});
 	  };
@@ -289,7 +272,6 @@ export default class RegisterTwoScreen extends Component {
 		setTimeout(
 		  function() {
 			if (!this.state.errorMessage) {
-				console.log('request uri==' + URL.base_url + 'update-profile');
 				let thatRef = this.refs;
 				let that = this;
 				let thatNavigation = this.props.navigation;
@@ -308,14 +290,11 @@ export default class RegisterTwoScreen extends Component {
 					},
 					authtoken:this.state.rememberToken
 				};
-				console.log('final request params==' + JSON.stringify(obj));
-		
 				this.setState({
 					loader: true
 				});
 		
 				httpService.postHttpCall(obj).then((response)=>{
-					console.log(response);
 					if (response.status == 300) {
 						that.setState(
 						{
@@ -350,7 +329,12 @@ export default class RegisterTwoScreen extends Component {
 							setTimeout(()=>{
 								thatNavigation.navigate('homeStack');
 							},1000)
-							console.log(error);
+							ToastAndroid.showWithGravity(
+								error,
+								ToastAndroid.LONG,
+								ToastAndroid.BOTTOM,
+							);
+
 						}
 						);
 					}
@@ -393,7 +377,6 @@ export default class RegisterTwoScreen extends Component {
 				<HeaderCurve
 					title={"Profile"}
 					navigation={this.props.navigation}
-					//backButton={true}
             />
 	
 				<View
@@ -528,74 +511,6 @@ export default class RegisterTwoScreen extends Component {
 						date={this.state.selectedDate}
 					  />
 					</View>
-	
-					{/*
-					<View style={styles.frmInputWrapper}>
-					  <Text style={styles.frmLabel}>Financial record IBAN</Text>
-					  <TextInput
-						style={styles.inputTextStyleActive}
-						onChangeText={iban => this.setState({ iban })}
-					  />
-					</View>
-	
-					<View style={styles.frmInputWrapper}>
-					  <Text style={styles.frmLabel}>Credit card No</Text>
-					  <TextInput
-						style={styles.inputTextStyleActive}
-						onChangeText={credit_card_no =>
-						  this.setState({ credit_card_no })
-						}
-					  />
-					</View>
-	
-					<View style={styles.frmInputWrapper}>
-					  <Text style={styles.frmLabel}>Paypal Account</Text>
-					  <TextInput
-						style={styles.inputTextStyleActive}
-						onChangeText={paypal_account =>
-						  this.setState({ paypal_account })
-						}
-					  />
-					</View>
-	
-					<View style={styles.frmInputWrapper}>
-					  <Text style={styles.frmLabel}>ID Scan</Text>
-	
-					  <View
-						style={{
-						  flexDirection: 'row',
-						  alignItems: 'center'
-						  //justifyContent: 'space-between'
-						}}
-					  >
-						<TouchableOpacity
-						  style={styles.idScan}
-						  onPress={() => this._openIDScanPicker()}
-						>
-						  <Text style={styles.sendButtonText}>Upload</Text>
-	
-						  {this.state.loaderID ? (
-							<View style={styles.loading}>
-							  <ActivityIndicator size="small" color={'#FFFFFF'} />
-							</View>
-						  ) : null}
-						</TouchableOpacity>
-	
-						{this.state.idScanFile ? (
-						  <View style={{ marginLeft: 20 }}>
-							<Image
-							  source={require('../../assets/images/check-mark.png')}
-							  style={{
-								width: 20,
-								height: 20
-							  }}
-							/>
-						  </View>
-						) : null}
-					  </View>
-					</View>
-	*/}
-	
 					<View
 					  style={{
 						justifyContent: 'center',

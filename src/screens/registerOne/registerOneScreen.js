@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-  Platform,
   StyleSheet,
   Text,
   View,
@@ -14,23 +13,18 @@ import {
   BackHandler
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import FeatherIcon from 'react-native-vector-icons/Feather';
 import PhoneInput from 'react-native-phone-input';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen';
 import AsyncStorage from '@react-native-community/async-storage';
-
 const width = Math.round(Dimensions.get('window').width);
-const height = Math.round(Dimensions.get('window').height);
-
 const statusBarBackgroundColor = '#1CCBE6';
 const barStyle = 'light-content';
-
 import HeaderCurve from '../includes/headercurve';
-
 import httpService from '../../services/http/httpService';
+
 export default class RegisterOneScreen extends Component {
 	_didFocusSubscription;
 	_willBlurSubscription;
@@ -66,7 +60,6 @@ export default class RegisterOneScreen extends Component {
 			value: "",
 			countyCode:""
 		};
-		//this.updateInfo = this.updateInfo.bind(this);
 	  }
 
 		async componentDidMount(){
@@ -136,17 +129,11 @@ export default class RegisterOneScreen extends Component {
 				});
 			}
 		}
-		// if(this.state.device_token == null){
-		// 	this.setState({
-		// 		errorMessage: httpService.appMessege.device_token_error
-		// 	});
-		// }
 		setTimeout(
 		  function() {
 			if (!this.state.errorMessage) {
 				let that = this;
 				let thatNavigation = this.props.navigation;
-				//let countyCode = this.state.mobile_number.substring(0, 3);
 				let mobileNo = this.state.mobile_number.replace(this.state.countyCode, ""); 
 				let obj = {
 					url:'signup',
@@ -189,7 +176,6 @@ export default class RegisterOneScreen extends Component {
 							});
 						  }
 						);
-						//AsyncStorage.clear();
 						AsyncStorage.multiSet(
 						  [
 							['email', that.state.email],

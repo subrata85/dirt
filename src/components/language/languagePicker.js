@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { View } from "react-native";
 import { Picker, Icon } from "native-base";
 import AsyncStorage from "@react-native-community/async-storage";
 

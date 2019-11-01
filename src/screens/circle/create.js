@@ -416,6 +416,8 @@ export default class CreateCircleScreen extends Component {
               )
               .then(res => {
                 tempData.splice(index, 1);
+                global.contacts_data.splice(index, 1);
+
                 this.setState({
                   tempData
                 });
@@ -453,14 +455,6 @@ export default class CreateCircleScreen extends Component {
     const minDate = new Date();
     minDate.setDate(minDate.getDate() + 10);
 
-    // const joinParticipantList = this.state.tempData.map(function(data, i) {
-    //   return (
-    //     <Text key={i} style={[styles.frmLabelRight, { marginTop: 5 }]}>
-    //       {i + 2}. {data.username} ({data.mobile})
-    //     </Text>
-    //   );
-    // });
-
     return (
       <View style={styles.container}>
         <NavigationEvents onWillFocus={() => this.temporaryData()} />
@@ -480,7 +474,6 @@ export default class CreateCircleScreen extends Component {
             }}
           >
             <HeaderCurve
-              //title={"Create Circle"}
               navigation={this.props.navigation}
               avatar_location={this.state.avatar_location}
               backButton={true}
@@ -496,51 +489,6 @@ export default class CreateCircleScreen extends Component {
                   : false
               }
             />
-
-            {/* <View style={styles.headerMenu}>
-              <TouchableOpacity
-                style={styles.containerBackBlock}
-                onPress={() => this._doRedirectLanding()}
-              >
-                <FeatherIcon name="arrow-left" size={25} color="#FFFFFF" />
-              </TouchableOpacity>
-
-              <View
-                style={{
-                  flex: 1,
-                  alignItems: "center",
-                  justifyContent: "center"
-                }}
-              >
-                <View style={styles.avatarImageWrapper}>
-                  <Image
-                    style={{
-                      width: 40,
-                      height: 40,
-                      borderRadius: 20
-                    }}
-                    source={this.state.avatar_location}
-                    onError={this.onError.bind(this)}
-                  />
-                </View>
-                <Text style={styles.avatarName}>{this.state.first_name}</Text>
-              </View>
-
-              <TouchableOpacity style={styles.containerBackBlock}>
-                <Image
-                  style={{
-                    width: 20,
-                    height: 20,
-                    alignSelf: "flex-end"
-                  }}
-                  source={require("../../../assets/images/notification.png")}
-                />
-
-                <View style={styles.notificationBadge}>
-                  <Text style={styles.notificationText}>99</Text>
-                </View>
-              </TouchableOpacity>
-            </View> */}
 
             <View
               style={{
