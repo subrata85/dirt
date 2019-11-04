@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { View, Image, Text, TouchableOpacity, Alert } from "react-native";
+import {
+  Platform,
+  View,
+  Image,
+  Text,
+  TouchableOpacity,
+  Alert
+} from "react-native";
 import FeatherIcon from "react-native-vector-icons/Feather";
 
 export default class App extends Component {
@@ -143,7 +150,11 @@ export default class App extends Component {
               position: "absolute",
               color: "#FFFFFF",
               fontSize: 20,
-              fontFamily: "Roboto-Reguler",
+              ...Platform.select({
+                android: {
+                  fontFamily: "Roboto-Reguler"
+                }
+              }),
               fontWeight: "600",
               top: 15
             }}

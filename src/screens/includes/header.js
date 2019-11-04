@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
+import {
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Image
+} from "react-native";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import {
   widthPercentageToDP as wp,
@@ -111,13 +118,21 @@ const styles = StyleSheet.create({
   headingBold: {
     color: "#FFFFFF",
     fontSize: hp("2.5%"),
-    fontFamily: "Roboto-Reguler",
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    }),
     fontWeight: "600"
   },
   headingLight: {
     color: "#FFFFFF",
     fontSize: hp("2.5%"),
-    fontFamily: "Roboto-Reguler",
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    }),
     fontWeight: "200"
   }
 });

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {
+  Platform,
   StyleSheet,
   Text,
   View,
@@ -199,7 +200,11 @@ export default class ForgotPasswordScreen extends Component {
                     <Text
                       style={{
                         color: "green",
-                        fontFamily: "Roboto-Reguler",
+                        ...Platform.select({
+                          android: {
+                            fontFamily: "Roboto-Reguler"
+                          }
+                        }),
                         fontSize: 16
                       }}
                     >
@@ -209,7 +214,11 @@ export default class ForgotPasswordScreen extends Component {
                     <Text
                       style={{
                         color: "red",
-                        fontFamily: "Roboto-Reguler",
+                        ...Platform.select({
+                          android: {
+                            fontFamily: "Roboto-Reguler"
+                          }
+                        }),
                         fontSize: 16
                       }}
                     >
@@ -272,7 +281,11 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     color: "#000000",
     fontSize: 18,
-    fontFamily: "Roboto-Reguler",
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    }),
     paddingLeft: 40,
     paddingVertical: 0
   },
@@ -290,7 +303,11 @@ const styles = StyleSheet.create({
   sendButtonText: {
     color: "#FFFFFF",
     fontSize: 18,
-    fontFamily: "Roboto-Reguler"
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    })
   },
 
   imageWrapper: {
@@ -311,13 +328,21 @@ const styles = StyleSheet.create({
   headingBold: {
     color: "#FFFFFF",
     fontSize: 18,
-    fontFamily: "Roboto-Reguler",
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    }),
     fontWeight: "600"
   },
   headingLight: {
     color: "#FFFFFF",
     fontSize: 18,
-    fontFamily: "Roboto-Reguler",
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    }),
     fontWeight: "200"
   },
   loading: {
@@ -330,7 +355,11 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     color: "#000000",
     fontSize: 18,
-    fontFamily: "Roboto-Reguler",
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    }),
     paddingLeft: 40,
     paddingVertical: 0
   }

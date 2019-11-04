@@ -769,7 +769,11 @@ export default class CreateCircleScreen extends Component {
                     <Text
                       style={{
                         color: "red",
-                        fontFamily: "Roboto-Reguler",
+                        ...Platform.select({
+                          android: {
+                            fontFamily: "Roboto-Reguler"
+                          }
+                        }),
                         fontSize: 16
                       }}
                     >
@@ -789,7 +793,11 @@ export default class CreateCircleScreen extends Component {
                     <Text
                       style={{
                         color: "green",
-                        fontFamily: "Roboto-Reguler",
+                        ...Platform.select({
+                          android: {
+                            fontFamily: "Roboto-Reguler"
+                          }
+                        }),
                         fontSize: 16
                       }}
                     >
@@ -835,7 +843,11 @@ const styles = StyleSheet.create({
   containerHeaderText: {
     color: "#FFFFFF",
     fontSize: 20,
-    fontFamily: "Roboto-Reguler",
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    }),
     right: 10
   },
 
@@ -856,7 +868,11 @@ const styles = StyleSheet.create({
   forgotPasswordText: {
     color: "#22e2ef",
     fontSize: 16,
-    fontFamily: "Roboto-Reguler"
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    })
   },
 
   inputTextStyleActive: {
@@ -866,11 +882,6 @@ const styles = StyleSheet.create({
     borderColor: "#dcdcdc",
     marginLeft: 5,
     borderRadius: 5
-    // fontFamily: "Roboto-Reguler",
-    // color: "#000000",
-    // fontSize: 18,
-    // paddingLeft: 5,
-    // paddingVertical: 0
   },
 
   inputTextStyleRequired: {
@@ -880,11 +891,6 @@ const styles = StyleSheet.create({
     borderColor: "red",
     marginLeft: 5,
     borderRadius: 5
-    // fontFamily: "Roboto-Reguler",
-    // color: "#000000",
-    // fontSize: 18,
-    // paddingLeft: 5,
-    // paddingVertical: 0
   },
 
   sendButtonBlock: {
@@ -916,13 +922,21 @@ const styles = StyleSheet.create({
   headingBold: {
     color: "#FFFFFF",
     fontSize: 18,
-    fontFamily: "Roboto-Reguler",
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    }),
     fontWeight: "600"
   },
   headingLight: {
     color: "#FFFFFF",
     fontSize: hp("2.5%"),
-    fontFamily: "Roboto-Reguler",
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    }),
     fontWeight: "200"
   },
   avatarWrapper: {
@@ -952,12 +966,20 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   headingText: {
-    fontFamily: "Roboto-Reguler",
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    }),
     fontSize: 16,
     color: "#000000"
   },
   frmLabel: {
-    fontFamily: "Roboto-Reguler",
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    }),
     fontSize: 14,
     color: "#000000"
   },
@@ -967,13 +989,21 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     color: "#000000",
     fontSize: hp("2.5%"),
-    fontFamily: "Roboto-Reguler",
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    }),
     paddingVertical: 0
   },
   sendButtonText: {
     color: "#FFFFFF",
     fontSize: 18,
-    fontFamily: "Roboto-Reguler"
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    })
   },
   idScan: {
     marginTop: 10,
@@ -1027,7 +1057,11 @@ const styles = StyleSheet.create({
     borderColor: "#dcdcdc",
     marginLeft: 5,
     borderRadius: 5,
-    fontFamily: "Roboto-Reguler",
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    }),
     color: "#000000",
     fontSize: 18,
     paddingLeft: 5,
@@ -1039,7 +1073,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#dcdcdc",
     borderRadius: 5,
-    fontFamily: "Roboto-Reguler",
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    }),
     color: "#000000",
     fontSize: 18,
     paddingLeft: 5,

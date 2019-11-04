@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Platform } from "react-native";
 
 const bankDetailsStyle = StyleSheet.create({
   mainContent: {
@@ -61,7 +61,11 @@ const bankDetailsStyle = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#dcdcdc",
     borderRadius: 5,
-    fontFamily: "Roboto-Reguler",
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    }),
     color: "#000000",
     fontSize: 18,
     paddingLeft: 5,

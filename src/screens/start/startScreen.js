@@ -138,7 +138,11 @@ const styles = StyleSheet.create({
   sendButtonText: {
     color: "#FFFFFF",
     fontSize: 18,
-    fontFamily: "Roboto-Reguler"
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    })
   },
 
   imageWrapper: {
@@ -171,7 +175,11 @@ const styles = StyleSheet.create({
   containerHeaderSubText: {
     color: "#4a4a4a",
     fontSize: 16,
-    fontFamily: "Roboto-Reguler",
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    }),
     marginTop: 10
   },
   sendButtonBlock: {
@@ -186,7 +194,11 @@ const styles = StyleSheet.create({
   createAccountText: {
     color: "#12c4cc",
     fontSize: 16,
-    fontFamily: "Roboto-Reguler"
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    })
   },
 
   sendButtonBlockCreateAccount: {

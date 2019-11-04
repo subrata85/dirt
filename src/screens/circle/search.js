@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {
+  Platform,
   StyleSheet,
   Text,
   View,
@@ -390,7 +391,11 @@ export default class SearchParticipantsScreen extends Component {
                 <View style={styles.countBlock}>
                   <Text
                     style={{
-                      fontFamily: "Roboto-Reguler",
+                      ...Platform.select({
+                        android: {
+                          fontFamily: "Roboto-Reguler"
+                        }
+                      }),
                       fontSize: 18,
                       color: "#FFFFFF"
                     }}
@@ -475,7 +480,11 @@ export default class SearchParticipantsScreen extends Component {
                     <Text
                       style={{
                         color: "red",
-                        fontFamily: "Roboto-Reguler",
+                        ...Platform.select({
+                          android: {
+                            fontFamily: "Roboto-Reguler"
+                          }
+                        }),
                         fontSize: 16
                       }}
                     >
@@ -494,7 +503,11 @@ export default class SearchParticipantsScreen extends Component {
                     <Text
                       style={{
                         color: "green",
-                        fontFamily: "Roboto-Reguler",
+                        ...Platform.select({
+                          android: {
+                            fontFamily: "Roboto-Reguler"
+                          }
+                        }),
                         fontSize: 16
                       }}
                     >
@@ -536,7 +549,11 @@ export default class SearchParticipantsScreen extends Component {
                         >
                           <Text
                             style={{
-                              fontFamily: "Roboto-Reguler",
+                              ...Platform.select({
+                                android: {
+                                  fontFamily: "Roboto-Reguler"
+                                }
+                              }),
                               fontSize: 14,
                               color: "#000000"
                             }}
@@ -546,7 +563,11 @@ export default class SearchParticipantsScreen extends Component {
 
                           <Text
                             style={{
-                              fontFamily: "Roboto-Reguler",
+                              ...Platform.select({
+                                android: {
+                                  fontFamily: "Roboto-Reguler"
+                                }
+                              }),
                               fontSize: 14,
                               color: "#000000"
                             }}
@@ -623,7 +644,11 @@ const styles = StyleSheet.create({
   headingBold: {
     color: "#FFFFFF",
     fontSize: 18,
-    fontFamily: "Roboto-Reguler",
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    }),
     fontWeight: "600"
   },
 
@@ -634,7 +659,11 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     color: "#000000",
     fontSize: 18,
-    fontFamily: "Roboto-Reguler",
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    }),
     paddingVertical: 0,
     //width: width - 100
     marginRight: width / 5
@@ -646,7 +675,11 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     color: "#000000",
     fontSize: 18,
-    fontFamily: "Roboto-Reguler",
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    }),
     paddingVertical: 0,
     marginRight: width / 5
   },

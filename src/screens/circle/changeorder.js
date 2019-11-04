@@ -308,7 +308,11 @@ class Row extends Component {
           >
             <Text
               style={{
-                fontFamily: "Roboto-Reguler",
+                ...Platform.select({
+                  android: {
+                    fontFamily: "Roboto-Reguler"
+                  }
+                }),
                 color: "#000000",
                 fontSize: 15
               }}
@@ -317,7 +321,11 @@ class Row extends Component {
             </Text>
             <Text
               style={{
-                fontFamily: "Roboto-Reguler",
+                ...Platform.select({
+                  android: {
+                    fontFamily: "Roboto-Reguler"
+                  }
+                }),
                 color: "#000000",
                 fontSize: 15
               }}
@@ -331,7 +339,11 @@ class Row extends Component {
           >
             <Text
               style={{
-                fontFamily: "Roboto-Reguler",
+                ...Platform.select({
+                  android: {
+                    fontFamily: "Roboto-Reguler"
+                  }
+                }),
                 color: "#000000",
                 fontSize: 15
               }}
@@ -341,7 +353,11 @@ class Row extends Component {
 
             <Text
               style={{
-                fontFamily: "Roboto-Reguler",
+                ...Platform.select({
+                  android: {
+                    fontFamily: "Roboto-Reguler"
+                  }
+                }),
                 color: "#000000",
                 fontSize: 15
               }}
@@ -389,7 +405,11 @@ const styles = StyleSheet.create({
   },
 
   headingText: {
-    fontFamily: "Roboto-Reguler",
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    }),
     fontSize: 16,
     color: "#000000"
   },
@@ -444,7 +464,11 @@ const styles = StyleSheet.create({
   confirmButtonText: {
     color: "#FFFFFF",
     fontSize: 18,
-    fontFamily: "Roboto-Reguler"
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    })
   },
   contentContainer: {
     flex: 1

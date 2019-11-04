@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {
+  Platform,
   StyleSheet,
   Text,
   View,
@@ -133,7 +134,11 @@ const styles = StyleSheet.create({
   sendButtonText: {
     color: "#FFFFFF",
     fontSize: 18,
-    fontFamily: "Roboto-Reguler"
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    })
   },
 
   headerMenu: {
@@ -148,13 +153,21 @@ const styles = StyleSheet.create({
   headingBold: {
     color: "#FFFFFF",
     fontSize: 20,
-    fontFamily: "Roboto-Reguler",
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    }),
     fontWeight: "600"
   },
   headingLight: {
     color: "#FFFFFF",
     fontSize: 20,
-    fontFamily: "Roboto-Reguler",
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    }),
     fontWeight: "200"
   },
   loading: {

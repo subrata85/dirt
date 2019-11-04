@@ -287,7 +287,11 @@ const styles = StyleSheet.create({
   containerHeaderText: {
     color: "#FFFFFF",
     fontSize: 20,
-    fontFamily: "Roboto-Reguler",
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    }),
     right: 10
   },
 
@@ -308,7 +312,11 @@ const styles = StyleSheet.create({
   forgotPasswordText: {
     color: "#22e2ef",
     fontSize: 16,
-    fontFamily: "Roboto-Reguler"
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    })
   },
 
   inputTextStyleInactive: {
@@ -319,7 +327,11 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     color: "#000000",
     fontSize: 20,
-    fontFamily: "Roboto-Reguler",
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    }),
     paddingLeft: 40,
     paddingVertical: 0
   },
@@ -337,7 +349,11 @@ const styles = StyleSheet.create({
   sendButtonText: {
     color: "#FFFFFF",
     fontSize: 18,
-    fontFamily: "Roboto-Reguler"
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    })
   },
 
   imageWrapper: {
@@ -358,13 +374,21 @@ const styles = StyleSheet.create({
   headingBold: {
     color: "#FFFFFF",
     fontSize: 20,
-    fontFamily: "Roboto-Reguler",
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    }),
     fontWeight: "600"
   },
   headingLight: {
     color: "#FFFFFF",
     fontSize: 20,
-    fontFamily: "Roboto-Reguler",
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    }),
     fontWeight: "200"
   },
   loading: {
@@ -538,7 +562,11 @@ const styles = StyleSheet.create({
     fontSize: 16
   },
   listRightText: {
-    fontFamily: "Roboto-Reguler",
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    }),
     fontSize: 16
   }
 });

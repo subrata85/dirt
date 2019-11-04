@@ -17,7 +17,6 @@ import {
 import EventEmitter from "react-native-eventemitter";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import AsyncStorage from "@react-native-community/async-storage";
-import FeatherIcon from "react-native-vector-icons/Feather";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
@@ -374,7 +373,11 @@ export default class CreateCirclePreviewScreen extends Component {
                     <Text
                       style={{
                         color: "red",
-                        fontFamily: "Roboto-Reguler",
+                        ...Platform.select({
+                          android: {
+                            fontFamily: "Roboto-Reguler"
+                          }
+                        }),
                         fontSize: 16
                       }}
                     >
@@ -429,7 +432,11 @@ const styles = StyleSheet.create({
   containerHeaderText: {
     color: "#FFFFFF",
     fontSize: 20,
-    fontFamily: "Roboto-Reguler",
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    }),
     right: 10
   },
 
@@ -450,7 +457,11 @@ const styles = StyleSheet.create({
   forgotPasswordText: {
     color: "#22e2ef",
     fontSize: 16,
-    fontFamily: "Roboto-Reguler"
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    })
   },
 
   inputTextStyleActive: {
@@ -460,7 +471,11 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     color: "#000000",
     fontSize: 18,
-    fontFamily: "Roboto-Reguler",
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    }),
     paddingVertical: 0
   },
 
@@ -493,13 +508,21 @@ const styles = StyleSheet.create({
   headingBold: {
     color: "#FFFFFF",
     fontSize: 18,
-    fontFamily: "Roboto-Reguler",
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    }),
     fontWeight: "600"
   },
   headingLight: {
     color: "#FFFFFF",
     fontSize: hp("2.5%"),
-    fontFamily: "Roboto-Reguler",
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    }),
     fontWeight: "200"
   },
   avatarWrapper: {
@@ -542,14 +565,22 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   headingText: {
-    fontFamily: "Roboto-Reguler",
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    }),
     fontSize: 16,
     //paddingRight: 10,
     //paddingLeft: 10,
     color: "#000000"
   },
   frmLabel: {
-    fontFamily: "Roboto-Reguler",
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    }),
     fontSize: 16,
     color: "#000000",
     fontWeight: "400"
@@ -567,7 +598,11 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     color: "#000000",
     fontSize: hp("2.5%"),
-    fontFamily: "Roboto-Reguler",
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    }),
     paddingVertical: 0
     // paddingLeft: 10,
     //paddingRight: 10,
@@ -575,7 +610,11 @@ const styles = StyleSheet.create({
   sendButtonText: {
     color: "#FFFFFF",
     fontSize: 18,
-    fontFamily: "Roboto-Reguler"
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    })
   },
   idScan: {
     marginTop: 10,
@@ -607,7 +646,11 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     color: "#000000",
     fontSize: 18,
-    fontFamily: "Roboto-Reguler",
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    }),
     paddingVertical: 0
   },
   avatarName: {
@@ -638,7 +681,11 @@ const styles = StyleSheet.create({
     borderColor: "#dcdcdc",
     marginLeft: 5,
     borderRadius: 5,
-    fontFamily: "Roboto-Reguler",
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    }),
     color: "#000000",
     fontSize: 18,
     paddingLeft: 5,
@@ -650,7 +697,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#dcdcdc",
     borderRadius: 5,
-    fontFamily: "Roboto-Reguler",
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    }),
     color: "#000000",
     fontSize: 18,
     paddingLeft: 5,
@@ -671,7 +722,11 @@ const styles = StyleSheet.create({
   changeOrderButtonText: {
     color: "#FFFFFF",
     fontSize: 16,
-    fontFamily: "Roboto-Reguler"
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    })
   },
   returnButtonBlock: {
     width: width / 2.5,
@@ -688,7 +743,11 @@ const styles = StyleSheet.create({
   returnButtonText: {
     color: "#5AC6C6",
     fontSize: 18,
-    fontFamily: "Roboto-Reguler"
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    })
   },
 
   validateButtonBlock: {
@@ -707,6 +766,10 @@ const styles = StyleSheet.create({
   validateButtonText: {
     color: "#FFFFFF",
     fontSize: 18,
-    fontFamily: "Roboto-Reguler"
+    ...Platform.select({
+      android: {
+        fontFamily: "Roboto-Reguler"
+      }
+    })
   }
 });
