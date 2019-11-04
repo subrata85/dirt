@@ -415,12 +415,25 @@ export default class CreateCircleScreen extends Component {
                 }
               )
               .then(res => {
-                tempData.splice(index, 1);
-                global.contacts_data.splice(index, 1);
-
-                this.setState({
-                  tempData
-                });
+                console.log("delete response", res.data);
+                if (res.data.status === 100) {
+                  tempData.splice(index, 1);
+                  global.contacts_data.splice(index, 1);
+                  this.setState({
+                    tempData
+                  });
+                  ToastAndroid.showWithGravity(
+                    res.data.message,
+                    ToastAndroid.SHORT,
+                    ToastAndroid.BOTTOM
+                  );
+                } else {
+                  ToastAndroid.showWithGravity(
+                    "Something wrong to delete",
+                    ToastAndroid.LONG,
+                    ToastAndroid.BOTTOM
+                  );
+                }
               })
               .catch(err => {
                 ToastAndroid.showWithGravity(

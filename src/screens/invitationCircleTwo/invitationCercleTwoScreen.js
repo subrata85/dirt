@@ -36,8 +36,27 @@ export default class InvitationCercleTwoScreen extends Component {
 		}
 	}
 
-	componentDidMount(){
+	componentDidMount() {
+		this.checkWaitingCircle();
 		this._bootstrapAsync();
+	}
+
+	checkWaitingCircle = () => {
+		const item = this.state.details;
+		if(item.start_date !== undefined && !flag){
+			flag = true;
+			let oldDate = CommonService.allInOneFormatDate(item.start_date,'/','-','reverse');
+			let CurrentDate = new Date();
+			oldDate = new Date(oldDate);
+			let formatdate = moment(oldDate).format('llll');
+			if(CurrentDate > formatdate){
+				buttons = true;
+				this.setState({visiblityButton:false})
+			}else{
+				this.setState({visiblityButton:true})
+				buttons = false;
+			}
+		}
 	}
 
 	_bootstrapAsync = async () => {
@@ -167,20 +186,20 @@ export default class InvitationCercleTwoScreen extends Component {
 
 	render(){
 		const item = this.state.details;
-		if(item.start_date !== undefined && !flag){
-			flag = true;
-			let oldDate = CommonService.allInOneFormatDate(item.start_date,'/','-','reverse');
-			let CurrentDate = new Date();
-			oldDate = new Date(oldDate);
-			let formatdate = moment(oldDate).format('llll');
-			if(CurrentDate > formatdate){
-				buttons = true;
-				this.setState({visiblityButton:false})
-			}else{
-				this.setState({visiblityButton:true})
-				buttons = false;
-			}
-		}
+		// if(item.start_date !== undefined && !flag){
+		// 	flag = true;
+		// 	let oldDate = CommonService.allInOneFormatDate(item.start_date,'/','-','reverse');
+		// 	let CurrentDate = new Date();
+		// 	oldDate = new Date(oldDate);
+		// 	let formatdate = moment(oldDate).format('llll');
+		// 	if(CurrentDate > formatdate){
+		// 		buttons = true;
+		// 		this.setState({visiblityButton:false})
+		// 	}else{
+		// 		this.setState({visiblityButton:true})
+		// 		buttons = false;
+		// 	}
+		// }
 		return(
 			<Container>
 				<Content>

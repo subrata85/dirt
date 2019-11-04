@@ -55,19 +55,6 @@ export default class SearchParticipantsScreen extends Component {
     this._bootstrapAsync();
   }
 
-  __getContact() {
-    let data = global.contacts_data;
-    console.log("data".data);
-    console.log("global.perticipant_info", global.perticipant_info);
-
-    this.setState({ countSelected: global.perticipant_info.length });
-    if (data !== null || data !== undefined || data.length) {
-      if (global.update_contact_data) {
-        this._getContact(data);
-      }
-    }
-  }
-
   _bootstrapAsync = async () => {
     let that = this;
     AsyncStorage.multiGet(["rememberToken", "circle_code"]).then(response => {
@@ -96,7 +83,28 @@ export default class SearchParticipantsScreen extends Component {
       this.setState({ loadContact: false });
     }
   }
+
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   console.log("nextProps", nextProps);
+  //   console.log("nextState", nextState);
+  //   return true;
+  // }
+
+  __getContact() {
+    let data = global.contacts_data;
+    console.log("data".data);
+    console.log("global.perticipant_info", global.perticipant_info);
+
+    this.setState({ countSelected: global.perticipant_info.length });
+    if (data !== null || data !== undefined || data.length) {
+      if (global.update_contact_data) {
+        this._getContact(data);
+      }
+    }
+  }
+
   _getContact(contact) {
+    console.log("constact", contact);
     this.setState({ errorMessage: "", successMessage: "" });
     let that = this;
     let obj = {
@@ -104,6 +112,7 @@ export default class SearchParticipantsScreen extends Component {
       user_info: contact,
       flag: 2
     };
+    console.log("obj", obj);
     this.loading = Loading.show(CommonService.loaderObj);
     axios
       .post(ApiConfig.base_url + "create-circle-user", JSON.stringify(obj), {
@@ -112,6 +121,7 @@ export default class SearchParticipantsScreen extends Component {
         }
       })
       .then(function(response) {
+        console.log("res", response);
         global.phone_data = null;
         global.update_contact_data = false;
         Loading.hide(that.loading);
@@ -151,7 +161,7 @@ export default class SearchParticipantsScreen extends Component {
         }
       })
       .catch(function(error) {
-        console.log("err", error);
+        console.log("err check", error);
       })
       .finally(function() {
         Loading.hide(that.loading);
@@ -341,10 +351,9 @@ export default class SearchParticipantsScreen extends Component {
     const errorPhone = this.state.errorPhone
       ? styles.searchInputRequired
       : styles.searchInput;
-    console.log("in search", this.state.participants);
     return (
       <View style={styles.container}>
-        <NavigationEvents onWillFocus={() => this.__getContact()} />
+        <NavigationEvents onDidFocus={() => this.__getContact()} />
         <StatusBar
           backgroundColor={statusBarBackgroundColor}
           barStyle={barStyle}
