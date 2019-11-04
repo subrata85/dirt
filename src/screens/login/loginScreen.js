@@ -366,7 +366,6 @@ export default class LoginScreen extends Component {
 	  },
 	
 	  forgotPasswordBlock: {
-		marginTop: 20,
 		justifyContent: 'center',
 		alignItems: 'center'
 	  },

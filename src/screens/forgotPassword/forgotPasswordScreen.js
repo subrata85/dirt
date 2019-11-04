@@ -163,6 +163,11 @@ export default class ForgotPasswordScreen extends Component {
                     style={{ width: hp("35%"), height: hp("35%") }}
                   />
                 </View>
+                <Text
+                  style={{ fontSize: 16, fontWeight: "bold", marginTop: 10 }}
+                >
+                  Enter your email below to retrieve your account
+                </Text>
                 <View
                   style={{
                     flexDirection: "row",
@@ -291,7 +296,7 @@ const styles = StyleSheet.create({
   },
 
   sendButtonBlock: {
-    marginTop: 50,
+    marginTop: 20,
     height: 50,
     borderRadius: 40,
     justifyContent: "center",

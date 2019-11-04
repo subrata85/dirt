@@ -145,59 +145,16 @@ export default class RefusalInvitationScreen extends Component {
 		return(
 			<Container>
 				<Content>
-				<HeaderCurve/>
-					<View style={headerStyle.headerMenu}>
-						<TouchableOpacity
-							style={headerStyle.containerBackBlock}
-							onPress={()=>this.props.navigation.goBack()}
-						>
-							<FeatherIcon name="arrow-left" size={25} color="#FFFFFF" />
-						</TouchableOpacity>
-
-						<View
-							style={{
-							flex: 1,
-							alignItems: 'center',
-							justifyContent: 'center'
-							}}
-						>
-						<View style={headerStyle.avatarImageWrapper}>
-						<Image
-							style={{
-							width: 40,
-							height: 40,
-							borderRadius: 20
-							}}
-							source={this.state.avatar_location}
-                    		onError={this.onError.bind(this)}
-						/>
-						</View>
-						<Text style={headerStyle.avatarName}>
-						{this.state.first_name}
-						{
-							item.is_admin == 1 ?
-							<Text>(Admin)</Text>:null
-						}
-						</Text>
-						</View>
-
-						<TouchableOpacity
-							style={headerStyle.containerBackBlock}
-						>
-							<Image
-							style={{
-								width: 20,
-								height: 20,
-								alignSelf: 'flex-end'
-							}}
-							source={require('../../../assets/images/notification.png')}
-							/>
-
-							<View style={headerStyle.notificationBadge}>
-							<Text style={headerStyle.notificationText}>99</Text>
-							</View>
-						</TouchableOpacity>
-					</View>
+				<HeaderCurve
+						//title={"Create Circle"}
+						navigation={this.props.navigation}
+						avatar_location={this.state.avatar_location}
+						backButton={true}
+						first_name={this.state.first_name}
+						admin = {item.is_admin}
+						bellIcon={true}
+           			 />
+					
 					{
 						this.state.errorText !=''?
 						<View style={{alignItems:'center',marginTop:'50%'}}>
