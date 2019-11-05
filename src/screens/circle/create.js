@@ -403,6 +403,7 @@ export default class CreateCircleScreen extends Component {
               circle_code: this.state.cicle_code,
               mobile_number: contact.mobile
             };
+            console.log("delete payload", obj);
             let that = this;
             axios
               .post(

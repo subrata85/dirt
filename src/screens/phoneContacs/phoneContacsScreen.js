@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, TouchableOpacity, ToastAndroid } from "react-native";
+import { View, TouchableOpacity, ToastAndroid, Alert } from "react-native";
 import StatusBarComponent from "../../components/statusBar/statusBarComponent";
 import HeaderCurve from "../includes/headercurve";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -119,20 +119,23 @@ export default class PhoneContacsScreen extends Component {
   };
 
   chooseContact = (listItem, mobile, index) => {
-    console.log("listItem", listItem);
-    let { isChecked, selectedLists } = this.state;
-    let dIndex = selectedLists.indexOf(listItem.rawContactId);
-    isChecked[listItem.rawContactId] = !isChecked[listItem.rawContactId];
-    this.setState({ isChecked: isChecked });
-    isChecked[listItem.rawContactId] == true
-      ? selectedLists.push(listItem)
-      : selectedLists.splice(dIndex, 1);
+    const contactNumber = /['^£$%&*()}{@#~?><>,|=_¬-]/;
+    if (contactNumber.test(listItem.mobile) !== true) {
+      let { isChecked, selectedLists } = this.state;
+      let dIndex = selectedLists.indexOf(listItem.rawContactId);
+      isChecked[listItem.rawContactId] = !isChecked[listItem.rawContactId];
+      this.setState({ isChecked: isChecked });
+      isChecked[listItem.rawContactId] == true
+        ? selectedLists.push(listItem)
+        : selectedLists.splice(dIndex, 1);
+    } else {
+      Alert.alert("", `${listItem.mobile} is not a number`);
+    }
   };
 
   submitContactsData() {
     global.contacts_data = this.state.selectedLists;
     global.update_contact_data = true;
-    console.log("submit", global.contacts_data);
     this.props.navigation.goBack();
   }
 
@@ -145,7 +148,6 @@ export default class PhoneContacsScreen extends Component {
   }
 
   render() {
-    console.log("in po", this.state.selectedLists);
     return (
       <Container>
         <Content>
