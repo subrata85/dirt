@@ -129,7 +129,7 @@ export default class PhoneContacsScreen extends Component {
         ? selectedLists.push(listItem)
         : selectedLists.splice(dIndex, 1);
     } else {
-      Alert.alert("", `${listItem.mobile} is not a number`);
+      Alert.alert("", `${listItem.mobile} is not a valid phone number`);
     }
   };
 
