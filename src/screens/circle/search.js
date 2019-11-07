@@ -100,6 +100,7 @@ export default class SearchParticipantsScreen extends Component {
       flag: 2
     };
 
+    console.log("obj", obj);
     this.loading = Loading.show(CommonService.loaderObj);
     axios
       .post(ApiConfig.base_url + "create-circle-user", JSON.stringify(obj), {
@@ -117,6 +118,7 @@ export default class SearchParticipantsScreen extends Component {
               success: false
             },
             () => {
+              console.log("in falser");
               that.setState({
                 errorMessage: response.data.message,
                 participants: []
@@ -200,6 +202,10 @@ export default class SearchParticipantsScreen extends Component {
             username: name,
             mobile: phone,
             code: code
+          });
+          global.contacts_data.push({
+            username: name,
+            mobile: phone
           });
           that.setState(
             {

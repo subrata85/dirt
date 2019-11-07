@@ -119,25 +119,41 @@ export default class PhoneContacsScreen extends Component {
   };
 
   chooseContact = (listItem, mobile, index) => {
+    let { isChecked, selectedLists } = this.state;
+    console.log("slectedList", selectedLists);
+    //let dIndex = selectedLists.indexOf(listItem.mobile);
+    // let dIndex = selectedLists.indexOf(listItem.rawContactId, 0);
+
     const contactNumber = /['^£$%&*()}{@#~?><>,|=_¬-]/;
+    console.log("listItem", listItem.mobile);
     if (contactNumber.test(listItem.mobile) !== true) {
-      let { isChecked, selectedLists } = this.state;
-      let dIndex = selectedLists.indexOf(listItem.rawContactId);
+      console.log("listItem in if", listItem);
+      let dIndex = selectedLists.findIndex(x => x.mobile === mobile);
+      console.log("dindex", dIndex);
       isChecked[listItem.rawContactId] = !isChecked[listItem.rawContactId];
       this.setState({ isChecked: isChecked });
-      isChecked[listItem.rawContactId] == true
-        ? selectedLists.push(listItem)
-        : selectedLists.splice(dIndex, 1);
+      if (isChecked[listItem.rawContactId] == true) {
+        selectedLists.push(listItem);
+        this.setState({
+          selectedLists
+        });
+      } else {
+        selectedLists.splice(dIndex, 1);
+        this.setState({
+          selectedLists
+        });
+      }
     } else {
       Alert.alert("", `${listItem.mobile} is not a valid phone number`);
     }
   };
 
-  submitContactsData() {
+  submitContactsData = () => {
+    console.log("this.state.sele", this.state.selectedLists);
     global.contacts_data = this.state.selectedLists;
     global.update_contact_data = true;
     this.props.navigation.goBack();
-  }
+  };
 
   onWillFocus() {
     if (global.contacts_data.length) {
