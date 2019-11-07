@@ -430,7 +430,7 @@ export default class CreateCircleScreen extends Component {
                   );
                 } else {
                   ToastAndroid.showWithGravity(
-                    "Something wrong to delete",
+                    res.data.message,
                     ToastAndroid.LONG,
                     ToastAndroid.BOTTOM
                   );
