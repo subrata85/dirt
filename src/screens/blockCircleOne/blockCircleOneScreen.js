@@ -41,6 +41,7 @@ export default class BlockCercleOneScreen extends Component {
 
 	_bootstrapAsync = async () => {
 		let selectedDetails = this.props.navigation.getParam('result');
+		console.log("selected det", selectedDetails)
 		AsyncStorage.multiGet([
 		  'rememberToken',
 		  'circle_code',
@@ -52,7 +53,7 @@ export default class BlockCercleOneScreen extends Component {
 		  this.setState(
 			{
 			  rememberToken: response[0][1],
-			  cicle_code: response[1][1],
+			  cicle_code: selectedDetails.circle_code,
 			  first_name: response[2][1],
 			  avatar_location: {uri:URL.public_url + 'storage/' + response[3][1]},
 			  user_id: response[4][1],

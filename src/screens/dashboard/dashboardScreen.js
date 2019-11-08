@@ -469,7 +469,8 @@ export default class DashboardScreen extends Component{
       )
     }
 
-    blockListComponent = (response)=>{
+  blockListComponent = (response) => {
+    console.log("item", response)
       return(
         <FlatList
         showsHorizontalScrollIndicator={false}
@@ -478,7 +479,7 @@ export default class DashboardScreen extends Component{
         ListHeaderComponent={<View style={{ height: 10 }} />}
         ListFooterComponent={<View style={{ height: 10 }} />}
         data={response}
-        renderItem={({ item,index }) => (
+          renderItem={({ item, index }) => (
           <TouchableOpacity activeOpacity={1} onPress={()=>this.props.navigation.navigate('blockCircleOnePage',{result:item})}>
             <View style={styles.listItemWrapper}>
               <View style={styles.listLeftWrapper}>
