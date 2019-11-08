@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View,Text,ScrollView,TouchableOpacity,
+import {Alert, View,Text,ScrollView,TouchableOpacity,
 	ToastAndroid, Alert, ActivityIndicator} from 'react-native';
 import {Container,Content} from 'native-base';
 import blockCircleOneStyle from './blockCircleOneStyle';
@@ -12,6 +12,7 @@ import CommonService from '../../services/common/commonService';
 import httpService from '../../services/http/httpService';
 import Loading from 'react-native-loader-overlay';
 import { ErrorTemplate } from '../../components/error/errorComponent';
+import { Circle } from 'react-native-svg';
 var moment = require('moment');
 
 export default class BlockCercleOneScreen extends Component {
@@ -41,7 +42,6 @@ export default class BlockCercleOneScreen extends Component {
 
 	_bootstrapAsync = async () => {
 		let selectedDetails = this.props.navigation.getParam('result');
-		console.log("selected det", selectedDetails)
 		AsyncStorage.multiGet([
 		  'rememberToken',
 		  'circle_code',
@@ -53,7 +53,7 @@ export default class BlockCercleOneScreen extends Component {
 		  this.setState(
 			{
 			  rememberToken: response[0][1],
-			  cicle_code: selectedDetails.circle_code,
+			  cicle_code: response[1][1],
 			  first_name: response[2][1],
 			  avatar_location: {uri:URL.public_url + 'storage/' + response[3][1]},
 			  user_id: response[4][1],
@@ -136,7 +136,7 @@ export default class BlockCercleOneScreen extends Component {
 
 	//Terminate circle by admin
 	onTerminateCircle = () =>{
-		Alert.alert("Terminate confirmation", `Do you want to Terminate ${this.state.cicle_code} Circel ?`, [
+		Alert.alert("Terminate confirmation", `Do you want to Terminate ${this.state.details.circle_code} Circel ?`, [
 			{ text: "No", onPress: () => (No = "no") },
 			{ text: "Yes", onPress: () => this.terminateCircel() }
 		  ]);	
@@ -169,6 +169,8 @@ export default class BlockCercleOneScreen extends Component {
 			50,
 		  );
 	})
+		} else {
+			Alert.alert("", "Circle not match")
 	}
 }
 
