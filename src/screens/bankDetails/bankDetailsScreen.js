@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text,TouchableOpacity} from 'react-native';
+import {View, Text,TouchableOpacity, Picker} from 'react-native';
 import {Container,Content,Icon} from 'native-base';
 import bankDetailsStyle from './bankDetailsStyle';
 import moment from "moment";
@@ -11,7 +11,7 @@ import httpService from '../../services/http/httpService';
 import Loading from 'react-native-loader-overlay';
 import { ErrorTemplate } from '../../components/error/errorComponent';
 import OnlinePaymentModal from "../../components/onlinePayment/onlinePayment"
-let selectedId = 1;
+ let selectedId = 0;
 
 export default class BankDetailsScreen extends Component {
 	constructor(props){
@@ -28,17 +28,17 @@ export default class BankDetailsScreen extends Component {
 			details			:	Object.create(null),
 			apiExecute		:	false,
 			bankDetails		:	[],
-			optionId		:	1,
-			optionTxt		:	'Offline',
+			optionId		:	'',
+			optionTxt		:	'',
 			reasonId		:	'',
 			otherReason		:	'',
 			errPaymentMsg	:	'',
-			navigateFrom	:	'',
+			navigateFrom: '',
 		}
 	}
 
 	async componentDidMount(){
-		selectedId=1;
+		selectedId=0;
 		this._bootstrapAsync();
 	}
 
@@ -259,7 +259,10 @@ export default class BankDetailsScreen extends Component {
 		this.setState({ avatar_location: require('../../../assets/images/contact.png')})
 	}
 
-	render(){
+	render() {
+		console.log("id", this.state.optionId)
+		console.log("optionTxt", this.state.optionTxt)
+		
 		const item = this.state.details;
 		return(
 			<Container>
@@ -296,7 +299,7 @@ export default class BankDetailsScreen extends Component {
 										<Text style={{fontSize:18}}>Payment mode:</Text>
 									</View>
 									<View style={bankDetailsStyle.rowViewRightItem}>
-										<View style={bankDetailsStyle.selectText}>
+										{/* <View style={bankDetailsStyle.selectText}>
 											<View style={bankDetailsStyle.childRowView}>
 												<View style={bankDetailsStyle.childRowViewLeftItem}>
 													<Text numberOfLines={1}>{this.state.optionTxt}</Text>
@@ -308,10 +311,10 @@ export default class BankDetailsScreen extends Component {
 													/>
 												</View>
 											</View>
-										</View>
+										</View> */}
 										<View>
 											<View style={[bankDetailsStyle.unSelectText,{marginTop:10}]}>
-												<TouchableOpacity onPress={()=>{this.selectOption(1,'Offline')}}>
+												{/* <TouchableOpacity onPress={()=>{this.selectOption(1,'Offline')}}>
 													<View style={[bankDetailsStyle.childRowView,bankDetailsStyle.borderBottom,(selectedId == 1) ? {backgroundColor:'#E7E7E7'}:{}]}>
 														<View style={bankDetailsStyle.childRowViewLeftItem}>
 															<Text>Offline</Text>
@@ -324,7 +327,18 @@ export default class BankDetailsScreen extends Component {
 															<Text>Online</Text>
 														</View>
 													</View>
-												</TouchableOpacity>
+												</TouchableOpacity> */}
+														<Picker
+															selectedValue={this.state.optionTxt}
+															style={{ height: 50, width: "100%", marginLeft:5 }}
+																onValueChange={(type, index) => {
+																	this.selectOption(type==="Offline" ? 1: type==="Online" ? 2: null, type)
+															}}
+															>
+																<Picker.Item label="Select payment mod"/>
+													<Picker.Item label="Offline" value='Offline' />
+													<Picker.Item label="Online" value="Online" />
+												</Picker>
 											</View>
 										</View>
 									</View>
@@ -366,52 +380,53 @@ export default class BankDetailsScreen extends Component {
 													<Text style={bankDetailsStyle.rowTextValue}>{this.state.bankDetails[3].value}</Text>
 												</View>
 											</View>
-										</View>:
-										<View>
-											{
-											this.state.navigateFrom == 'accept_screen'?
-											<OnlinePaymentModal 
-											buttonText={'Pay the Deposit'} 
-											circle_code = {this.state.details.circle_code}
-											amount = {this.state.details.round_set}
-											mobileNo= {this.state.details.login_user_mobile}
-											token = {this.state.rememberToken }
-											navigation={this.props.navigation}
-											current_round = {this.state.details.current_round}
-											/>
-											:
-											this.state.navigateFrom == 'on_going_details'?
-											<OnlinePaymentModal buttonText={'Pay your Round'} 
-											circle_code = {this.state.details.circle_code}
-											amount = {this.state.details.round_set}
-											mobileNo= {this.state.details.login_user_mobile}
-											token = {this.state.rememberToken }
-											navigation={this.props.navigation}
-											current_round = {this.state.details.current_round}
-											/>
-											:
-											this.state.navigateFrom == 'block_details'?
-											<OnlinePaymentModal buttonText={'Pay my Round'} 
-											circle_code = {this.state.details.circle_code}
-											amount = {this.state.details.round_set}
-											mobileNo= {this.state.details.login_user_mobile}
-											token = {this.state.rememberToken }
-											navigation={this.props.navigation}
-											current_round = {this.state.details.current_round}
-											/>:
-											this.state.navigateFrom === 'suspend_details'?
-											<OnlinePaymentModal buttonText={'Suspend Pay'} 
-											circle_code = {this.state.details.circle_code}
-											amount = {item.refund_amount}
-											mobileNo= {this.state.details.login_user_mobile}
-											token = {this.state.rememberToken }
-											navigation={this.props.navigation}
-											//current_round = {this.state.details.current_round}
-											/>
-											:null
-										}
-											
-									  </View>
+														</View> :
+														selectedId==2 ?<View>
+														{
+														this.state.navigateFrom == 'accept_screen'?
+														<OnlinePaymentModal 
+														buttonText={'Pay the Deposit'} 
+														circle_code = {this.state.details.circle_code}
+														amount = {this.state.details.round_set}
+														mobileNo= {this.state.details.login_user_mobile}
+														token = {this.state.rememberToken }
+														navigation={this.props.navigation}
+														current_round = {this.state.details.current_round}
+														/>
+														:
+														this.state.navigateFrom == 'on_going_details'?
+														<OnlinePaymentModal buttonText={'Pay your Round'} 
+														circle_code = {this.state.details.circle_code}
+														amount = {this.state.details.round_set}
+														mobileNo= {this.state.details.login_user_mobile}
+														token = {this.state.rememberToken }
+														navigation={this.props.navigation}
+														current_round = {this.state.details.current_round}
+														/>
+														:
+														this.state.navigateFrom == 'block_details'?
+														<OnlinePaymentModal buttonText={'Pay my Round'} 
+														circle_code = {this.state.details.circle_code}
+														amount = {this.state.details.round_set}
+														mobileNo= {this.state.details.login_user_mobile}
+														token = {this.state.rememberToken }
+														navigation={this.props.navigation}
+														current_round = {this.state.details.current_round}
+														/>:
+														this.state.navigateFrom === 'suspend_details'?
+														<OnlinePaymentModal buttonText={'Suspend Pay'} 
+														circle_code = {this.state.details.circle_code}
+														amount = {item.refund_amount}
+														mobileNo= {this.state.details.login_user_mobile}
+														token = {this.state.rememberToken }
+														navigation={this.props.navigation}
+														//current_round = {this.state.details.current_round}
+														/>
+														:null
+													}
+														
+												  </View>:null
+										
 									}
 									
 									<View style={bankDetailsStyle.paymentButtonView}>
