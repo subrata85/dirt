@@ -263,7 +263,7 @@ export default class InvitationCercleTwoScreen extends Component {
 										</View>
 										<View style={invitationCercleTwoStyle.rowView}>
 											<View style={invitationCercleTwoStyle.rowViewLeftItem}>
-												<Text style={invitationCercleTwoStyle.rowText}>Periodisity of round:</Text>
+												<Text style={invitationCercleTwoStyle.rowText}>Periodisit of round:</Text>
 											</View>
 											<View style={invitationCercleTwoStyle.rowViewRightItem}>
 												<Text style={invitationCercleTwoStyle.rowTextValue}>{item.p_round}</Text>

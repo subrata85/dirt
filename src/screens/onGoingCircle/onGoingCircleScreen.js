@@ -317,11 +317,11 @@ export default class OnGoingCircleScreen extends Component {
 									</View>
 									)
 								}
-								<View style={onGoingCircleStyle.paymentButtonView}>
+								{/* <View style={onGoingCircleStyle.paymentButtonView}>
 									<TouchableOpacity onPress={()=>this.doLaunchCircle()} style={onGoingCircleStyle.terminateButton}>
 										<Text style={onGoingCircleStyle.paymentText}>New Savings Circle</Text>
 									</TouchableOpacity>
-								</View>
+								</View> */}
 
 							</View>:null
 						}
