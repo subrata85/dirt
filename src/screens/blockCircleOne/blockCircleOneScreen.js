@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Alert, View,Text,ScrollView,TouchableOpacity,
+import {View,Text,ScrollView,TouchableOpacity,
 	ToastAndroid, Alert, ActivityIndicator} from 'react-native';
 import {Container,Content} from 'native-base';
 import blockCircleOneStyle from './blockCircleOneStyle';

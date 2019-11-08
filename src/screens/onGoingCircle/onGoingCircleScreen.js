@@ -315,7 +315,7 @@ export default class OnGoingCircleScreen extends Component {
 											</View>
 										</View>
 									</View>
-									)
+									).reverse()
 								}
 								{/* <View style={onGoingCircleStyle.paymentButtonView}>
 									<TouchableOpacity onPress={()=>this.doLaunchCircle()} style={onGoingCircleStyle.terminateButton}>

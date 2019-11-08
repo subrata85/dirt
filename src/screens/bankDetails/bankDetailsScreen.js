@@ -335,7 +335,7 @@ export default class BankDetailsScreen extends Component {
 																	this.selectOption(type==="Offline" ? 1: type==="Online" ? 2: null, type)
 															}}
 															>
-													<Picker.Item label="Select payment mod" disabled={true}/>
+													<Picker.Item label="Select payment type" disabled={true}/>
 													<Picker.Item label="Offline" value='Offline' />
 													<Picker.Item label="Online" value="Online" />
 												</Picker>
