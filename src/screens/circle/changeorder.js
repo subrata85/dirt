@@ -77,17 +77,16 @@ export default class ChangeOrderParticipantsScreen extends Component {
   };
 
   onRelease = (key, currentOrder) => {
-    this.setState(
-      {
-        newOrder: currentOrder
-      },
-      () => {}
-    );
+    this.setState({
+      newOrder: currentOrder
+    });
   };
 
   _doContinue = () => {
+    console.log("do continue in change order");
     let reorderList = "";
     let reorder = this.state.newOrder;
+    console.log("neworder", reorder);
     let participantList = "";
     let newArray = [...this.state.participantList];
 
@@ -107,6 +106,8 @@ export default class ChangeOrderParticipantsScreen extends Component {
           reorder: reorderList,
           plist: participantList
         };
+
+        console.log("change order obj", obj);
         this.setState({
           loader: true
         });
@@ -123,13 +124,15 @@ export default class ChangeOrderParticipantsScreen extends Component {
             }
           )
           .then(function(response) {
+            console.log("change order response", response);
             that.props.navigation.navigate("circlePreviewPage", {
               participants: response.data.result
             });
           })
           .catch(function(error) {
+            console.log("change order error", error);
             ToastAndroid.showWithGravity(
-              ERROR,
+              "There is something wrong",
               ToastAndroid.LONG,
               ToastAndroid.BOTTOM
             );
@@ -348,7 +351,7 @@ class Row extends Component {
                 fontSize: 15
               }}
             >
-              Phone
+              Phone :
             </Text>
 
             <Text

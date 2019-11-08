@@ -54,6 +54,9 @@ export default class DashboardScreen extends Component{
     if (language) {
       this.setState({language:language})
     }
+    // setInterval(() => {
+    //   alert("Alert will be fire every 5 sec")
+    // }, 10000)
 
       this.getList(false,true,false,false,'0');
       EventEmitter.on('validatedCircleCreation',(data)=>{

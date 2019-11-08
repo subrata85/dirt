@@ -88,6 +88,7 @@ export default class CreateCirclePreviewScreen extends Component {
 
   _doRedirectChangeOrder = () => {
     let participants = this.props.navigation.getParam("participants", {});
+    console.log("create preview participants", participants);
     this.props.navigation.navigate("changeOrderPage", {
       participants: participants
     });
@@ -151,6 +152,7 @@ export default class CreateCirclePreviewScreen extends Component {
           }
         })
         .then(function(response) {
+          console.log("preview page response", response);
           EventEmitter.emit("validatedCircleCreation", true);
           commonService.getSmsPermission(res => {
             if (res) {
