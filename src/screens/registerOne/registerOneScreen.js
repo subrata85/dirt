@@ -361,16 +361,6 @@ export default class RegisterOneScreen extends Component {
 						alignItems: 'center'
 					  }}
 					>
-					  {/* <TextInput
-						style={errorMobileNumber}
-						onChangeText={mobile_number =>
-						  this.setState({ mobile_number })
-						}
-						placeholder="Phone Number"
-						keyboardType={'number-pad'}
-						autoCapitalize="none"
-						/> */}
-
 
 						<PhoneInput 
 						ref={ref => {

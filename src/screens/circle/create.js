@@ -148,6 +148,7 @@ export default class CreateCircleScreen extends Component {
   };
 
   _doContinue = () => {
+    console.log("continue");
     Keyboard.dismiss();
     this.setState({
       errorTargetAmount: false,
@@ -187,6 +188,7 @@ export default class CreateCircleScreen extends Component {
         });
       }
     } else {
+      console.log("weekly part");
       if (
         this.state.periodicity == "weekly" &&
         this.state.round_settelment > 500
@@ -244,6 +246,8 @@ export default class CreateCircleScreen extends Component {
 
     setTimeout(
       function() {
+        console.log("this.state.errorMessage", this.state.errorMessage);
+
         if (!this.state.errorMessage) {
           let obj = {
             circle_code: this.state.cicle_code,
@@ -344,6 +348,12 @@ export default class CreateCircleScreen extends Component {
             });
 
           // this.props.navigation.navigate('CreateCirclePreviewScreen');
+        } else {
+          ToastAndroid.showWithGravity(
+            this.state.errorMessage,
+            ToastAndroid.LONG,
+            ToastAndroid.BOTTOM
+          );
         }
       }.bind(this),
       1000

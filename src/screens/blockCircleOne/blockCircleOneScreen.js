@@ -223,11 +223,13 @@ onSendReminder = (userType, screen) =>{
 			"user_type":userType,  
 			"screen": screen 
 		}
+		console.log("obj", obj)
 		axios.post('https://nodejsdapldevelopments.com/dart/public/api/send-reminder', JSON.stringify(obj), {
 			headers: {
 			  Authorization: "Bearer " + rememberToken
 			}
-		  }).then(res =>{
+		}).then(res => {
+			  console.log("respon", res)
 			  this.setState({btnLoader:false})
 			  ToastAndroid.showWithGravityAndOffset(
 				  res.data.message,
@@ -237,7 +239,8 @@ onSendReminder = (userType, screen) =>{
 				  50,
 				);
 				this.props.navigation.navigate('dashboardPage')
-		  }).catch(err =>{
+		}).catch(err => {
+			  console.log("err", err)
 			this.setState({btnLoader:false})
 			ToastAndroid.showWithGravityAndOffset(
 				err.message,
@@ -418,7 +421,7 @@ onSendReminder = (userType, screen) =>{
 											</View>
 										</ScrollView>
 									</View>
-									)
+									).reverse()
 								}
 								{
 									item.is_admin === 0 && item.termination_request_sent === 0 ? 
