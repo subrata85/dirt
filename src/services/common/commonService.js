@@ -67,7 +67,8 @@ class CommonService {
   }
 
   getPercentage(completedRound, estimateRound) {
-    return (completedRound / estimateRound) * 100;
+    let roundPercent = (completedRound / estimateRound) * 100;
+    return Math.round(roundPercent);
   }
 
   showConfirmAlert = (msg, cb) => {

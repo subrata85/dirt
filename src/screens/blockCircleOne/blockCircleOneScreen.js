@@ -136,7 +136,7 @@ export default class BlockCercleOneScreen extends Component {
 
 	//Terminate circle by admin
 	onTerminateCircle = () =>{
-		Alert.alert("Terminate confirmation", `Do you want to Terminate ${this.state.details.circle_code} Circel ?`, [
+		Alert.alert("Terminate confirmation", `Do you want to Terminate ${this.state.details.circle_code} Circle ?`, [
 			{ text: "No", onPress: () => (No = "no") },
 			{ text: "Yes", onPress: () => this.terminateCircel() }
 		  ]);	
@@ -175,7 +175,7 @@ export default class BlockCercleOneScreen extends Component {
 }
 
 	onRequstToTerminate = () =>{
-		Alert.alert("Terminate confirmation", `Do you want to request to Terminate '${this.state.cicle_code}' Circel ?`, [
+		Alert.alert("Terminate confirmation", `Do you want to request to Terminate '${this.state.cicle_code}' Circle ?`, [
 			{ text: "No", onPress: () => (No = "no") },
 			{ text: "Yes", onPress: () => this.requstToTerminate() }
 		  ]);	
@@ -442,7 +442,7 @@ onSendReminder = (userType, screen) =>{
 									item.is_admin === 1 ? 
 									<View style={blockCircleOneStyle.paymentButtonView}>
 										<TouchableOpacity style={blockCircleOneStyle.terminateButton}
-											onPress={()=>this.onTerminateCircle()} // Terminate circel by admin
+											onPress={()=>this.onTerminateCircle()} // Terminate circle by admin
 										>
 											<Text style={blockCircleOneStyle.paymentText}>Terminate the Savings Circle</Text>
 										</TouchableOpacity>
