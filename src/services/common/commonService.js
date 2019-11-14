@@ -113,10 +113,7 @@ class CommonService {
   openWhatsApp = (countryCode, whatsapp_no) => {
     let substrCountryCode = countryCode.substr(1);
     let phoneNo = substrCountryCode + whatsapp_no;
-    let msg = "Hello,\nWhatsApp dude..!";
     Linking.openURL(`whatsapp://send?&phone=${phoneNo}`);
-    //Linking.openURL(`whatsapp://send?text=hello&phone=${whatsapp_no}`);
-    // Linking.openURL(`whatsapp://send?text=" ${msg} + "&phone=" ${whatsapp_no}`);
   };
 
   async getSmsPermission(cb) {

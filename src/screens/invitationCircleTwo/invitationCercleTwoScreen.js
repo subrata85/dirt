@@ -186,6 +186,7 @@ export default class InvitationCercleTwoScreen extends Component {
 
 	render(){
 		const item = this.state.details;
+		console.log("item", item)
 		// if(item.start_date !== undefined && !flag){
 		// 	flag = true;
 		// 	let oldDate = CommonService.allInOneFormatDate(item.start_date,'/','-','reverse');
