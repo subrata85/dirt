@@ -29,6 +29,7 @@ const height = Math.round(Dimensions.get("window").height);
 const statusBarBackgroundColor = "#1CCBE6";
 const barStyle = "light-content";
 let tabIndex = 0;
+import { NavigationEvents } from "react-navigation";
 import multiLang from "../../components/language/multiLang";
 
 export default class DashboardScreen extends Component {
@@ -149,9 +150,19 @@ export default class DashboardScreen extends Component {
     return names + " ";
   }
 
+  onBackGetCircel = () => {
+    this.getList(false, true, false, false, "0");
+    EventEmitter.on("validatedCircleCreation", data => {
+      if (data) {
+        this.getList(false, true, false, false, "0");
+      }
+    });
+  };
+
   render() {
     return (
       <Container>
+        <NavigationEvents onDidFocus={() => this.onBackGetCircel()} />
         <View style={[styles.container]}>
           <StatusBar
             backgroundColor={statusBarBackgroundColor}
