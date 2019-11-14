@@ -96,50 +96,51 @@ export default class App extends Component {
             >
               <FeatherIcon name="search" size={25} color="#FFFFFF" />
             </TouchableOpacity>
-          ) : (
-            <TouchableOpacity
-              style={{
-                position: "absolute",
-                zIndex: 1,
-                right: 10,
-                top: 18,
-                flexDirection: "row"
-              }}
-            >
-              <Image
-                style={{
-                  width: 20,
-                  height: 20,
-                  alignSelf: "flex-end"
-                }}
-                source={require("../../../assets/images/notification.png")}
-              />
-              <View
-                style={{
-                  position: "relative",
-                  top: -10,
-                  right: 5,
-                  height: 20,
-                  width: 20,
-                  backgroundColor: "red",
-                  borderRadius: 10,
-                  alignItems: "center",
-                  justifyContent: "center"
-                }}
-              >
-                <Text
-                  style={{
-                    color: "#FFFFFF",
-                    fontFamily: "Roboto-Bold",
-                    fontSize: 14
-                  }}
-                >
-                  99
-                </Text>
-              </View>
-            </TouchableOpacity>
-          )
-        ) : null}
+          ) : null
+        ) : //  (
+        //   <TouchableOpacity
+        //     style={{
+        //       position: "absolute",
+        //       zIndex: 1,
+        //       right: 10,
+        //       top: 18,
+        //       flexDirection: "row"
+        //     }}
+        //   >
+        //     <Image
+        //       style={{
+        //         width: 20,
+        //         height: 20,
+        //         alignSelf: "flex-end"
+        //       }}
+        //       source={require("../../../assets/images/notification.png")}
+        //     />
+        //     <View
+        //       style={{
+        //         position: "relative",
+        //         top: -10,
+        //         right: 5,
+        //         height: 20,
+        //         width: 20,
+        //         backgroundColor: "red",
+        //         borderRadius: 10,
+        //         alignItems: "center",
+        //         justifyContent: "center"
+        //       }}
+        //     >
+        //       <Text
+        //         style={{
+        //           color: "#FFFFFF",
+        //           fontFamily: "Roboto-Bold",
+        //           fontSize: 14
+        //         }}
+        //       >
+        //         99
+        //       </Text>
+        //     </View>
+        //   </TouchableOpacity>
+        // )
+        null}
         {/* end notification button */}
         {/* start title text */}
         {this.props.title ? (
