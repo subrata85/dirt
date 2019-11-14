@@ -38,6 +38,7 @@ export default class OnGoingCircleScreen extends Component {
 	_bootstrapAsync = async () => {
 		let circle_code_id = this.props.navigation.getParam('circle_code_id');
 		let selectedDetails = this.props.navigation.getParam('result');
+		console.log("seledeeeee", selectedDetails)
 		if(circle_code_id !== undefined && circle_code_id !== null && circle_code_id != ''){
 			selectedDetails = {circle_code:circle_code_id}
 		}
@@ -198,6 +199,15 @@ export default class OnGoingCircleScreen extends Component {
 										<View style={onGoingCircleStyle.rowViewRightItem}>
 											<Text style={onGoingCircleStyle.rowTextValue}>€{item.round_set}</Text>
 										</View>
+										</View>
+												
+										<View style={onGoingCircleStyle.rowView}>
+										<View style={onGoingCircleStyle.rowViewLeftItem}>
+											<Text style={onGoingCircleStyle.rowText}>Periodicity:</Text>
+										</View>
+										<View style={onGoingCircleStyle.rowViewRightItem}>
+											<Text style={onGoingCircleStyle.rowTextValue}>{item.p_round}</Text>
+										</View>
 									</View>
 									
 									<View style={onGoingCircleStyle.rowView}>
@@ -206,6 +216,15 @@ export default class OnGoingCircleScreen extends Component {
 										</View>
 										<View style={onGoingCircleStyle.rowViewRightItem}>
 											<Text style={onGoingCircleStyle.rowTextValue}>{CommonService.formatDate(item.start_date)}</Text>
+										</View>
+										</View>
+												
+												<View style={onGoingCircleStyle.rowView}>
+										<View style={onGoingCircleStyle.rowViewLeftItem}>
+											<Text style={onGoingCircleStyle.rowText}>End date:</Text>
+										</View>
+										<View style={onGoingCircleStyle.rowViewRightItem}>
+											<Text style={onGoingCircleStyle.rowTextValue}>{CommonService.formatDate(item.end_date)}</Text>
 										</View>
 									</View>
 									<View style={{paddingTop:20}}>
@@ -254,7 +273,11 @@ export default class OnGoingCircleScreen extends Component {
 											<Text style={onGoingCircleStyle.baseText}>
 												<Text style={[onGoingCircleStyle.tableText,{fontWeight: 'bold'}]}>Round {item.current_round}- </Text>
 												<Text style={[onGoingCircleStyle.tableText,{color:'#24D19B'}]} numberOfLines={1}>{item.completed_round == item.estimate_round ? 'Completed':'Ongoing'}</Text>
-											</Text>
+														</Text>
+														{
+															item.completion_date !=undefined ?
+																<Text>{item.completion_date}</Text>:null
+														}
 											<View>
 												{
 													item.circleUsers.map((user_item,user_index) => 
