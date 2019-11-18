@@ -5,7 +5,8 @@ import {
   Image,
   Text,
   TouchableOpacity,
-  Alert
+  Alert,
+  Picker
 } from "react-native";
 import FeatherIcon from "react-native-vector-icons/Feather";
 
@@ -46,9 +47,20 @@ export default class App extends Component {
         ) : null}
         {/* end back Button */}
 
+        <Picker
+          selectedValue={this.state.language}
+          style={{ height: 50, width: 100 }}
+          onValueChange={(itemValue, itemIndex) =>
+            this.setState({ language: itemValue })
+          }
+        >
+          <Picker.Item label="Java" value="java" />
+          <Picker.Item label="JavaScript" value="js" />
+        </Picker>
+
         {/* start avatar image */}
         {this.props.avatar_location ? (
-          <View
+          <TouchableOpacity
             style={{
               zIndex: 1,
               position: "absolute",
@@ -78,7 +90,7 @@ export default class App extends Component {
               {this.props.first_name}
               {this.props.admin == 1 ? "(Admin)" : null}
             </Text>
-          </View>
+          </TouchableOpacity>
         ) : null}
         {/* end avatar image */}
 
