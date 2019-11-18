@@ -273,6 +273,7 @@ onSendReminder = (userType, screen) =>{
 						first_name={this.state.first_name}
 						admin = {item.is_admin}
 						bellIcon={true}
+						props = {this.props}
            			 />
 					{
 						this.state.errorText !=''?

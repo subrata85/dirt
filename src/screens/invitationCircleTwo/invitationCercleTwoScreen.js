@@ -210,7 +210,8 @@ export default class InvitationCercleTwoScreen extends Component {
 					backButton={true}
 					first_name={this.state.first_name}
 					admin = {item.is_admin}
-					bellIcon={true}
+						bellIcon={false}
+						props={this.props}
 					/>
 					<StatusBar backgroundColor="#1CCBE6" />
 					{

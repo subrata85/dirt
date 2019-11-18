@@ -113,7 +113,7 @@ export default class WaitingListScreen extends Component {
 
         <KeyboardAwareScrollView contentContainerStyle={{ flexGrow: 1 }}>
           <View style={{ flex: 1, position: "relative" }}>
-            <HeaderCurve props={this.props} />
+            <HeaderCurve props={this.props} navigation={this.navigation} />
 
             <View style={styles.headerMenu}>
               <View style={styles.containerBackBlock} />

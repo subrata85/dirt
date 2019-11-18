@@ -133,7 +133,8 @@ export default class SuspendedSavingOneScreen extends Component {
 						backButton={true}
 						first_name={userName}
 						admin = {item.is_admin}
-						bellIcon={true}
+						bellIcon={false}
+						props={this.props}
            			 />
 
 					<View style={[suspendedSavingOneStyle.mainContent]}>
