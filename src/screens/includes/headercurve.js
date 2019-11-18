@@ -6,14 +6,17 @@ import {
   Text,
   TouchableOpacity,
   Alert,
-  Picker
+  Button
 } from "react-native";
 import FeatherIcon from "react-native-vector-icons/Feather";
+import Modal from "react-native-modal";
 
 export default class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      isModalVisible: false
+    };
   }
   onPressBackPage = () => {
     if (this.props.backAlert) {
@@ -29,6 +32,8 @@ export default class App extends Component {
   };
 
   render() {
+    const { admin, first_name } = this.props;
+    // let admin = {this.props.admin == 1 ? "(Admin)" : null}
     return (
       <View>
         {/* start back Button */}
@@ -47,20 +52,50 @@ export default class App extends Component {
         ) : null}
         {/* end back Button */}
 
-        <Picker
-          selectedValue={this.state.language}
-          style={{ height: 50, width: 100 }}
-          onValueChange={(itemValue, itemIndex) =>
-            this.setState({ language: itemValue })
-          }
+        <Modal
+          isVisible={this.state.isModalVisible}
+          animationInTiming={200}
+          animationOutTiming={200}
+          //deviceHeight={250}
+          onBackdropPress={() => this.setState({ isModalVisible: false })}
+          onSwipeComplete={() => this.setState({ isModalVisible: false })}
+          onBackButtonPress={() => this.setState({ isModalVisible: false })}
         >
-          <Picker.Item label="Java" value="java" />
-          <Picker.Item label="JavaScript" value="js" />
-        </Picker>
+          <View
+            style={{
+              flex: 1,
+              marginTop: 35,
+              alignItems: "center"
+            }}
+          >
+            <TouchableOpacity
+              style={{ padding: 10 }}
+              onPress={() => this.setState({ isModalVisible: false })}
+            >
+              <Text style={{ color: "#ffffff", fontSize: 20 }}> Home</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{ padding: 10 }}
+              onPress={() => this.setState({ isModalVisible: false })}
+            >
+              <Text style={{ color: "#ffffff", fontSize: 20 }}>
+                {" "}
+                Edit Profile
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{ padding: 10 }}
+              onPress={() => this.setState({ isModalVisible: false })}
+            >
+              <Text style={{ color: "#ffffff", fontSize: 20 }}> Logout</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
 
         {/* start avatar image */}
         {this.props.avatar_location ? (
           <TouchableOpacity
+            onPress={() => this.setState({ isModalVisible: true })}
             style={{
               zIndex: 1,
               position: "absolute",
@@ -80,6 +115,7 @@ export default class App extends Component {
               }}
               source={this.props.avatar_location}
             />
+
             <Text
               style={{
                 fontSize: 16,

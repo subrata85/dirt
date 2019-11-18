@@ -44,6 +44,7 @@ export default class BankDetailsScreen extends Component {
 
 	_bootstrapAsync = async () => {
 		let selectedDetails = this.props.navigation.getParam('result');
+		console.log("selected srewe", selectedDetails)
 		AsyncStorage.multiGet([
 		  'rememberToken',
 		  'circle_code',
@@ -264,6 +265,7 @@ export default class BankDetailsScreen extends Component {
 		console.log("optionTxt", this.state.optionTxt)
 		
 		const item = this.state.details;
+		console.log("item", item)
 		return(
 			<Container>
 				<Content>

@@ -148,7 +148,6 @@ export default class CreateCircleScreen extends Component {
   };
 
   _doContinue = () => {
-    console.log("continue");
     Keyboard.dismiss();
     this.setState({
       errorTargetAmount: false,
@@ -246,8 +245,6 @@ export default class CreateCircleScreen extends Component {
 
     setTimeout(
       function() {
-        console.log("this.state.errorMessage", this.state.errorMessage);
-
         if (!this.state.errorMessage) {
           let obj = {
             circle_code: this.state.cicle_code,
@@ -257,8 +254,6 @@ export default class CreateCircleScreen extends Component {
             start_date: this.state.start_date,
             reason_for_circle: this.state.reason
           };
-
-          console.log("create obj", obj);
           this.setState({
             loader: true
           });
@@ -272,9 +267,7 @@ export default class CreateCircleScreen extends Component {
               }
             })
             .then(function(response) {
-              console.log("create  main response", response);
               if (response.data.status == 300) {
-                console.log("create if main response", response);
                 that.setState(
                   {
                     success: false
@@ -286,7 +279,6 @@ export default class CreateCircleScreen extends Component {
                   }
                 );
               } else {
-                console.log("create else main response", response);
                 that.setState(
                   {
                     success: true
@@ -303,7 +295,6 @@ export default class CreateCircleScreen extends Component {
                       CommonService.__showConfirmAlert(buttonObj, res => {
                         console.log("CommonService res", res);
                         if (res) {
-                          console.log("create if", res);
                           that.props.navigation.navigate("circlePreviewPage", {
                             target_achive: that.state.target_amount,
                             round_set: that.state.round_settelment,
@@ -317,7 +308,6 @@ export default class CreateCircleScreen extends Component {
                         }
                       });
                     } else {
-                      console.log("create else", response);
                       that.props.navigation.navigate("circlePreviewPage", {
                         target_achive: that.state.target_amount,
                         round_set: that.state.round_settelment,
@@ -334,7 +324,6 @@ export default class CreateCircleScreen extends Component {
               }
             })
             .catch(function(error) {
-              console.log("create error", error);
               ToastAndroid.showWithGravity(
                 error.response,
                 ToastAndroid.LONG,
