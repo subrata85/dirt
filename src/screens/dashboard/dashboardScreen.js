@@ -195,6 +195,7 @@ class DashboardScreen extends Component {
                 navigation={this.navigation}
                 backButton={false}
                 bellIcon={false}
+                props={this.props}
               />
 
               {/* <View style={styles.headerMenu}>
@@ -344,7 +345,7 @@ class DashboardScreen extends Component {
             </View>
             <View style={{ marginTop: 20 }} />
           </KeyboardAwareScrollView>
-          <FooterTabComponent props={this.props} />
+          {/* <FooterTabComponent props={this.props} /> */}
         </View>
       </Container>
     );

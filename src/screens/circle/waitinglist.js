@@ -113,7 +113,7 @@ export default class WaitingListScreen extends Component {
 
         <KeyboardAwareScrollView contentContainerStyle={{ flexGrow: 1 }}>
           <View style={{ flex: 1, position: "relative" }}>
-            <HeaderCurve />
+            <HeaderCurve props={this.props} />
 
             <View style={styles.headerMenu}>
               <View style={styles.containerBackBlock} />
@@ -267,7 +267,7 @@ export default class WaitingListScreen extends Component {
           </View>
           <View style={{ marginTop: 20 }} />
         </KeyboardAwareScrollView>
-        <FooterTabComponent props={this.props} />
+        {/* <FooterTabComponent props={this.props} /> */}
       </View>
     );
   }

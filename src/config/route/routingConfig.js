@@ -71,6 +71,7 @@ navigationConfig.Screen = {
       }
     }
   },
+
   homeStackScreens: {
     dashboardPage: {
       screen: DashboardScreen,

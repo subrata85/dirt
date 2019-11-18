@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import Modal from "react-native-modal";
+let tabIndex = 0;
 
 export default class App extends Component {
   constructor(props) {
@@ -31,8 +32,17 @@ export default class App extends Component {
     return true;
   };
 
+  navigateTo(props, index, stack) {
+    this.setState({
+      isModalVisible: false
+    });
+    console.log(props.navigation);
+    props.navigation.navigate(stack);
+    tabIndex = index;
+  }
+
   render() {
-    const { admin, first_name } = this.props;
+    const { admin, first_name, props } = this.props;
     // let admin = {this.props.admin == 1 ? "(Admin)" : null}
     return (
       <View>
@@ -70,25 +80,26 @@ export default class App extends Component {
           >
             <TouchableOpacity
               style={{ padding: 10 }}
-              onPress={() => this.setState({ isModalVisible: false })}
+              onPress={() => {
+                this.navigateTo(props, 0, "homeStack");
+              }}
             >
-              <Text style={{ color: "#ffffff", fontSize: 20 }}> Home</Text>
+              <Text style={{ color: "#ffffff", fontSize: 22 }}> Home</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={{ padding: 10 }}
-              onPress={() => this.setState({ isModalVisible: false })}
+              onPress={() => {
+                this.navigateTo(props, 3, "moreStack");
+              }}
             >
-              <Text style={{ color: "#ffffff", fontSize: 20 }}>
-                {" "}
-                Edit Profile
-              </Text>
+              <Text style={{ color: "#ffffff", fontSize: 22 }}> More</Text>
             </TouchableOpacity>
-            <TouchableOpacity
+            {/* <TouchableOpacity
               style={{ padding: 10 }}
-              onPress={() => this.setState({ isModalVisible: false })}
+              onPress={() => this.navigateTo()}
             >
               <Text style={{ color: "#ffffff", fontSize: 20 }}> Logout</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
         </Modal>
 

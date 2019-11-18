@@ -17,6 +17,8 @@ import AsyncStorage from "@react-native-community/async-storage";
 import FooterTabComponent from "../../components/footerTab/footerTabComponent";
 const statusBarBackgroundColor = "#1CCBE6";
 const barStyle = "light-content";
+import URL from "../../config/url";
+const ApiConfig = URL;
 import HeaderCurve from "../includes/headercurve";
 
 export default class MoreScreen extends Component {
@@ -24,7 +26,9 @@ export default class MoreScreen extends Component {
     super(props);
     this.state = {
       loader: false,
-      rememberToken: null
+      rememberToken: null,
+      first_name: "",
+      avatar_location: ""
     };
   }
 
@@ -33,9 +37,19 @@ export default class MoreScreen extends Component {
   }
 
   _bootstrapAsync = async () => {
-    AsyncStorage.multiGet(["rememberToken"]).then(response => {
+    AsyncStorage.multiGet([
+      "rememberToken",
+      "circle_code",
+      "first_name",
+      "avatar_location",
+      "mobile_number"
+    ]).then(response => {
       this.setState({
-        rememberToken: response[0][1]
+        rememberToken: response[0][1],
+        first_name: response[2][1],
+        avatar_location: {
+          uri: ApiConfig.public_url + "storage/" + response[3][1]
+        }
       });
     });
   };
@@ -76,10 +90,13 @@ export default class MoreScreen extends Component {
         <KeyboardAwareScrollView contentContainerStyle={{ flexGrow: 1 }}>
           <View style={{ flex: 1, position: "relative" }}>
             <HeaderCurve
-              title={"More Options"}
+              // title={"More Options"}
               navigation={this.props.navigation}
               backButton={false}
-              bellIcon={true}
+              bellIcon={false}
+              first_name={this.state.first_name}
+              avatar_location={this.state.avatar_location}
+              props={this.props}
             />
 
             <View style={{ flex: 1 }}>
@@ -107,7 +124,7 @@ export default class MoreScreen extends Component {
             </View>
           </View>
         </KeyboardAwareScrollView>
-        <FooterTabComponent props={this.props} />
+        {/* <FooterTabComponent props={this.props} /> */}
       </View>
     );
   }
