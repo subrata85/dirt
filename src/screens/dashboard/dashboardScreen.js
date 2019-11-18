@@ -29,6 +29,8 @@ const height = Math.round(Dimensions.get("window").height);
 const statusBarBackgroundColor = "#1CCBE6";
 const barStyle = "light-content";
 let tabIndex = 0;
+import URL from "../../config/url";
+const ApiConfig = URL;
 import { withNavigationFocus } from "react-navigation";
 import multiLang from "../../components/language/multiLang";
 
@@ -46,7 +48,9 @@ class DashboardScreen extends Component {
       subMessage: "",
       list: [{ key: "1", name: "debanjan" }],
       getList: [],
-      language: "en"
+      language: "en",
+      first_name: "",
+      avatar_location: ""
     };
   }
 
@@ -58,6 +62,7 @@ class DashboardScreen extends Component {
     // setInterval(() => {
     //   alert("Alert will be fire every 5 sec")
     // }, 10000)
+    this.onGetUserInfo();
 
     this.getList(false, true, false, false, "0");
     EventEmitter.on("validatedCircleCreation", data => {
@@ -66,6 +71,22 @@ class DashboardScreen extends Component {
       }
     });
   }
+  onGetUserInfo = () => {
+    AsyncStorage.multiGet([
+      "rememberToken",
+      "circle_code",
+      "first_name",
+      "avatar_location",
+      "mobile_number"
+    ]).then(response => {
+      this.setState({
+        first_name: response[2][1],
+        avatar_location: {
+          uri: ApiConfig.public_url + "storage/" + response[3][1]
+        }
+      });
+    });
+  };
 
   componentDidUpdate(prevProps) {
     if (prevProps.isFocused !== this.props.isFocused) {
@@ -168,10 +189,12 @@ class DashboardScreen extends Component {
           <KeyboardAwareScrollView contentContainerStyle={{ flexGrow: 1 }}>
             <View style={{ flex: 1, position: "relative" }}>
               <HeaderCurve
-                title={"Dashboard"}
+                // title={"Dashboard"}
+                first_name={this.state.first_name}
+                avatar_location={this.state.avatar_location}
                 navigation={this.navigation}
                 backButton={false}
-                bellIcon={true}
+                bellIcon={false}
               />
 
               {/* <View style={styles.headerMenu}>
