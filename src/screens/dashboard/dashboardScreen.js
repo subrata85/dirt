@@ -83,7 +83,8 @@ class DashboardScreen extends Component {
         first_name: response[2][1],
         avatar_location: {
           uri: ApiConfig.public_url + "storage/" + response[3][1]
-        }
+        },
+        loader: false
       });
     });
   };
@@ -123,6 +124,8 @@ class DashboardScreen extends Component {
     tabIndex = status;
     CommonService.resetDataForLaunchNewCircle();
     this.loading = Loading.show(CommonService.loaderObj);
+
+    console.log("this.loading", this.loading);
     const value = await AsyncStorage.getItem("rememberToken");
     this.setState({
       rememberToken: value,
@@ -142,6 +145,10 @@ class DashboardScreen extends Component {
       },
       authtoken: value
     };
+    setTimeout(() => {
+      Loading.hide(this.loading);
+    }, 5000);
+
     httpService
       .postHttpCall(payload)
       .then(res => {
@@ -150,9 +157,11 @@ class DashboardScreen extends Component {
           if (res.status == 100) {
             this.setState({ getList: res.result, loader: false });
           } else {
+            Loading.hide(this.loading);
             this.setState({ errorText: res.message, loader: false });
           }
         } else {
+          Loading.hide(this.loading);
           this.setState({
             errorText: httpService.appMessege.unknown_error,
             subMessage: httpService.appMessege.working_progress,
@@ -161,7 +170,6 @@ class DashboardScreen extends Component {
         }
       })
       .catch(err => {
-        Loading.hide(this.loading);
         this.setState({ errorText: err.message, loader: false });
         if (err.status == 4) {
           this.setState({
@@ -356,7 +364,6 @@ class DashboardScreen extends Component {
   }
 
   waitinglistComponent = response => {
-    console.log("waiting response", response);
     return (
       <FlatList
         showsHorizontalScrollIndicator={false}

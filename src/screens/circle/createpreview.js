@@ -140,10 +140,6 @@ export default class CreateCirclePreviewScreen extends Component {
         )
       };
 
-      console.log("request uri==" + ApiConfig.base_url + "create-circle");
-      console.log("final request params==" + JSON.stringify(obj));
-      console.log("Token ==" + this.state.rememberToken);
-
       let that = this;
       axios
         .post(ApiConfig.base_url + "create-circle", JSON.stringify(obj), {
@@ -152,12 +148,10 @@ export default class CreateCirclePreviewScreen extends Component {
           }
         })
         .then(function(response) {
-          console.log("preview page response", response);
           EventEmitter.emit("validatedCircleCreation", true);
           commonService.getSmsPermission(res => {
             if (res) {
               unsafe_participants.forEach(element => {
-                console.log("preview emement", element);
                 if (
                   element.mobile_number.toString() !=
                   that.state.mobile_number.toString()
