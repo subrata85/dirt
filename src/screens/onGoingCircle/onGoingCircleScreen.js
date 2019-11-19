@@ -274,9 +274,11 @@ export default class OnGoingCircleScreen extends Component {
 										<View style={onGoingCircleStyle.tablePart}>
 											<Text style={onGoingCircleStyle.baseText}>
 												<Text style={[onGoingCircleStyle.tableText,{fontWeight: 'bold'}]}>Round {item.current_round}- </Text>
-												<Text style={[onGoingCircleStyle.tableText,{color:'#24D19B'}]} numberOfLines={1}>{item.completed_round == item.estimate_round ? 'Completeeeed':'Ongoing'}</Text>
-														</Text>
-													
+															<Text style={[onGoingCircleStyle.tableText, { color: '#24D19B' }]} numberOfLines={1}>{item.completed_round == item.estimate_round ? 'Completed' : 'Ongoooing'}
+															</Text>
+															
+												</Text>
+												
 											<View>
 												{
 													item.circleUsers.map((user_item,user_index) => 
@@ -298,7 +300,13 @@ export default class OnGoingCircleScreen extends Component {
 													</View>
 													)
 												}
-											</View>
+														</View>
+														<Text style={{fontWeight: 'bold'}}>
+																Start date : {item.previous_round_payment_date}
+														</Text>
+														<Text style={{fontWeight: 'bold'}}>
+																End date : {item.expected_next_payment_date}
+														</Text>
 										</View>
 									</ScrollView>
 									
