@@ -274,7 +274,7 @@ export default class OnGoingCircleScreen extends Component {
 										<View style={onGoingCircleStyle.tablePart}>
 											<Text style={onGoingCircleStyle.baseText}>
 												<Text style={[onGoingCircleStyle.tableText,{fontWeight: 'bold'}]}>Round {item.current_round}- </Text>
-															<Text style={[onGoingCircleStyle.tableText, { color: '#24D19B' }]} numberOfLines={1}>{item.completed_round == item.estimate_round ? 'Completed' : 'Ongoooing'}
+															<Text style={[onGoingCircleStyle.tableText, { color: '#24D19B' }]} numberOfLines={1}>{item.completed_round == item.estimate_round ? 'Completed' : 'Ongoing'}
 															</Text>
 															
 												</Text>

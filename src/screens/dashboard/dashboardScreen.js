@@ -94,10 +94,6 @@ class DashboardScreen extends Component {
     if (prevProps.isFocused !== this.props.isFocused) {
       this.getList(false, true, false, false, "0");
     }
-    setTimeout(() => {
-      console.log("hide loader after 5 sec");
-      Loading.hide(this.loading);
-    }, 5000);
   }
 
   _doLaunchCircle = () => {
@@ -604,7 +600,6 @@ class DashboardScreen extends Component {
   };
 
   blockListComponent = response => {
-    console.log("item", response);
     return (
       <FlatList
         showsHorizontalScrollIndicator={false}

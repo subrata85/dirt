@@ -32,7 +32,8 @@ export default class BlockCercleOneScreen extends Component {
 			mobile_number:"",
 			request_status:"",
 			paybuttonVisible:false,
-			btnLoader:false
+			btnLoader: false,
+			reminderLoader:false
 		}
 	}
 
@@ -216,7 +217,7 @@ export default class BlockCercleOneScreen extends Component {
 
 onSendReminder = (userType, screen) =>{
 	const {details, rememberToken} = this.state;
-	this.setState({btnLoader:true})
+	this.setState({reminderLoader:true})
 	if(details.circle_code && rememberToken){
 		let obj = {
 			"circle_code":details.circle_code,
@@ -230,7 +231,7 @@ onSendReminder = (userType, screen) =>{
 			}
 		}).then(res => {
 			  console.log("respon", res)
-			  this.setState({btnLoader:false})
+			  this.setState({reminderLoader:false})
 			  ToastAndroid.showWithGravityAndOffset(
 				  res.data.message,
 				  ToastAndroid.LONG,
@@ -241,7 +242,7 @@ onSendReminder = (userType, screen) =>{
 				this.props.navigation.navigate('dashboardPage')
 		}).catch(err => {
 			  console.log("err", err)
-			this.setState({btnLoader:false})
+			this.setState({reminderLoader:false})
 			ToastAndroid.showWithGravityAndOffset(
 				err.message,
 				ToastAndroid.LONG,
@@ -251,7 +252,7 @@ onSendReminder = (userType, screen) =>{
 			  );
 		  })
 	}else{
-		this.setState({btnLoader:false})
+		this.setState({reminderLoader:false})
 			ToastAndroid.showWithGravityAndOffset(
 				"Circle details not found",
 				ToastAndroid.LONG,
@@ -365,7 +366,7 @@ onSendReminder = (userType, screen) =>{
 											onPress={()=>this.onSendReminder(1,2)}
 										>
 											<Text style={blockCircleOneStyle.paymentText}>Send Payment Reminders</Text>
-											{this.state.btnLoader ? (
+											{this.state.reminderLoader ? (
 												<View style={{ marginLeft: 10 }}>
 													<ActivityIndicator size="small" color={"#FFFFFF"} />
 												</View>
@@ -396,7 +397,7 @@ onSendReminder = (userType, screen) =>{
 											onPress={()=>this.onSendReminder( 2, 2)}
 											>
 												<Text style={blockCircleOneStyle.remiderText}>Send Reminders</Text>
-												{this.state.btnLoader ? (
+												{this.state.reminderLoader ? (
 												<View style={{ marginLeft: 10 }}>
 													<ActivityIndicator size="small" color={"green"} />
 												</View>
