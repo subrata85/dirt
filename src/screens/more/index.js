@@ -124,7 +124,7 @@ export default class MoreScreen extends Component {
             </View>
           </View>
         </KeyboardAwareScrollView>
-        {/* <FooterTabComponent props={this.props} /> */}
+        <FooterTabComponent props={this.props} />
       </View>
     );
   }

@@ -265,7 +265,7 @@ export default class OngoingListScreen extends Component {
           </View>
           <View style={{ marginTop: 20 }} />
         </KeyboardAwareScrollView>
-        {/* <FooterTabComponent props={this.props} /> */}
+        <FooterTabComponent props={this.props} />
       </View>
     );
   }

@@ -261,22 +261,18 @@ export default class BankDetailsScreen extends Component {
 	}
 
 	render() {
-		console.log("id", this.state.optionId)
-		console.log("optionTxt", this.state.optionTxt)
-		
 		const item = this.state.details;
-		console.log("item", item)
 		return(
 			<Container>
 				<Content>
 				<HeaderCurve
-						navigation={this.props.navigation}
-						avatar_location={this.state.avatar_location}
-						backButton={true}
-						first_name={this.state.first_name}
-						admin = {item.is_admin}
-						bellIcon={true}
-           			 />
+					navigation={this.props.navigation}
+					avatar_location={this.state.avatar_location}
+					backButton={true}
+					first_name={this.state.first_name}
+					admin = {item.is_admin}
+					bellIcon={true}
+				/>
 					
 					{
 						this.state.errorText !=''?

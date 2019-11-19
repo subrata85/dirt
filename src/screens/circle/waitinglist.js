@@ -267,7 +267,7 @@ export default class WaitingListScreen extends Component {
           </View>
           <View style={{ marginTop: 20 }} />
         </KeyboardAwareScrollView>
-        {/* <FooterTabComponent props={this.props} /> */}
+        <FooterTabComponent props={this.props} />
       </View>
     );
   }

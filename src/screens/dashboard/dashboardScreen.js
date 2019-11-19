@@ -148,22 +148,26 @@ class DashboardScreen extends Component {
         Loading.hide(this.loading);
         if (res.status !== undefined) {
           if (res.status == 100) {
-            this.setState({ getList: res.result });
+            this.setState({ getList: res.result, loader: false });
           } else {
-            this.setState({ errorText: res.message });
+            this.setState({ errorText: res.message, loader: false });
           }
         } else {
           this.setState({
             errorText: httpService.appMessege.unknown_error,
-            subMessage: httpService.appMessege.working_progress
+            subMessage: httpService.appMessege.working_progress,
+            loader: false
           });
         }
       })
       .catch(err => {
         Loading.hide(this.loading);
-        this.setState({ errorText: err.message });
+        this.setState({ errorText: err.message, loader: false });
         if (err.status == 4) {
-          this.setState({ subMessage: httpService.appMessege.internet_sub });
+          this.setState({
+            subMessage: httpService.appMessege.internet_sub,
+            loader: false
+          });
         }
       });
   };
@@ -189,9 +193,9 @@ class DashboardScreen extends Component {
           <KeyboardAwareScrollView contentContainerStyle={{ flexGrow: 1 }}>
             <View style={{ flex: 1, position: "relative" }}>
               <HeaderCurve
-                // title={"Dashboard"}
-                first_name={this.state.first_name}
-                avatar_location={this.state.avatar_location}
+                title={"Dashboard"}
+                // first_name={this.state.first_name}
+                // avatar_location={this.state.avatar_location}
                 navigation={this.navigation}
                 backButton={false}
                 bellIcon={false}
@@ -345,13 +349,14 @@ class DashboardScreen extends Component {
             </View>
             <View style={{ marginTop: 20 }} />
           </KeyboardAwareScrollView>
-          {/* <FooterTabComponent props={this.props} /> */}
+          <FooterTabComponent props={this.props} />
         </View>
       </Container>
     );
   }
 
   waitinglistComponent = response => {
+    console.log("waiting response", response);
     return (
       <FlatList
         showsHorizontalScrollIndicator={false}

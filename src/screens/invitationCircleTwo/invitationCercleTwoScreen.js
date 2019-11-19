@@ -51,8 +51,10 @@ export default class InvitationCercleTwoScreen extends Component {
 			let formatdate = moment(oldDate).format('llll');
 			if(CurrentDate > formatdate){
 				buttons = true;
+				console.log("Visiblity false")
 				this.setState({visiblityButton:false})
-			}else{
+			} else {
+				console.log("Visiblity true")
 				this.setState({visiblityButton:true})
 				buttons = false;
 			}
@@ -103,7 +105,8 @@ export default class InvitationCercleTwoScreen extends Component {
 		if(res.status !== undefined){
 			if (res.status == 100) {
 				let details = res.result;
-				if(details.status == 0){
+				if (details.status == 0) {
+					console.log("circle details", details)
 					this.setState({details: details});
 				}else{
 					this.setState({
@@ -239,8 +242,8 @@ export default class InvitationCercleTwoScreen extends Component {
 											<View style={[invitationCercleTwoStyle.rowViewRightItem,{flexDirection:'row'}]}>
 												<Text style={[invitationCercleTwoStyle.rowTextValue,{marginRight:10}]}>{item.admin}</Text>
 												{
-													!this.whatsppIconEnable(item.admin_mobile,item.login_user_mobile) ?
-													<TouchableOpacity onPress={()=>CommonService.openWhatsApp(item.admin_mobile)}>
+													this.whatsppIconEnable(item.admin_mobile_code+item.admin_mobile, item.login_user_mobile_code+item.login_user_mobile) ?
+													<TouchableOpacity onPress={()=>CommonService.openWhatsApp(item.admin_mobile_code+item.admin_mobile)}>
 														<Icon name="logo-whatsapp" size={20} color="#64B161"/>
 													</TouchableOpacity>:null
 												}

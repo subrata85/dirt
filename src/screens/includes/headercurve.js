@@ -36,7 +36,6 @@ export default class App extends Component {
     this.setState({
       isModalVisible: false
     });
-    console.log(props.navigation);
     props.navigation.navigate(stack);
     tabIndex = index;
   }
@@ -62,7 +61,7 @@ export default class App extends Component {
         ) : null}
         {/* end back Button */}
 
-        <Modal
+        {/* <Modal
           isVisible={this.state.isModalVisible}
           animationInTiming={200}
           animationOutTiming={200}
@@ -100,13 +99,13 @@ export default class App extends Component {
             >
               <Text style={{ color: "#ffffff", fontSize: 20 }}> Logout</Text>
             </TouchableOpacity> */}
-          </View>
-        </Modal>
+        {/* </View> */}
+        {/* </Modal>  */}
 
         {/* start avatar image */}
         {this.props.avatar_location ? (
           <TouchableOpacity
-            onPress={() => this.setState({ isModalVisible: true })}
+            // onPress={() => this.setState({ isModalVisible: true })}
             style={{
               zIndex: 1,
               position: "absolute",
