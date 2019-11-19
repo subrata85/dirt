@@ -242,7 +242,7 @@ export default class InvitationCercleTwoScreen extends Component {
 											<View style={[invitationCercleTwoStyle.rowViewRightItem,{flexDirection:'row'}]}>
 												<Text style={[invitationCercleTwoStyle.rowTextValue,{marginRight:10}]}>{item.admin}</Text>
 												{
-													this.whatsppIconEnable(item.admin_mobile_code+item.admin_mobile, item.login_user_mobile_code+item.login_user_mobile) ?
+													!this.whatsppIconEnable(item.admin_mobile_code+item.admin_mobile, item.login_user_mobile_code+item.login_user_mobile) ?
 													<TouchableOpacity onPress={()=>CommonService.openWhatsApp(item.admin_mobile_code+item.admin_mobile)}>
 														<Icon name="logo-whatsapp" size={20} color="#64B161"/>
 													</TouchableOpacity>:null
