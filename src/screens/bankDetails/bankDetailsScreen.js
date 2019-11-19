@@ -34,12 +34,16 @@ export default class BankDetailsScreen extends Component {
 			otherReason		:	'',
 			errPaymentMsg	:	'',
 			navigateFrom: '',
+			randamCircleNum:""
 		}
 	}
 
 	async componentDidMount(){
 		selectedId=0;
 		this._bootstrapAsync();
+		this.setState({
+			randamCircleNum:"Payment circle - " +  Math.floor(Math.random() * 1000000) + 1
+		})
 	}
 
 	_bootstrapAsync = async () => {
@@ -157,7 +161,8 @@ export default class BankDetailsScreen extends Component {
 				trn_status		:	selectedId == 1 ? '3' : 1,
 				amount			:	item.round_set,
 				payment_date	:	CommonService.getDate(),
-				payment_mode	:	selectedId
+				payment_mode: selectedId,
+				payment_reason: this.state.randamCircleNum
 
 			},
 			authtoken:this.state.rememberToken 
@@ -263,6 +268,7 @@ export default class BankDetailsScreen extends Component {
 	render() {
 		const item = this.state.details;
 		console.log("this.state.bankDetails", this.state.bankDetails)
+	
 		return(
 			<Container>
 				<Content>
@@ -360,7 +366,7 @@ export default class BankDetailsScreen extends Component {
 													<Text style={bankDetailsStyle.rowText}>Payment Reason:</Text>
 												</View>
 												<View style={bankDetailsStyle.rowViewRightItem}>
-													<Text style={bankDetailsStyle.rowTextValue}>{this.state.bankDetails[1].value}</Text>
+																	<Text style={bankDetailsStyle.rowTextValue}>{this.state.randamCircleNum}</Text>
 												</View>
 											</View>
 											<View style={bankDetailsStyle.rowView}>
