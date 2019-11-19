@@ -296,7 +296,7 @@ export default class RegisterTwoScreen extends Component {
           httpService
             .postHttpCall(obj)
             .then(response => {
-              console.log("registration ", response);
+              console.log("registration ", response.message);
               if (response.status == 300) {
                 console.log("registration in iff ", response);
                 that.setState(
@@ -331,7 +331,7 @@ export default class RegisterTwoScreen extends Component {
                       thatNavigation.navigate("homeStack");
                     }, 1000);
                     ToastAndroid.showWithGravity(
-                      error.message,
+                      response.message,
                       ToastAndroid.LONG,
                       ToastAndroid.BOTTOM
                     );

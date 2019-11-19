@@ -91,13 +91,16 @@ export default class BlockCercleOneScreen extends Component {
 					if(details.previous_round_payment_date !==undefined ){
 						let currentDate = moment(new Date()).format("YYYY-MM-DD");
 						let oldDate = CommonService.allInOneFormatDate(details.previous_round_payment_date,'/','-','reverse');
-					  if(currentDate > oldDate){
+						if (currentDate > oldDate) {
 							this.setState({paybuttonVisible:true})
-						}else{
+						} else {
 							this.setState({paybuttonVisible:false})
 						}
+						if(details.previous_round_payment_date === ""){
+							this.setState({paybuttonVisible:true})
 						}
-					this.setState({details: details});
+						}
+					this.setState({ details: details });
 				}else{
 					this.setState({
 						errorText: httpService.appMessege.circle_not_found,
@@ -375,7 +378,7 @@ onSendReminder = (userType, screen) =>{
 									</View>:null
 								}
 								{
-									item.login_user_current_round_payment_status === 0 && this.state.paybuttonVisible? //
+									item.login_user_current_round_payment_status === 0 && this.state.paybuttonVisible? //pay button visible
 									<View style={blockCircleOneStyle.paymentButtonView}>
 										<TouchableOpacity 
 										onPress={()=>this.props.navigation.navigate('bankDetailsPage',{result:this.state.details,navigate_from:'block_details'})}
