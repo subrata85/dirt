@@ -79,7 +79,8 @@ export default class OnGoingCircleScreen extends Component {
 			authtoken:token
 		};
 
-		httpService.postHttpCall(payload).then((res)=>{
+		httpService.postHttpCall(payload).then((res) => {
+			console.log("get circel details", res)
 		Loading.hide(this.loading);
 		if(res.status !== undefined){
 			if (res.status === 100) {
@@ -273,18 +274,16 @@ export default class OnGoingCircleScreen extends Component {
 										<View style={onGoingCircleStyle.tablePart}>
 											<Text style={onGoingCircleStyle.baseText}>
 												<Text style={[onGoingCircleStyle.tableText,{fontWeight: 'bold'}]}>Round {item.current_round}- </Text>
-												<Text style={[onGoingCircleStyle.tableText,{color:'#24D19B'}]} numberOfLines={1}>{item.completed_round == item.estimate_round ? 'Completed':'Ongoing'}</Text>
+												<Text style={[onGoingCircleStyle.tableText,{color:'#24D19B'}]} numberOfLines={1}>{item.completed_round == item.estimate_round ? 'Completeeeed':'Ongoing'}</Text>
 														</Text>
-														{
-															item.completion_date !=undefined ?
-																<Text>{item.completion_date}</Text>:null
-														}
+													
 											<View>
 												{
 													item.circleUsers.map((user_item,user_index) => 
 													<View key={user_index} style={onGoingCircleStyle.rowView}>
 														<View style={onGoingCircleStyle.rowViewLeftItem}>
-															<Text style={onGoingCircleStyle.rowTextValue}>{user_item.username}</Text>
+																<Text style={onGoingCircleStyle.rowTextValue}>{user_item.username}</Text>
+																
 														</View>
 														<View style={onGoingCircleStyle.rowViewRightItem}>
 															{
@@ -334,8 +333,11 @@ export default class OnGoingCircleScreen extends Component {
 											</Text>
 											<View style={onGoingCircleStyle.rowView}>
 												<View style={onGoingCircleStyle.rowViewLeftItem}>
-													<Text>{user_round.reciever_msg}</Text>
-												</View>
+														{user_round.reciever_msg ?
+															<Text>{user_round.reciever_msg}</Text> : null}
+														<Text>On {user_round.completion_date}</Text>
+													</View>
+													
 											</View>
 										</View>
 									</View>
