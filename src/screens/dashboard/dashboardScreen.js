@@ -50,7 +50,8 @@ class DashboardScreen extends Component {
       getList: [],
       language: "en",
       first_name: "",
-      avatar_location: ""
+      avatar_location: "",
+      dataLoadIndicator: false
     };
   }
 
@@ -93,6 +94,10 @@ class DashboardScreen extends Component {
     if (prevProps.isFocused !== this.props.isFocused) {
       this.getList(false, true, false, false, "0");
     }
+    setTimeout(() => {
+      console.log("hide loader after 5 sec");
+      Loading.hide(this.loading);
+    }, 5000);
   }
 
   _doLaunchCircle = () => {
@@ -123,9 +128,8 @@ class DashboardScreen extends Component {
   getList = async (ongoing, waiting, block, suspend, status) => {
     tabIndex = status;
     CommonService.resetDataForLaunchNewCircle();
-    this.loading = Loading.show(CommonService.loaderObj);
+    //this.loading = Loading.show(CommonService.loaderObj);
 
-    console.log("this.loading", this.loading);
     const value = await AsyncStorage.getItem("rememberToken");
     this.setState({
       rememberToken: value,
@@ -135,7 +139,8 @@ class DashboardScreen extends Component {
       ongoingApiCalled: ongoing,
       waitingApiCalled: waiting,
       blockedApiCalled: block,
-      suspendApiCalled: suspend
+      suspendApiCalled: suspend,
+      dataLoadIndicator: true
     });
 
     let payload = {
@@ -145,27 +150,32 @@ class DashboardScreen extends Component {
       },
       authtoken: value
     };
-    setTimeout(() => {
-      Loading.hide(this.loading);
-    }, 5000);
 
     httpService
       .postHttpCall(payload)
       .then(res => {
-        Loading.hide(this.loading);
+        // Loading.hide(this.loading);
         if (res.status !== undefined) {
           if (res.status == 100) {
-            this.setState({ getList: res.result, loader: false });
+            this.setState({
+              getList: res.result,
+              loader: false,
+              dataLoadIndicator: false
+            });
           } else {
-            Loading.hide(this.loading);
-            this.setState({ errorText: res.message, loader: false });
+            //Loading.hide(this.loading);
+            this.setState({
+              errorText: res.message,
+              loader: false,
+              dataLoadIndicator: false
+            });
           }
         } else {
-          Loading.hide(this.loading);
           this.setState({
             errorText: httpService.appMessege.unknown_error,
             subMessage: httpService.appMessege.working_progress,
-            loader: false
+            loader: false,
+            dataLoadIndicator: false
           });
         }
       })
@@ -174,7 +184,8 @@ class DashboardScreen extends Component {
         if (err.status == 4) {
           this.setState({
             subMessage: httpService.appMessege.internet_sub,
-            loader: false
+            loader: false,
+            dataLoadIndicator: false
           });
         }
       });
@@ -197,7 +208,21 @@ class DashboardScreen extends Component {
             backgroundColor={statusBarBackgroundColor}
             barStyle={barStyle}
           />
-
+          {this.state.dataLoadIndicator ? (
+            <View
+              style={{
+                position: "absolute",
+                left: 0,
+                right: 0,
+                top: 0,
+                bottom: 0,
+                alignItems: "center",
+                justifyContent: "center"
+              }}
+            >
+              <ActivityIndicator size="large" color="#1CCBE6" />
+            </View>
+          ) : null}
           <KeyboardAwareScrollView contentContainerStyle={{ flexGrow: 1 }}>
             <View style={{ flex: 1, position: "relative" }}>
               <HeaderCurve

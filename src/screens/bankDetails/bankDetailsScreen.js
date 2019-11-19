@@ -266,9 +266,7 @@ export default class BankDetailsScreen extends Component {
 	}
 
 	render() {
-		const item = this.state.details;
-		console.log("this.state.bankDetails", this.state.bankDetails)
-	
+		const item = this.state.details;	
 		return(
 			<Container>
 				<Content>
