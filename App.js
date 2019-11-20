@@ -47,6 +47,7 @@ class AppContainer extends Component {
   }
 
   async onIds(device) {
+    console.log("token d", device.userId);
     try {
       await AsyncStorage.setItem("device_token", device.userId);
     } catch (error) {

@@ -124,10 +124,12 @@ export default class BankDetailsScreen extends Component {
 				join_status			:	selectedId == 1 ? '3' : 1,
 				reason_id			:	this.state.reasonId,
 				other_reason		:	this.state.otherReason,
-				payment_mode		:	selectedId 
+				payment_mode: selectedId,
+				payment_reason: this.state.randamCircleNum
 			},
 			authtoken:this.state.rememberToken 
 		};
+		console.log("dipo", payload)
 		httpService.postHttpCall(payload).then((res)=>{
 		Loading.hide(this.loading);
 		if(res.status !== undefined){
@@ -200,7 +202,8 @@ export default class BankDetailsScreen extends Component {
 				trn_status		:	selectedId == 1 ? '3' : 1,
 				amount			:	item.round_set,
 				payment_date	:	CommonService.getDate(),
-				payment_mode	:	selectedId
+				payment_mode: selectedId,
+				payment_reason: this.state.randamCircleNum
 			},
 			authtoken:this.state.rememberToken 
 		};
@@ -236,10 +239,12 @@ export default class BankDetailsScreen extends Component {
 				trn_status: 3,
 				amount: item.refund_amount,
 				payment_date: moment(new Date()).format("DD/MM/YYYY"),
-				payment_mode: 1,
+				  payment_mode: 1,
+				  payment_reason: this.state.randamCircleNum
 			  },
 			  authtoken:this.state.rememberToken 
 		  };
+		console.log("offline payload", payload)
 		  httpService.postHttpCall(payload).then((res)=>{
 		  Loading.hide(this.loading);
 		  if(res.status !== undefined){

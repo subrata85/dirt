@@ -39,7 +39,8 @@ export default class LoginScreen extends Component {
 		
 		async componentDidMount(){
 			const device_token = await AsyncStorage.getItem('device_token');
-			this.setState({device_token:device_token});
+			this.setState({ device_token: device_token });
+			console.log("device token", device_token)
 		}
 
 		componentWillUnmount(){
