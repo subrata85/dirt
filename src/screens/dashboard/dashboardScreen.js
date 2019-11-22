@@ -222,9 +222,9 @@ class DashboardScreen extends Component {
           <KeyboardAwareScrollView contentContainerStyle={{ flexGrow: 1 }}>
             <View style={{ flex: 1, position: "relative" }}>
               <HeaderCurve
-                title={"Dashboard"}
-                // first_name={this.state.first_name}
-                // avatar_location={this.state.avatar_location}
+                // title={"Dashboard"}
+                first_name={this.state.first_name}
+                avatar_location={this.state.avatar_location}
                 navigation={this.navigation}
                 backButton={false}
                 bellIcon={false}

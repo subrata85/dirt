@@ -104,7 +104,7 @@ export default class App extends Component {
 
         {/* start avatar image */}
         {this.props.avatar_location ? (
-          <TouchableOpacity
+          <View
             // onPress={() => this.setState({ isModalVisible: true })}
             style={{
               zIndex: 1,
@@ -136,7 +136,7 @@ export default class App extends Component {
               {this.props.first_name}
               {this.props.admin == 1 ? "(Admin)" : null}
             </Text>
-          </TouchableOpacity>
+          </View>
         ) : null}
         {/* end avatar image */}
 
