@@ -186,6 +186,7 @@ export default class InvitationCercleTwoScreen extends Component {
 
 	render(){
 		const item = this.state.details;
+		console.log("waitin item", item)
 		// if(item.start_date !== undefined && !flag){
 		// 	flag = true;
 		// 	let oldDate = CommonService.allInOneFormatDate(item.start_date,'/','-','reverse');
@@ -227,7 +228,8 @@ export default class InvitationCercleTwoScreen extends Component {
 								this.state.apiExecute ?
 								<View>
 									<View style={invitationCercleTwoStyle.headerText}>
-										<Text style={invitationCercleTwoStyle.title}>Circle Waiting</Text>
+												<Text style={invitationCercleTwoStyle.title}>
+													{item.is_rejected? "Circle Refused":"Circle Waiting"}</Text>
 										<Text>N° {item.circle_code}</Text>
 									</View>
 									<View style={{marginTop:25}}>
