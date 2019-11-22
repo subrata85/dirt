@@ -51,10 +51,8 @@ export default class InvitationCercleTwoScreen extends Component {
 			let formatdate = moment(oldDate).format('llll');
 			if(CurrentDate > formatdate){
 				buttons = true;
-				console.log("Visiblity false")
 				this.setState({visiblityButton:false})
 			} else {
-				console.log("Visiblity true")
 				this.setState({visiblityButton:true})
 				buttons = false;
 			}
@@ -106,7 +104,6 @@ export default class InvitationCercleTwoScreen extends Component {
 			if (res.status == 100) {
 				let details = res.result;
 				if (details.status == 0) {
-					console.log("circle details", details)
 					this.setState({details: details});
 				}else{
 					this.setState({
@@ -189,7 +186,6 @@ export default class InvitationCercleTwoScreen extends Component {
 
 	render(){
 		const item = this.state.details;
-		console.log("item", item)
 		// if(item.start_date !== undefined && !flag){
 		// 	flag = true;
 		// 	let oldDate = CommonService.allInOneFormatDate(item.start_date,'/','-','reverse');

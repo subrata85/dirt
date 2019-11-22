@@ -187,7 +187,6 @@ export default class CreateCircleScreen extends Component {
         });
       }
     } else {
-      console.log("weekly part");
       if (
         this.state.periodicity == "weekly" &&
         this.state.round_settelment > 500
@@ -293,7 +292,6 @@ export default class CreateCircleScreen extends Component {
                         title: "Please confirm"
                       };
                       CommonService.__showConfirmAlert(buttonObj, res => {
-                        console.log("CommonService res", res);
                         if (res) {
                           that.props.navigation.navigate("circlePreviewPage", {
                             target_achive: that.state.target_amount,
@@ -410,7 +408,6 @@ export default class CreateCircleScreen extends Component {
               circle_code: this.state.cicle_code,
               mobile_number: contact.mobile
             };
-            console.log("delete payload", obj);
             let that = this;
             axios
               .post(
@@ -423,7 +420,6 @@ export default class CreateCircleScreen extends Component {
                 }
               )
               .then(res => {
-                console.log("delete response", res.data);
                 if (res.data.status === 100) {
                   tempData.splice(index, 1);
                   global.contacts_data.splice(index, 1);

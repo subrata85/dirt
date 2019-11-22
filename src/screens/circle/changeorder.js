@@ -83,10 +83,8 @@ export default class ChangeOrderParticipantsScreen extends Component {
   };
 
   _doContinue = () => {
-    console.log("do continue in change order");
     let reorderList = "";
     let reorder = this.state.newOrder;
-    console.log("neworder", reorder);
     let participantList = "";
     let newArray = [...this.state.participantList];
 
@@ -107,7 +105,6 @@ export default class ChangeOrderParticipantsScreen extends Component {
           plist: participantList
         };
 
-        console.log("change order obj", obj);
         this.setState({
           loader: true
         });
@@ -124,13 +121,11 @@ export default class ChangeOrderParticipantsScreen extends Component {
             }
           )
           .then(function(response) {
-            console.log("change order response", response);
             that.props.navigation.navigate("circlePreviewPage", {
               participants: response.data.result
             });
           })
           .catch(function(error) {
-            console.log("change order error", error);
             ToastAndroid.showWithGravity(
               "There is something wrong",
               ToastAndroid.LONG,

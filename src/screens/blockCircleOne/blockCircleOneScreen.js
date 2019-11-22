@@ -227,13 +227,11 @@ onSendReminder = (userType, screen) =>{
 			"user_type":userType,  
 			"screen": screen 
 		}
-		console.log("obj", obj)
 		axios.post('https://nodejsdapldevelopments.com/dart/public/api/send-reminder', JSON.stringify(obj), {
 			headers: {
 			  Authorization: "Bearer " + rememberToken
 			}
 		}).then(res => {
-			  console.log("respon", res)
 			  this.setState({reminderLoader:false})
 			  ToastAndroid.showWithGravityAndOffset(
 				  res.data.message,
@@ -244,7 +242,6 @@ onSendReminder = (userType, screen) =>{
 				);
 				this.props.navigation.navigate('dashboardPage')
 		}).catch(err => {
-			  console.log("err", err)
 			this.setState({reminderLoader:false})
 			ToastAndroid.showWithGravityAndOffset(
 				err.message,

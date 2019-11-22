@@ -63,12 +63,6 @@ export default class CreateCirclePreviewScreen extends Component {
       "avatar_location",
       "mobile_number"
     ]).then(response => {
-      console.log(response[0][0]);
-      console.log(response[0][1]);
-
-      console.log(response[1][0]);
-      console.log(response[1][1]);
-
       this.setState({
         rememberToken: response[0][1],
         cicle_code: response[1][1],
@@ -88,7 +82,6 @@ export default class CreateCirclePreviewScreen extends Component {
 
   _doRedirectChangeOrder = () => {
     let participants = this.props.navigation.getParam("participants", {});
-    console.log("create preview participants", participants);
     this.props.navigation.navigate("changeOrderPage", {
       participants: participants
     });
@@ -166,14 +159,10 @@ export default class CreateCirclePreviewScreen extends Component {
               });
             }
           });
-          console.log("here..............");
           that.props.navigation.navigate("dashboardPage");
         })
-        .catch(function(error) {
-          console.log("error==" + JSON.stringify(error.response));
-        })
+        .catch(function(error) {})
         .finally(function() {
-          console.log("always executed");
           that.setState({
             loader: false
           });
@@ -184,7 +173,6 @@ export default class CreateCirclePreviewScreen extends Component {
   render() {
     const participants = this.props.navigation.getParam("participants", {});
     const joinParticipantList = participants.map(function(data, i) {
-      console.log("participants", data);
       return (
         <Text key={i} style={[styles.frmLabelRight, { marginTop: 5 }]}>
           {i + 1}. {data.username} ({data.mobile_country_code}
@@ -207,7 +195,6 @@ export default class CreateCirclePreviewScreen extends Component {
       "estimate_round",
       "0"
     );
-    console.log("state preview", this.state.participants);
     return (
       <View style={styles.container}>
         <StatusBar

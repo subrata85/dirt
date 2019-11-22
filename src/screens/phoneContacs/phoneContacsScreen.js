@@ -27,7 +27,6 @@ export default class PhoneContacsScreen extends Component {
   }
 
   componentDidMount() {
-    console.log("in phone contact", global.contacts_data);
     this.setState({
       selectedLists: global.contacts_data
     });
@@ -120,16 +119,13 @@ export default class PhoneContacsScreen extends Component {
 
   chooseContact = (listItem, mobile, index) => {
     let { isChecked, selectedLists } = this.state;
-    console.log("slectedList", selectedLists);
     //let dIndex = selectedLists.indexOf(listItem.mobile);
     // let dIndex = selectedLists.indexOf(listItem.rawContactId, 0);
 
     const contactNumber = /['^£$%&*()}{@#~?><>,|=_¬-]/;
-    console.log("listItem", listItem.mobile);
+
     if (contactNumber.test(listItem.mobile) !== true) {
-      console.log("listItem in if", listItem);
       let dIndex = selectedLists.findIndex(x => x.mobile === mobile);
-      console.log("dindex", dIndex);
       isChecked[listItem.rawContactId] = !isChecked[listItem.rawContactId];
       this.setState({ isChecked: isChecked });
       if (isChecked[listItem.rawContactId] == true) {
@@ -149,7 +145,6 @@ export default class PhoneContacsScreen extends Component {
   };
 
   submitContactsData = () => {
-    console.log("this.state.sele", this.state.selectedLists);
     global.contacts_data = this.state.selectedLists;
     global.update_contact_data = true;
     this.props.navigation.goBack();

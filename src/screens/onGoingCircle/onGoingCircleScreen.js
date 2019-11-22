@@ -40,7 +40,6 @@ export default class OnGoingCircleScreen extends Component {
 	_bootstrapAsync = async () => {
 		let circle_code_id = this.props.navigation.getParam('circle_code_id');
 		let selectedDetails = this.props.navigation.getParam('result');
-		console.log("seledeeeee", selectedDetails)
 		if(circle_code_id !== undefined && circle_code_id !== null && circle_code_id != ''){
 			selectedDetails = {circle_code:circle_code_id}
 		}
@@ -82,7 +81,6 @@ export default class OnGoingCircleScreen extends Component {
 		};
 
 		httpService.postHttpCall(payload).then((res) => {
-			console.log("get circel details", res)
 		Loading.hide(this.loading);
 		if(res.status !== undefined){
 			if (res.status === 100) {

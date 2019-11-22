@@ -51,7 +51,6 @@ export default class SearchParticipantsScreen extends Component {
   }
 
   componentDidMount() {
-    console.log("search contact");
     this._bootstrapAsync();
   }
 
@@ -101,7 +100,6 @@ export default class SearchParticipantsScreen extends Component {
       flag: 2
     };
 
-    console.log("obj", obj);
     this.loading = Loading.show(CommonService.loaderObj);
     axios
       .post(ApiConfig.base_url + "create-circle-user", JSON.stringify(obj), {
@@ -119,7 +117,6 @@ export default class SearchParticipantsScreen extends Component {
               success: false
             },
             () => {
-              console.log("in falser");
               that.setState({
                 errorMessage: response.data.message,
                 participants: []
@@ -149,9 +146,7 @@ export default class SearchParticipantsScreen extends Component {
           );
         }
       })
-      .catch(function(error) {
-        console.log("err checkkkkk", error);
-      })
+      .catch(function(error) {})
       .finally(function() {
         Loading.hide(that.loading);
       });
@@ -345,7 +340,6 @@ export default class SearchParticipantsScreen extends Component {
     const errorPhone = this.state.errorPhone
       ? styles.searchInputRequired
       : styles.searchInput;
-    console.log("participants", this.state.participants);
     return (
       <View style={styles.container}>
         <NavigationEvents onDidFocus={() => this.__getContact()} />

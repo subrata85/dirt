@@ -62,8 +62,6 @@ export default class RegisterOneScreen extends Component {
   async componentDidMount() {
     this.updateInfo();
     const device_token = await AsyncStorage.getItem("device_token");
-    console.log("device token in registration 1");
-    console.log("device token in registration 1", device_token);
     this.setState({ device_token: device_token });
     this._willBlurSubscription = this.props.navigation.addListener(
       "willBlur",
@@ -152,7 +150,6 @@ export default class RegisterOneScreen extends Component {
             authtoken: "XYZ"
           };
 
-          console.log("registraion payload", obj);
           this.setState({
             loader: true
           });

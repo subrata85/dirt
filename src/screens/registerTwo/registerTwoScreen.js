@@ -296,9 +296,7 @@ export default class RegisterTwoScreen extends Component {
           httpService
             .postHttpCall(obj)
             .then(response => {
-              console.log("registration ", response.message);
               if (response.status == 300) {
-                console.log("registration in iff ", response);
                 that.setState(
                   {
                     success: false,
@@ -340,7 +338,6 @@ export default class RegisterTwoScreen extends Component {
               }
             })
             .catch(err => {
-              console.log("registration in catch error ", response);
               that.setState({ errorMessage: err.message, loader: false });
             });
         }

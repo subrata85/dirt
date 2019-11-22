@@ -68,7 +68,6 @@ export default class OnlinePaymentModal extends Component {
             payment_mode: 2,
             stripeToken: token.id
           };
-          console.log("payment dta", paymentdata);
         }
         if (this.props.buttonText === "Pay your Round") {
           onlinePaymentUrl =

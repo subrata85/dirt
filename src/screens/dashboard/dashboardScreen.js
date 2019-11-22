@@ -152,7 +152,8 @@ class DashboardScreen extends Component {
     let circle_code = Date.now().toString();
     let that = this;
     this.setState({
-      loader: true
+      loader: true,
+      tabName: ""
     });
 
     AsyncStorage.multiSet([["circle_code", circle_code]], function(error) {
@@ -173,7 +174,6 @@ class DashboardScreen extends Component {
   };
 
   getList = async (ongoing, waiting, block, suspend, status) => {
-    console.log(ongoing, waiting, block, suspend);
     tabIndex = status;
     CommonService.resetDataForLaunchNewCircle();
     //this.loading = Loading.show(CommonService.loaderObj);
@@ -543,7 +543,6 @@ class DashboardScreen extends Component {
   };
 
   onGoingListComponent = response => {
-    console.log("ongoing response", response);
     return (
       <FlatList
         showsHorizontalScrollIndicator={false}
