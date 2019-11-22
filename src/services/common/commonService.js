@@ -111,16 +111,27 @@ class CommonService {
   };
 
   openWhatsApp = (countryCode, whatsapp_no) => {
-    Linking.getInitialURL()
-      .then(url => {
-        if (url) {
-          console.log("Initial url is: " + url);
-        }
-      })
-      .catch(err => console.error("An error occurred", err));
     let substrCountryCode = countryCode.substr(1);
     let phoneNo = substrCountryCode + whatsapp_no;
-    Linking.openURL(`whatsapp://send?&phone=${phoneNo}`);
+    const url = `whatsapp://send?phone=${phoneNo}`;
+    Linking.canOpenURL(url)
+      .then(supported => {
+        if (supported) {
+          Linking.openURL(url);
+        } else {
+          Alert.alert(
+            "WhatsApp",
+            "WhatsApp is not installed. Opening on web page",
+            [{ text: "Ok", onPress: () => this.openWebWhatsApp() }]
+          );
+        }
+      })
+      .catch(err => alert(err));
+    // Linking.openURL(`whatsapp://send?&phone=${phoneNo}`);
+  };
+
+  openWebWhatsApp = () => {
+    Linking.openURL("http://api.whatsapp.com/");
   };
 
   async getSmsPermission(cb) {
