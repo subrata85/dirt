@@ -179,6 +179,7 @@ class DashboardScreen extends Component {
     //this.loading = Loading.show(CommonService.loaderObj);
 
     const value = await AsyncStorage.getItem("rememberToken");
+
     this.setState({
       rememberToken: value,
       errorText: "",
@@ -198,6 +199,8 @@ class DashboardScreen extends Component {
       },
       authtoken: value
     };
+
+    console.log("payload", payload);
 
     httpService
       .postHttpCall(payload)

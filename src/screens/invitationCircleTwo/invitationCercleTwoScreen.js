@@ -322,6 +322,14 @@ export default class InvitationCercleTwoScreen extends Component {
 													):null
 												}
 											</View>
+												</View>
+												<View style={{flexDirection: 'row'}}>
+											<View style={invitationCercleTwoStyle.rowViewLeftItem}>
+												<Text style={invitationCercleTwoStyle.rowText}>Expected payment receive:</Text>
+											</View>
+											<View style={invitationCercleTwoStyle.rowViewRightItem}>
+												<Text style={invitationCercleTwoStyle.rowTextValue}>{item.expected_payable_date}</Text>
+											</View>
 										</View>
 										<View style={invitationCercleTwoStyle.rowView}>
 											<View style={invitationCercleTwoStyle.rowViewLeftItem}>
@@ -339,14 +347,7 @@ export default class InvitationCercleTwoScreen extends Component {
 												<Text style={invitationCercleTwoStyle.rowTextValue}>{CommonService.formatDate(item.end_date)}</Text>
 											</View>
 										</View>
-										<View style={{flexDirection: 'row'}}>
-											<View style={invitationCercleTwoStyle.rowViewLeftItem}>
-												<Text style={invitationCercleTwoStyle.rowText}>Expected payment receive:</Text>
-											</View>
-											<View style={invitationCercleTwoStyle.rowViewRightItem}>
-												<Text style={invitationCercleTwoStyle.rowTextValue}>{item.expected_payable_date}</Text>
-											</View>
-										</View>
+										
 										{
 											this.state.visiblityButton ?
 											<View>

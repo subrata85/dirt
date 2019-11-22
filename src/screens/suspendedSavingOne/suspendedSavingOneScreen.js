@@ -123,7 +123,8 @@ export default class SuspendedSavingOneScreen extends Component {
 	}
 
 	render(){
-		const {item, currency, userName} = this.state
+		const { item, currency, userName } = this.state
+		console.log("suspended item", item)
 		return item ?
 			<Container>
 				<Content>
