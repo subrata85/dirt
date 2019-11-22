@@ -51,6 +51,7 @@ export default class SearchParticipantsScreen extends Component {
   }
 
   componentDidMount() {
+    console.log("search contact");
     this._bootstrapAsync();
   }
 
@@ -344,6 +345,7 @@ export default class SearchParticipantsScreen extends Component {
     const errorPhone = this.state.errorPhone
       ? styles.searchInputRequired
       : styles.searchInput;
+    console.log("participants", this.state.participants);
     return (
       <View style={styles.container}>
         <NavigationEvents onDidFocus={() => this.__getContact()} />
@@ -604,6 +606,26 @@ export default class SearchParticipantsScreen extends Component {
                 </View>
               </View>
             </View>
+            {this.state.countSelected ? (
+              <TouchableOpacity
+                style={{
+                  padding: 10,
+                  backgroundColor: "#5ac6c6",
+                  borderRadius: 30,
+                  height: 50,
+                  width: 50,
+                  position: "absolute",
+                  bottom: 10,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  right: 10,
+                  zIndex: 1
+                }}
+                onPress={() => this.props.navigation.goBack()}
+              >
+                <Text style={{ color: "#ffffff", fontSize: 16 }}>OK</Text>
+              </TouchableOpacity>
+            ) : null}
           </View>
 
           <View style={{ marginTop: 20 }} />
