@@ -51,24 +51,39 @@ class DashboardScreen extends Component {
       language: "en",
       first_name: "",
       avatar_location: "",
-      dataLoadIndicator: false
+      dataLoadIndicator: false,
+      tabName: ""
     };
   }
 
   async componentDidMount() {
+    const {
+      ongoingApiCalled,
+      waitingApiCalled,
+      blockedApiCalled,
+      suspendApiCalled
+    } = this.state;
     const language = await AsyncStorage.getItem("language");
     if (language) {
       this.setState({ language: language });
     }
-    // setInterval(() => {
-    //   alert("Alert will be fire every 5 sec")
-    // }, 10000)
     this.onGetUserInfo();
-
-    this.getList(false, true, false, false, "0");
+    this.getList(
+      ongoingApiCalled,
+      waitingApiCalled,
+      blockedApiCalled,
+      suspendApiCalled,
+      "0"
+    );
     EventEmitter.on("validatedCircleCreation", data => {
       if (data) {
-        this.getList(false, true, false, false, "0");
+        this.getList(
+          ongoingApiCalled,
+          waitingApiCalled,
+          blockedApiCalled,
+          suspendApiCalled,
+          "0"
+        );
       }
     });
   }
@@ -91,8 +106,44 @@ class DashboardScreen extends Component {
   };
 
   componentDidUpdate(prevProps) {
+    const { tabName } = this.state;
     if (prevProps.isFocused !== this.props.isFocused) {
-      this.getList(false, true, false, false, "0");
+      if (tabName === "onGoing") {
+        this.setState({
+          ongoingApiCalled: true,
+          waitingApiCalled: false,
+          blockedApiCalled: false,
+          suspendApiCalled: false
+        });
+        this.getList(true, false, false, false, "1");
+      }
+      if (tabName === "onWaiting") {
+        this.setState({
+          ongoingApiCalled: false,
+          waitingApiCalled: true,
+          blockedApiCalled: false,
+          suspendApiCalled: false
+        });
+        this.getList(false, true, false, false, "0");
+      }
+      if (tabName === "onBlock") {
+        this.setState({
+          ongoingApiCalled: false,
+          waitingApiCalled: false,
+          blockedApiCalled: true,
+          suspendApiCalled: false
+        });
+        this.getList(false, false, true, false, "2");
+      }
+      if (tabName === "onSuspend") {
+        this.setState({
+          ongoingApiCalled: false,
+          waitingApiCalled: false,
+          blockedApiCalled: false,
+          suspendApiCalled: true
+        });
+        this.getList(false, false, false, true, "3");
+      }
     }
   }
 
@@ -122,6 +173,7 @@ class DashboardScreen extends Component {
   };
 
   getList = async (ongoing, waiting, block, suspend, status) => {
+    console.log(ongoing, waiting, block, suspend);
     tabIndex = status;
     CommonService.resetDataForLaunchNewCircle();
     //this.loading = Loading.show(CommonService.loaderObj);
@@ -195,6 +247,29 @@ class DashboardScreen extends Component {
     names = names.substring(0, names.length - 2);
     return names + " ";
   }
+
+  onPresswaitingTab = item => {
+    this.setState({ tabName: "onWaiting" });
+    this.props.navigation.navigate("rejectJoinPage", { result: item });
+  };
+  onPressGoingTab = item => {
+    this.setState({ tabName: "onGoing" });
+    this.props.navigation.navigate("ongingPage", { result: item });
+  };
+
+  onPressBlockTab = item => {
+    this.setState({ tabName: "onBlock" });
+    this.props.navigation.navigate("blockCircleOnePage", {
+      result: item
+    });
+  };
+
+  onPressSuspended = item => {
+    this.setState({ tabName: "onSuspend" });
+    this.props.navigation.navigate("suspendedScreen", {
+      result: item
+    });
+  };
 
   render() {
     return (
@@ -397,9 +472,7 @@ class DashboardScreen extends Component {
         renderItem={({ item, index }) => (
           <TouchableOpacity
             activeOpacity={1}
-            onPress={() =>
-              this.props.navigation.navigate("rejectJoinPage", { result: item })
-            }
+            onPress={() => this.onPresswaitingTab(item)}
           >
             <View style={[styles.listItemWrapper]}>
               <View style={styles.listLeftWrapper}>
@@ -470,6 +543,7 @@ class DashboardScreen extends Component {
   };
 
   onGoingListComponent = response => {
+    console.log("ongoing response", response);
     return (
       <FlatList
         showsHorizontalScrollIndicator={false}
@@ -481,9 +555,7 @@ class DashboardScreen extends Component {
         renderItem={({ item, index }) => (
           <TouchableOpacity
             activeOpacity={1}
-            onPress={() =>
-              this.props.navigation.navigate("ongingPage", { result: item })
-            }
+            onPress={() => this.onPressGoingTab(item)}
           >
             <View style={styles.listItemWrapper}>
               <View style={styles.listLeftWrapper}>
@@ -611,11 +683,7 @@ class DashboardScreen extends Component {
         renderItem={({ item, index }) => (
           <TouchableOpacity
             activeOpacity={1}
-            onPress={() =>
-              this.props.navigation.navigate("blockCircleOnePage", {
-                result: item
-              })
-            }
+            onPress={() => this.onPressBlockTab(item)}
           >
             <View style={styles.listItemWrapper}>
               <View style={styles.listLeftWrapper}>
@@ -725,11 +793,7 @@ class DashboardScreen extends Component {
         renderItem={({ item, index }) => (
           <TouchableOpacity
             activeOpacity={1}
-            onPress={() =>
-              this.props.navigation.navigate("suspendedScreen", {
-                result: item
-              })
-            }
+            onPress={() => this.onPressSuspended(item)}
           >
             <View style={styles.listItemWrapper}>
               <View style={styles.listLeftWrapper}>

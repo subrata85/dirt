@@ -12,6 +12,8 @@ import Loading from 'react-native-loader-overlay';
 import { ErrorTemplate } from '../../components/error/errorComponent';
 let flag = false;
 let paybutton = false;
+import { NavigationActions} from 'react-navigation';
+
 export default class OnGoingCircleScreen extends Component {
 
 	constructor(props){
@@ -31,7 +33,7 @@ export default class OnGoingCircleScreen extends Component {
 		}
 	}
 
-	componentDidMount(){
+	componentDidMount() {
 		this._bootstrapAsync();
 	}
 
@@ -154,7 +156,7 @@ export default class OnGoingCircleScreen extends Component {
 						first_name={this.state.first_name}
 						admin = {item.is_admin}
 						bellIcon={true}
-						props = {this.props}
+						props={this.props}
            			 />
 					
 					{
