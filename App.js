@@ -27,8 +27,12 @@ class AppContainer extends Component {
   }
 
   async componentDidMount() {
+    console.log("in app conponent did mount");
     OneSignal.getPermissionSubscriptionState(status => {
-      OneSignal.addEventListener("ids", this.onIds);
+      console.log(status);
+      if (status.notificationsEnabled) {
+        OneSignal.addEventListener("ids", this.onIds);
+      }
     });
   }
 
