@@ -50,6 +50,7 @@ class HttpService extends OtherInfo {
             return Promise.resolve(res.data);
           })
           .catch(error => {
+            console.log(error);
             if (error.response) {
               const errorMsg = error.response.data.message;
               const networkError = errorMsg.search("Network");

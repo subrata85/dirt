@@ -348,56 +348,60 @@ export default class InvitationCercleTwoScreen extends Component {
 											<View style={invitationCercleTwoStyle.rowViewRightItem}>
 												<Text style={invitationCercleTwoStyle.rowTextValue}>{CommonService.formatDate(item.end_date)}</Text>
 											</View>
-										</View>
-										
-										{
-											this.state.visiblityButton ?
-											<View>
+												</View>
+												
 												{
-													item.request_accept_status == 0?
-													<View>
-														{
-															item.is_admin == 1 ?
-															<View style={invitationCercleTwoStyle.paymentButtonView}>
-																<TouchableOpacity onPress={()=>this.props.navigation.navigate('bankDetailsPage',{result:this.state.details,reason_id:'',other_reason:'',navigate_from:'accept_screen'})} style={[invitationCercleTwoStyle.paymentButton]}>
-																	<Text style={invitationCercleTwoStyle.paymentText}>Pay the Deposit</Text>
-																</TouchableOpacity>
-															</View>:
-															<View style={invitationCercleTwoStyle.buttonView}>
-																<TouchableOpacity 
-																style={invitationCercleTwoStyle.rejectButton}
-																onPress={()=>this.props.navigation.navigate('refusalPage',{result:item})}
-																>
-																	<Text style={invitationCercleTwoStyle.buttonText}>Reject</Text>
-																</TouchableOpacity>
-																<TouchableOpacity 
-																style={invitationCercleTwoStyle.joinButton}
-																onPress={()=>this.props.navigation.navigate('acceptInvitaionPage',{result:item})}
-																>
-																	<Text style={invitationCercleTwoStyle.buttonText}>Join</Text>
-																</TouchableOpacity>
-															</View>
-														}
-													</View>:
-													item.is_admin == 1 && item.status == 0 ?
-													<View style={invitationCercleTwoStyle.sendButtonView}>
-														<TouchableOpacity style={invitationCercleTwoStyle.sendButton}
-														 onPress={()=>this.onSendReminder()}
-														>
-															<Text style={invitationCercleTwoStyle.sendButtonText}>Send Reminder</Text>
-															{this.state.btnLoader ? (
-														<View style={{ marginLeft: 10 }}>
-															<ActivityIndicator size="small" color={"#FFFFFF"} />
-														</View>
-														) : null}
-														</TouchableOpacity>
+													item.is_rejected ? null :
+													
+														this.state.visiblityButton ?
+														<View>
+															{
+																item.request_accept_status == 0?
+																<View>
+																	{
+																		item.is_admin == 1 ?
+																		<View style={invitationCercleTwoStyle.paymentButtonView}>
+																			<TouchableOpacity onPress={()=>this.props.navigation.navigate('bankDetailsPage',{result:this.state.details,reason_id:'',other_reason:'',navigate_from:'accept_screen'})} style={[invitationCercleTwoStyle.paymentButton]}>
+																				<Text style={invitationCercleTwoStyle.paymentText}>Pay the Deposit</Text>
+																			</TouchableOpacity>
+																		</View>:
+																		<View style={invitationCercleTwoStyle.buttonView}>
+																			<TouchableOpacity 
+																			style={invitationCercleTwoStyle.rejectButton}
+																			onPress={()=>this.props.navigation.navigate('refusalPage',{result:item})}
+																			>
+																				<Text style={invitationCercleTwoStyle.buttonText}>Reject</Text>
+																			</TouchableOpacity>
+																			<TouchableOpacity 
+																			style={invitationCercleTwoStyle.joinButton}
+																			onPress={()=>this.props.navigation.navigate('acceptInvitaionPage',{result:item})}
+																			>
+																				<Text style={invitationCercleTwoStyle.buttonText}>Join</Text>
+																			</TouchableOpacity>
+																		</View>
+																	}
+																</View>:
+																item.is_admin == 1 && item.status == 0 ?
+																<View style={invitationCercleTwoStyle.sendButtonView}>
+																	<TouchableOpacity style={invitationCercleTwoStyle.sendButton}
+																	 onPress={()=>this.onSendReminder()}
+																	>
+																		<Text style={invitationCercleTwoStyle.sendButtonText}>Send Reminder</Text>
+																		{this.state.btnLoader ? (
+																	<View style={{ marginLeft: 10 }}>
+																		<ActivityIndicator size="small" color={"#FFFFFF"} />
+																	</View>
+																	) : null}
+																	</TouchableOpacity>
+																	
+																</View>:
+																item.request_accept_status == 3?
+																<Text>Note:Waiting for admin approval</Text>:null
+															}
+														</View>:null
 														
-													</View>:
-													item.request_accept_status == 3?
-													<Text>Note:Waiting for admin approval</Text>:null
-												}
-											</View>:null
 										}
+										
 									</View>
 								</View>:null
 							}

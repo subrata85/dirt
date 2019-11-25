@@ -25,6 +25,8 @@ const barStyle = "light-content";
 import HeaderCurve from "../includes/headercurve";
 import httpService from "../../services/http/httpService";
 
+import OneSignal from "react-native-onesignal";
+
 export default class RegisterOneScreen extends Component {
   _didFocusSubscription;
   _willBlurSubscription;
@@ -57,24 +59,44 @@ export default class RegisterOneScreen extends Component {
       value: "",
       countyCode: ""
     };
+
+    OneSignal.setLogLevel(6, 0);
+    OneSignal.inFocusDisplaying(2);
+    OneSignal.init("192b5885-9d77-4e2d-b5eb-d641e8e74bba", {
+      kOSSettingsKeyAutoPrompt: true,
+      kOSSettingsKeyInFocusDisplayOption: 2
+    });
+
+    OneSignal.addEventListener("ids", this.onIds);
   }
 
   async componentDidMount() {
     this.updateInfo();
-    const device_token = await AsyncStorage.getItem("device_token");
-    this.setState({ device_token: device_token });
+    // const device_token = await AsyncStorage.getItem("device_token");
+    // console.log("regis token", device_token);
+    // alert(device_token);
+    // this.setState({ device_token: device_token });
     this._willBlurSubscription = this.props.navigation.addListener(
       "willBlur",
       payload =>
         BackHandler.removeEventListener("hardwareBackPress", this.onGoBack)
     );
+    OneSignal.addEventListener("ids", device => {
+      // console.log("[OneSignal]>>ids: ", device);
+      //alert(device.userId);
+      if (device.userId) {
+        this.setState({
+          device_token: device.userId
+        });
+      }
+    });
   }
   componentWillUnmount() {
-    this._didFocusSubscription && this._didFocusSubscription.remove();
-    this._willBlurSubscription && this._willBlurSubscription.remove();
+    OneSignal.removeEventListener("ids", this.onIds);
   }
 
   _doRegister = () => {
+    // alert(this.state.device_token);
     const numRgex = /^\+\d+$/;
     const email_rejex = /^\w+([\D.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
     this.setState({
@@ -87,7 +109,8 @@ export default class RegisterOneScreen extends Component {
     if (
       this.state.email == "" ||
       this.state.mobile_number == "" ||
-      this.state.password == ""
+      this.state.password == "" ||
+      this.state.device_token == ""
     ) {
       if (this.state.email == "") {
         this.setState({
@@ -109,6 +132,11 @@ export default class RegisterOneScreen extends Component {
           errorMessage: httpService.appMessege.empty_field
         });
       }
+      if (this.state.device_token == "") {
+        this.setState({
+          errorMessage: "Device token not found"
+        });
+      }
     } else {
       if (email_rejex.test(this.state.email) !== true) {
         this.setState({
@@ -116,12 +144,12 @@ export default class RegisterOneScreen extends Component {
           errorMessage: "Please provide a valid email address"
         });
       }
-      if (!this.state.device_token) {
-        this.setState({
-          errorMobileNumber: true,
-          errorMessage: "Please refresh again. Device token not found"
-        });
-      }
+      // if (!this.state.device_token) {
+      //   this.setState({
+      //     errorMobileNumber: true,
+      //     errorMessage: "Please refresh again. Device token not found"
+      //   });
+      // }
       if (!this.state.valid) {
         this.setState({
           errorMobileNumber: true,
@@ -149,7 +177,6 @@ export default class RegisterOneScreen extends Component {
             },
             authtoken: "XYZ"
           };
-
           this.setState({
             loader: true
           });
