@@ -11,6 +11,7 @@ import CommonService from "../../services/common/commonService";
 import Loading from "react-native-loader-overlay";
 import global from "../../services/global/globalService";
 import { NavigationEvents } from "react-navigation";
+import AsyncStorage from "@react-native-community/async-storage";
 let list = [];
 
 export default class PhoneContacsScreen extends Component {
@@ -22,13 +23,19 @@ export default class PhoneContacsScreen extends Component {
       contactList: false,
       defaultIcon: true,
       selectedLists: [],
-      isChecked: []
+      isChecked: [],
+      mobile_number: ""
     };
   }
 
   componentDidMount() {
     this.setState({
       selectedLists: global.contacts_data
+    });
+    AsyncStorage.multiGet(["mobile_number"]).then(response => {
+      this.setState({
+        mobile_number: response[0][1]
+      });
     });
     this.getContactList();
   }
@@ -118,33 +125,38 @@ export default class PhoneContacsScreen extends Component {
   };
 
   chooseContact = (listItem, mobile, index) => {
-    let { isChecked, selectedLists } = this.state;
-    //let dIndex = selectedLists.indexOf(listItem.mobile);
-    // let dIndex = selectedLists.indexOf(listItem.rawContactId, 0);
+    console.log("list", listItem.mobile);
+    let matchContact = listItem.mobile.match(this.state.mobile_number);
+    if (matchContact === null) {
+      let { isChecked, selectedLists } = this.state;
+      //let dIndex = selectedLists.indexOf(listItem.mobile);
+      // let dIndex = selectedLists.indexOf(listItem.rawContactId, 0);
 
-    const contactNumber = /['^£$%&*()}{@#~?><>,|=_¬-]/;
+      const contactNumber = /['^£$%&*()}{@#~?><>,|=_¬-]/;
 
-    if (contactNumber.test(listItem.mobile) !== true) {
-      let dIndex = selectedLists.findIndex(x => x.mobile === mobile);
-      isChecked[listItem.rawContactId] = !isChecked[listItem.rawContactId];
-      this.setState({ isChecked: isChecked });
-      if (isChecked[listItem.rawContactId] == true) {
-        selectedLists.push(listItem);
-        this.setState({
-          selectedLists
-        });
+      if (contactNumber.test(listItem.mobile) !== true) {
+        let dIndex = selectedLists.findIndex(x => x.mobile === mobile);
+        isChecked[listItem.rawContactId] = !isChecked[listItem.rawContactId];
+        this.setState({ isChecked: isChecked });
+        if (isChecked[listItem.rawContactId] == true) {
+          selectedLists.push(listItem);
+          this.setState({
+            selectedLists
+          });
+        } else {
+          selectedLists.splice(dIndex, 1);
+          this.setState({
+            selectedLists
+          });
+        }
       } else {
-        selectedLists.splice(dIndex, 1);
-        this.setState({
-          selectedLists
-        });
+        Alert.alert("", `${listItem.mobile} is not a valid phone number`);
       }
-    } else {
-      Alert.alert("", `${listItem.mobile} is not a valid phone number`);
     }
   };
 
   submitContactsData = () => {
+    console.log("skdfj", this.state.selectedLists);
     global.contacts_data = this.state.selectedLists;
     global.update_contact_data = true;
     this.props.navigation.goBack();
@@ -159,6 +171,7 @@ export default class PhoneContacsScreen extends Component {
   }
 
   render() {
+    console.log("aklsdjflksa", this.state.mobile_number);
     return (
       <Container>
         <Content>
