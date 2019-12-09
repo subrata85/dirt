@@ -88,12 +88,9 @@ class CompletedCircle extends Component {
       authtoken: value
     };
 
-    console.log("payload", payload);
-
     httpService
       .postHttpCall(payload)
       .then(res => {
-        console.log("circle list", res);
         Loading.hide(this.loading);
         if (res.status !== undefined) {
           if (res.status == 100) {

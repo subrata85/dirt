@@ -34,6 +34,7 @@ export default class OnGoingCircleScreen extends Component {
 	}
 
 	componentDidMount() {
+		console.log("asdfklas")
 		this._bootstrapAsync();
 	}
 
@@ -307,12 +308,7 @@ export default class OnGoingCircleScreen extends Component {
 														<Text style={{fontWeight: 'bold'}}>
 																End date : {item.expected_next_payment_date}
 														</Text>
-										</View>
-									</ScrollView>
-									
-								</View>
-								
-								{
+														{
 									item.userWillRecieveCurrentRound != ''?
 									<View style={onGoingCircleStyle.tableContentReceiverHistory}>
 										<Text style={onGoingCircleStyle.titleTextValue}>
@@ -320,6 +316,12 @@ export default class OnGoingCircleScreen extends Component {
 										</Text>
 									</View>:null
 								}
+										</View>
+									</ScrollView>
+									
+								</View>
+								
+								
 								{
 									item.login_user_current_round_payment_status == 0 && this.state.paybuttonVisible ? //
 									<View style={onGoingCircleStyle.paymentButtonView}>

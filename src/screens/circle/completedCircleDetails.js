@@ -38,7 +38,6 @@ export default class CompletedCircleDetails extends Component {
 
   _bootstrapAsync = async () => {
     let selectedDetails = this.props.navigation.getParam("result");
-    console.log("sele", selectedDetails);
     AsyncStorage.multiGet([
       "rememberToken",
       "circle_code",
