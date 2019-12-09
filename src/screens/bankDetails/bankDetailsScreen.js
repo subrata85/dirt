@@ -48,7 +48,6 @@ export default class BankDetailsScreen extends Component {
 
 	_bootstrapAsync = async () => {
 		let selectedDetails = this.props.navigation.getParam('result');
-		console.log("selected srewe", selectedDetails)
 		AsyncStorage.multiGet([
 		  'rememberToken',
 		  'circle_code',
@@ -129,7 +128,6 @@ export default class BankDetailsScreen extends Component {
 			},
 			authtoken:this.state.rememberToken 
 		};
-		console.log("dipo", payload)
 		httpService.postHttpCall(payload).then((res)=>{
 		Loading.hide(this.loading);
 		if(res.status !== undefined){
@@ -244,7 +242,6 @@ export default class BankDetailsScreen extends Component {
 			  },
 			  authtoken:this.state.rememberToken 
 		  };
-		console.log("offline payload", payload)
 		  httpService.postHttpCall(payload).then((res)=>{
 		  Loading.hide(this.loading);
 		  if(res.status !== undefined){

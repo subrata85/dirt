@@ -11,8 +11,8 @@ import {
 import axios from "axios";
 import Stripe from "react-native-stripe-api";
 import moment from "moment";
-const apiKey = "pk_test_EGuGzdY9Zr4vL4rICJN5gjHl";
-const client = new Stripe(apiKey);
+// const apiKey = "";
+// const client = new Stripe(apiKey);
 
 export default class OnlinePaymentModal extends Component {
   constructor(props) {
@@ -22,11 +22,40 @@ export default class OnlinePaymentModal extends Component {
       exp_month: "09",
       exp_year: "2020",
       cvc: "123",
-      loader: false
+      loader: false,
+      apiKey: ""
     };
+  }
+  componentDidMount() {
+    axios
+      .get(
+        "https://nodejsdapldevelopments.com/dart/public/api/get-stripe-public-key",
+        {
+          headers: {
+            Authorization: "Bearer " + this.props.token
+          }
+        }
+      )
+      .then(res => {
+        if (res.data.result) {
+          this.setState({
+            apiKey: res.data.result
+          });
+        } else {
+          ToastAndroid.show("Payment key not found", ToastAndroid.LONG);
+        }
+      })
+      .catch(err => {
+        ToastAndroid.show(
+          "Something wrong to get payment key",
+          ToastAndroid.LONG
+        );
+      });
   }
 
   onlinePyament = async () => {
+    const client = new Stripe(this.state.apiKey);
+
     this.setState({ loader: true });
     let onlinePaymentUrl = "";
     let paymentdata = {};
