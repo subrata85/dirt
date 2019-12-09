@@ -205,6 +205,7 @@ class DashboardScreen extends Component {
     httpService
       .postHttpCall(payload)
       .then(res => {
+        console.log("dasss", res);
         // Loading.hide(this.loading);
         if (res.status !== undefined) {
           if (res.status == 100) {
