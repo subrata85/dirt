@@ -19,6 +19,7 @@ import PhoneContacsScreen from "../../screens/phoneContacs/phoneContacsScreen";
 import ChangeOrderParticipantsScreen from "../../screens/circle/changeorder";
 import EditProfileScreen from "../../screens/profile/editProfileScreen";
 import SuspendedSavingOneScreen from "../../screens/suspendedSavingOne/suspendedSavingOneScreen";
+import CompletedCircle from "../../screens/circle/completedCircle";
 
 const navigationConfig = Object.create(null);
 
@@ -73,6 +74,12 @@ navigationConfig.Screen = {
   },
 
   homeStackScreens: {
+    CompletedCircle: {
+      screen: CompletedCircle,
+      navigationOptions: {
+        title: "Completed"
+      }
+    },
     dashboardPage: {
       screen: DashboardScreen,
       navigationOptions: {

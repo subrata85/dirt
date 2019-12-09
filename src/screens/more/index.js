@@ -120,6 +120,14 @@ export default class MoreScreen extends Component {
                 >
                   <Text style={styles.sendButtonText}>Edit Profile</Text>
                 </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() =>
+                    this.props.navigation.navigate("CompletedCircle")
+                  }
+                  style={styles.sendButtonBlock}
+                >
+                  <Text style={styles.sendButtonText}>Past Circles</Text>
+                </TouchableOpacity>
               </View>
             </View>
           </View>
