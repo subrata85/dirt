@@ -177,23 +177,27 @@ export default class CompletedCircleDetails extends Component {
                       </Text>
                     </View>
                     <View style={onGoingCircleStyle.rowViewRightItem}>
-                      <Text style={onGoingCircleStyle.rowTextValue}>
-                        {CommonService.formatDate(item.start_date)}
-                      </Text>
+                      {item.start_date ? (
+                        <Text style={onGoingCircleStyle.rowTextValue}>
+                          {CommonService.formatDate(item.start_date)}
+                        </Text>
+                      ) : null}
                     </View>
                   </View>
 
-                  {/* <View style={onGoingCircleStyle.rowView}>
+                  <View style={onGoingCircleStyle.rowView}>
                     <View style={onGoingCircleStyle.rowViewLeftItem}>
                       <Text style={onGoingCircleStyle.rowText}>End date:</Text>
                     </View>
                     <View style={onGoingCircleStyle.rowViewRightItem}>
-                      <Text style={onGoingCircleStyle.rowTextValue}>
-                        {CommonService.formatDate(item.end_date)}
-                      </Text>
+                      {item.end_date ? (
+                        <Text style={onGoingCircleStyle.rowTextValue}>
+                          {CommonService.formatDate(item.end_date)}
+                        </Text>
+                      ) : null}
                     </View>
-                  </View> */}
-                  {/* <View style={{ paddingTop: 20 }}>
+                  </View>
+                  <View style={{ paddingTop: 20 }}>
                     <Text style={onGoingCircleStyle.rowText}>
                       Circle participants:
                     </Text>
@@ -203,8 +207,8 @@ export default class CompletedCircleDetails extends Component {
                         { paddingBottom: 20 }
                       ]}
                     >
-                      {item.circleUsers !== undefined
-                        ? item.circleUsers.map((user_item, user_index) => (
+                      {item.get_users !== undefined
+                        ? item.get_users.map((user_item, user_index) => (
                             <View
                               key={user_index}
                               style={{ flexDirection: "row" }}
@@ -222,8 +226,8 @@ export default class CompletedCircleDetails extends Component {
                           ))
                         : null}
                     </View>
-                  </View> */}
-                  {/* <View style={{ flexDirection: "row" }}>
+                  </View>
+                  <View style={{ flexDirection: "row" }}>
                     <View style={onGoingCircleStyle.rowViewLeftItem}>
                       <Text style={onGoingCircleStyle.rowText}>Progress:</Text>
                     </View>
@@ -246,20 +250,22 @@ export default class CompletedCircleDetails extends Component {
                         </Text>
                       ) : null}
                     </View>
-                  </View> */}
-                  {/* <View style={{ flexDirection: "row", paddingTop: 3 }}>
+                  </View>
+                  <View style={{ flexDirection: "row", paddingTop: 3 }}>
                     <View style={onGoingCircleStyle.rowViewLeftItem}>
                       <Text style={onGoingCircleStyle.rowText}>End date:</Text>
                     </View>
                     <View style={onGoingCircleStyle.rowViewRightItem}>
-                      <Text style={onGoingCircleStyle.rowTextValue}>
-                        {CommonService.formatDate(item.end_date)}
-                      </Text>
+                      {item.end_date ? (
+                        <Text style={onGoingCircleStyle.rowTextValue}>
+                          {CommonService.formatDate(item.end_date)}
+                        </Text>
+                      ) : null}
                     </View>
-                  </View> */}
+                  </View>
                 </View>
 
-                {/* <View style={onGoingCircleStyle.tableContent}>
+                <View style={onGoingCircleStyle.tableContent}>
                   <ScrollView>
                     <View style={onGoingCircleStyle.tablePart}>
                       <Text style={onGoingCircleStyle.baseText}>
@@ -269,7 +275,7 @@ export default class CompletedCircleDetails extends Component {
                             { fontWeight: "bold" }
                           ]}
                         >
-                          Round {item.current_round}-{" "}
+                          Round Completed:{" "}
                         </Text>
                         <Text
                           style={[
@@ -278,50 +284,37 @@ export default class CompletedCircleDetails extends Component {
                           ]}
                           numberOfLines={1}
                         >
-                          {item.completed_round == item.estimate_round
-                            ? "Completed"
-                            : "Ongoing"}
+                          {item.completed_round}
                         </Text>
                       </Text>
-
-                      <View>
-                        {item.circleUsers.map((user_item, user_index) => (
-                          <View
-                            key={user_index}
-                            style={onGoingCircleStyle.rowView}
-                          >
-                            <View style={onGoingCircleStyle.rowViewLeftItem}>
-                              <Text style={onGoingCircleStyle.rowTextValue}>
-                                {user_item.username}
-                              </Text>
-                            </View>
-                            <View style={onGoingCircleStyle.rowViewRightItem}>
-                              {user_item.current_round_payment_status == 0 ? (
-                                <Text style={{ color: "#E15862" }}>
-                                  Not paid yet
+                      {item.get_users !== undefined ? (
+                        <View>
+                          {item.get_users.map((user_item, user_index) => (
+                            <View
+                              key={user_index}
+                              style={onGoingCircleStyle.rowView}
+                            >
+                              <View style={onGoingCircleStyle.rowViewLeftItem}>
+                                <Text style={onGoingCircleStyle.rowTextValue}>
+                                  {user_item.username}
+                                  {user_item.reject_reason !== " "
+                                    ? ":" + " " + user_item.reject_reason
+                                    : null}
                                 </Text>
-                              ) : user_item.current_round_payment_status ==
-                                3 ? (
-                                <Text style={{ color: "#E15862" }}>
-                                  Pending
-                                </Text>
-                              ) : user_item.current_round_payment_status ==
-                                1 ? (
-                                <Text style={{ color: "#23CB97" }}>Paid</Text>
-                              ) : null}
+                              </View>
                             </View>
-                          </View>
-                        ))}
-                      </View>
-                      <Text style={{ fontWeight: "bold" }}>
+                          ))}
+                        </View>
+                      ) : null}
+                      {/* <Text style={{ fontWeight: "bold" }}>
                         Start date : {item.previous_round_payment_date}
                       </Text>
                       <Text style={{ fontWeight: "bold" }}>
                         End date : {item.expected_next_payment_date}
-                      </Text>
+                      </Text> */}
                     </View>
                   </ScrollView>
-                </View> */}
+                </View>
 
                 {/* {item.userWillRecieveCurrentRound != "" ? (
                   <View style={onGoingCircleStyle.tableContentReceiverHistory}>
