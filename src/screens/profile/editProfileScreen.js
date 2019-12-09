@@ -64,7 +64,9 @@ export default class EditProfileScreen extends Component {
       errorMessage: "",
       password: "",
       confirmPassword: "",
-      errorPassword: false
+      errorPassword: false,
+      iban: "",
+      ibanErr: false
     };
   }
 
@@ -108,6 +110,7 @@ export default class EditProfileScreen extends Component {
       "dob",
       "first_name",
       "last_name",
+      "iban",
       "avatar_location"
     ]).then(response => {
       this.setState({
@@ -117,7 +120,8 @@ export default class EditProfileScreen extends Component {
         dob: response[3][1],
         first_name: response[4][1],
         last_name: response[5][1],
-        avatar: URL.public_url + "storage/" + response[6][1]
+        iban: response[6][1],
+        avatar: URL.public_url + "storage/" + response[7][1]
       });
     });
   };
@@ -311,6 +315,7 @@ export default class EditProfileScreen extends Component {
     if (
       this.state.first_name == "" ||
       this.state.last_name == "" ||
+      this.state.iban === "" ||
       this.state.dob == ""
     ) {
       if (this.state.first_name == "") {
@@ -323,6 +328,12 @@ export default class EditProfileScreen extends Component {
       if (this.state.last_name == "") {
         this.setState({
           errorLastName: true,
+          errorMessage: "Above fields are required"
+        });
+      }
+      if (this.state.iban === "") {
+        this.setState({
+          ibanErr: true,
           errorMessage: "Above fields are required"
         });
       }
@@ -384,6 +395,7 @@ export default class EditProfileScreen extends Component {
                   }
                 );
               } else {
+                console.log("ressss", response);
                 AsyncStorage.clear();
                 AsyncStorage.multiSet(
                   [
@@ -392,6 +404,7 @@ export default class EditProfileScreen extends Component {
                     ["loggedIn", "success"],
                     ["first_name", response.result.first_name],
                     ["last_name", response.result.last_name],
+                    ["iban", response.result.iban],
                     ["dob", response.result.dob],
                     ["avatar_location", response.result.avatar_location]
                   ],
@@ -415,6 +428,9 @@ export default class EditProfileScreen extends Component {
 
   render() {
     const errorFirstName = this.state.errorFirstName
+      ? styles.inputTextStyleRequired
+      : styles.inputTextStyleActive;
+    const errIban = this.state.ibanErr
       ? styles.inputTextStyleRequired
       : styles.inputTextStyleActive;
 
@@ -548,6 +564,15 @@ export default class EditProfileScreen extends Component {
                     style={errorLastName}
                     value={this.state.last_name}
                     onChangeText={last_name => this.setState({ last_name })}
+                  />
+                </View>
+
+                <View style={styles.frmInputWrapper}>
+                  <Text style={styles.frmLabel}>IBAN</Text>
+                  <TextInput
+                    style={errIban}
+                    value={this.state.iban}
+                    onChangeText={iban => this.setState({ iban })}
                   />
                 </View>
 
