@@ -125,38 +125,60 @@ export default class PhoneContacsScreen extends Component {
   };
 
   chooseContact = (listItem, mobile, index) => {
-    console.log("list", listItem.mobile);
-    let matchContact = listItem.mobile.match(this.state.mobile_number);
-    if (matchContact === null) {
-      let { isChecked, selectedLists } = this.state;
-      //let dIndex = selectedLists.indexOf(listItem.mobile);
-      // let dIndex = selectedLists.indexOf(listItem.rawContactId, 0);
-
-      const contactNumber = /['^£$%&*()}{@#~?><>,|=_¬-]/;
-
-      if (contactNumber.test(listItem.mobile) !== true) {
-        let dIndex = selectedLists.findIndex(x => x.mobile === mobile);
-        isChecked[listItem.rawContactId] = !isChecked[listItem.rawContactId];
-        this.setState({ isChecked: isChecked });
-        if (isChecked[listItem.rawContactId] == true) {
-          selectedLists.push(listItem);
-          this.setState({
-            selectedLists
-          });
-        } else {
-          selectedLists.splice(dIndex, 1);
-          this.setState({
-            selectedLists
-          });
-        }
-      } else {
-        Alert.alert("", `${listItem.mobile} is not a valid phone number`);
+    let mobileNumber = "";
+    if (listItem.mobile[0] === "0") {
+      if (listItem.mobile[1] === "6" || listItem.mobile[1] === "7") {
+        mobileNumber = listItem.mobile.replace("0", "+33");
       }
+    }
+    if (listItem.mobile[0] === "+") {
+      if (listItem.mobile[1] === "3" || listItem.mobile[2] === "3") {
+        mobileNumber = listItem.mobile;
+      }
+    } else if (listItem.mobile.slice(0, 3) !== "+33") {
+      if (listItem.mobile[0] === "6" || listItem.mobile[0] === "7") {
+        mobileNumber = "+33" + listItem.mobile;
+      }
+    } else if (listItem.mobile.slice(0, 3) === "+33") {
+      if (listItem.mobile[3] === "6" || listItem.mobile[3] === "7") {
+        mobileNumber = listItem.mobile;
+      }
+    }
+
+    if (mobileNumber !== "") {
+      listItem["mobile"] = mobileNumber;
+      let matchContact = listItem.mobile.match(this.state.mobile_number);
+      if (matchContact === null) {
+        let { isChecked, selectedLists } = this.state;
+        //let dIndex = selectedLists.indexOf(listItem.mobile);
+        // let dIndex = selectedLists.indexOf(listItem.rawContactId, 0);
+        const contactNumber = /['^£$%&*()}{@#~?><>,|=_¬-]/;
+
+        if (contactNumber.test(listItem.mobile) !== true) {
+          let dIndex = selectedLists.findIndex(x => x.mobile === mobile);
+          isChecked[listItem.rawContactId] = !isChecked[listItem.rawContactId];
+          this.setState({ isChecked: isChecked });
+          if (isChecked[listItem.rawContactId] == true) {
+            selectedLists.push(listItem);
+            this.setState({
+              selectedLists
+            });
+          } else {
+            selectedLists.splice(dIndex, 1);
+            this.setState({
+              selectedLists
+            });
+          }
+        } else {
+          Alert.alert("", `${mobileNumber} is not a valid phone number`);
+        }
+      }
+    } else {
+      Alert.alert("", `${mobileNumber} is not a valid number`);
     }
   };
 
   submitContactsData = () => {
-    console.log("skdfj", this.state.selectedLists);
     global.contacts_data = this.state.selectedLists;
     global.update_contact_data = true;
     this.props.navigation.goBack();
@@ -171,7 +193,6 @@ export default class PhoneContacsScreen extends Component {
   }
 
   render() {
-    console.log("aklsdjflksa", this.state.mobile_number);
     return (
       <Container>
         <Content>

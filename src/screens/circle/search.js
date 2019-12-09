@@ -99,7 +99,6 @@ export default class SearchParticipantsScreen extends Component {
       user_info: contact,
       flag: 2
     };
-
     this.loading = Loading.show(CommonService.loaderObj);
     axios
       .post(ApiConfig.base_url + "create-circle-user", JSON.stringify(obj), {
@@ -146,7 +145,9 @@ export default class SearchParticipantsScreen extends Component {
           );
         }
       })
-      .catch(function(error) {})
+      .catch(function(error) {
+        console.log("err", error);
+      })
       .finally(function() {
         Loading.hide(that.loading);
       });
@@ -218,12 +219,11 @@ export default class SearchParticipantsScreen extends Component {
         }
       })
       .catch(function(error) {
-        console.log("errrrr", error);
-        // ToastAndroid.showWithGravity(
-        //   error,
-        //   ToastAndroid.LONG,
-        //   ToastAndroid.BOTTOM
-        // );
+        ToastAndroid.showWithGravity(
+          "Something wrong to create user list",
+          ToastAndroid.LONG,
+          ToastAndroid.BOTTOM
+        );
       })
       .finally(function() {
         that.setState({
