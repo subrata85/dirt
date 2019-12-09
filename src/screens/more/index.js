@@ -122,7 +122,7 @@ export default class MoreScreen extends Component {
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() =>
-                    this.props.navigation.navigate("CompletedCircle")
+                    this.props.navigation.navigate("completedCircle")
                   }
                   style={styles.sendButtonBlock}
                 >

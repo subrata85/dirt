@@ -140,6 +140,11 @@ class CompletedCircle extends Component {
     return names + " ";
   }
 
+  goToDetails = item => {
+    console.log("item", item);
+    this.props.navigation.navigate("completedCircleDetails", { result: item });
+  };
+
   render() {
     return (
       <Container>
@@ -180,117 +185,116 @@ class CompletedCircle extends Component {
                       />
                     </View>
                   ) : (
-                    <View>
-                      <FlatList
-                        showsHorizontalScrollIndicator={false}
-                        showsVerticalScrollIndicator={false}
-                        keyExtractor={item => item.id.toString()}
-                        ListHeaderComponent={<View style={{ height: 10 }} />}
-                        ListFooterComponent={<View style={{ height: 10 }} />}
-                        data={this.state.getList}
-                        numColumns={1}
-                        renderItem={({ item, index }) => (
-                          <TouchableOpacity
-                            activeOpacity={1}
-                            //onPress={() => this.onPresswaitingTab(item)}
-                          >
-                            <View style={[styles.listItemWrapper]}>
-                              <View style={styles.listLeftWrapper}>
-                                <View
-                                  style={{
-                                    flexDirection: "row",
-                                    alignItems: "center"
-                                  }}
-                                >
-                                  <Text style={styles.listLeftText}>
-                                    Circle :{" "}
-                                  </Text>
-                                  <Text style={styles.listRightText}>
-                                    {item.circle_code}
-                                  </Text>
-                                </View>
+                    <FlatList
+                      showsHorizontalScrollIndicator={false}
+                      showsVerticalScrollIndicator={false}
+                      keyExtractor={item => item.id.toString()}
+                      ListHeaderComponent={<View style={{ height: 10 }} />}
+                      ListFooterComponent={<View style={{ height: 10 }} />}
+                      data={this.state.getList}
+                      numColumns={1}
+                      renderItem={({ item, index }) => (
+                        <TouchableOpacity
+                          key={index}
+                          activeOpacity={1}
+                          onPress={() => this.goToDetails(item)}
+                        >
+                          <View style={[styles.listItemWrapper]}>
+                            <View style={styles.listLeftWrapper}>
+                              <View
+                                style={{
+                                  flexDirection: "row",
+                                  alignItems: "center"
+                                }}
+                              >
+                                <Text style={styles.listLeftText}>
+                                  Circle :{" "}
+                                </Text>
+                                <Text style={styles.listRightText}>
+                                  {item.circle_code}
+                                </Text>
+                              </View>
 
-                                <View
-                                  style={{
-                                    flexDirection: "row",
-                                    alignItems: "center"
-                                  }}
-                                >
-                                  <Text style={styles.listLeftText}>
-                                    Circle Admin :{" "}
-                                  </Text>
-                                  <Text style={styles.listRightText}>
-                                    {item.admin}
-                                  </Text>
-                                </View>
+                              <View
+                                style={{
+                                  flexDirection: "row",
+                                  alignItems: "center"
+                                }}
+                              >
+                                <Text style={styles.listLeftText}>
+                                  Circle Admin :{" "}
+                                </Text>
+                                <Text style={styles.listRightText}>
+                                  {item.admin}
+                                </Text>
+                              </View>
 
-                                <View
-                                  style={{
-                                    flexDirection: "row",
-                                    alignItems: "center"
-                                  }}
+                              <View
+                                style={{
+                                  flexDirection: "row",
+                                  alignItems: "center"
+                                }}
+                              >
+                                <Text style={styles.listLeftText}>
+                                  Participants :{" "}
+                                </Text>
+                                <Text
+                                  numberOfLines={1}
+                                  style={[
+                                    styles.listRightText,
+                                    { paddingRight: 20 }
+                                  ]}
                                 >
-                                  <Text style={styles.listLeftText}>
-                                    Participants :{" "}
-                                  </Text>
-                                  <Text
-                                    numberOfLines={1}
-                                    style={[
-                                      styles.listRightText,
-                                      { paddingRight: 20 }
-                                    ]}
-                                  >
-                                    {this.getNames(item.get_users)}
-                                  </Text>
-                                </View>
+                                  {this.getNames(item.get_users)}
+                                </Text>
+                              </View>
 
-                                <View
-                                  style={{
-                                    flexDirection: "row",
-                                    alignItems: "center"
-                                  }}
-                                >
-                                  <Text style={styles.listLeftText}>
-                                    Amount :{" "}
-                                  </Text>
-                                  <Text style={styles.listRightText}>
-                                    €{item.target_achive}
-                                  </Text>
-                                </View>
+                              <View
+                                style={{
+                                  flexDirection: "row",
+                                  alignItems: "center"
+                                }}
+                              >
+                                <Text style={styles.listLeftText}>
+                                  Amount :{" "}
+                                </Text>
+                                <Text style={styles.listRightText}>
+                                  €{item.target_achive}
+                                </Text>
+                              </View>
 
-                                <View
-                                  style={{
-                                    flexDirection: "row",
-                                    alignItems: "center"
-                                  }}
-                                >
-                                  <Text style={styles.listLeftText}>
-                                    Launch Date :{" "}
-                                  </Text>
-                                  <Text style={styles.listRightText}>
-                                    {CommonService.formatDate(item.start_date)}
-                                  </Text>
-                                </View>
+                              <View
+                                style={{
+                                  flexDirection: "row",
+                                  alignItems: "center"
+                                }}
+                              >
+                                <Text style={styles.listLeftText}>
+                                  Launch Date :{" "}
+                                </Text>
+                                <Text style={styles.listRightText}>
+                                  {CommonService.formatDate(item.start_date)}
+                                </Text>
+                              </View>
 
-                                <View
-                                  style={{
-                                    flexDirection: "row",
-                                    alignItems: "center"
-                                  }}
-                                >
-                                  <Text style={styles.listLeftText}>
-                                    Last round Date :{" "}
-                                  </Text>
-                                  <Text style={styles.listRightText}>
-                                    {CommonService.formatDate(item.end_date)}
-                                  </Text>
-                                </View>
+                              <View
+                                style={{
+                                  flexDirection: "row",
+                                  alignItems: "center"
+                                }}
+                              >
+                                <Text style={styles.listLeftText}>
+                                  Last round Date :{" "}
+                                </Text>
+                                <Text style={styles.listRightText}>
+                                  {CommonService.formatDate(item.end_date)}
+                                </Text>
                               </View>
                             </View>
-                          </TouchableOpacity>
-                        )}
-                      />
-                    </View>
+                          </View>
+                        </TouchableOpacity>
+                      )}
+                    />
                   )}
                 </View>
               </View>
