@@ -29,6 +29,11 @@ export default class PhoneContacsScreen extends Component {
   }
 
   componentDidMount() {
+    const { isChecked } = this.state;
+    global.contacts_data.map(d => {
+      isChecked[d.rawContactId] = true;
+      this.setState({ isChecked: isChecked });
+    });
     this.setState({
       selectedLists: global.contacts_data
     });
@@ -148,7 +153,7 @@ export default class PhoneContacsScreen extends Component {
 
     if (mobileNumber !== "") {
       console.log("listItem", listItem);
-      listItem["mobile"] = mobileNumber;
+      // listItem["mobile"] = mobileNumber;
       let matchContact = mobileNumber.match(this.state.mobile_number);
       if (matchContact === null) {
         let { isChecked, selectedLists } = this.state;
@@ -160,13 +165,13 @@ export default class PhoneContacsScreen extends Component {
           rawContactId: listItem.rawContactId,
           username: listItem.username
         };
-
-        if (contactNumber.test(listItem.mobile) !== true) {
+        if (contactNumber.test(listData.mobile) !== true) {
           let dIndex = selectedLists.findIndex(x => x.mobile === mobile);
-          isChecked[listItem.rawContactId] = !isChecked[listItem.rawContactId];
+
+          isChecked[listData.rawContactId] = !isChecked[listData.rawContactId];
           this.setState({ isChecked: isChecked });
-          if (isChecked[listItem.rawContactId] == true) {
-            selectedLists.push(listItem);
+          if (isChecked[listData.rawContactId] == true) {
+            selectedLists.push(listData);
             this.setState({
               selectedLists
             });
