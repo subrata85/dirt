@@ -135,24 +135,31 @@ export default class PhoneContacsScreen extends Component {
       if (listItem.mobile[1] === "3" || listItem.mobile[2] === "3") {
         mobileNumber = listItem.mobile;
       }
-    } else if (listItem.mobile.slice(0, 3) !== "+33") {
-      if (listItem.mobile[0] === "6" || listItem.mobile[0] === "7") {
-        mobileNumber = "+33" + listItem.mobile;
-      }
-    } else if (listItem.mobile.slice(0, 3) === "+33") {
+    } else if (listItem.mobile.slice(0, 2) === "+33") {
       if (listItem.mobile[3] === "6" || listItem.mobile[3] === "7") {
         mobileNumber = listItem.mobile;
       }
     }
+    // else if (listItem.mobile.slice(0, 3) !== "+33") {
+    //   if (listItem.mobile[0] === "6" || listItem.mobile[0] === "7") {
+    //     mobileNumber = "+33" + listItem.mobile;
+    //   }
+    // }
 
     if (mobileNumber !== "") {
+      console.log("listItem", listItem);
       listItem["mobile"] = mobileNumber;
-      let matchContact = listItem.mobile.match(this.state.mobile_number);
+      let matchContact = mobileNumber.match(this.state.mobile_number);
       if (matchContact === null) {
         let { isChecked, selectedLists } = this.state;
         //let dIndex = selectedLists.indexOf(listItem.mobile);
         // let dIndex = selectedLists.indexOf(listItem.rawContactId, 0);
         const contactNumber = /['^£$%&*()}{@#~?><>,|=_¬-]/;
+        let listData = {
+          mobile: mobileNumber,
+          rawContactId: listItem.rawContactId,
+          username: listItem.username
+        };
 
         if (contactNumber.test(listItem.mobile) !== true) {
           let dIndex = selectedLists.findIndex(x => x.mobile === mobile);
@@ -170,11 +177,11 @@ export default class PhoneContacsScreen extends Component {
             });
           }
         } else {
-          Alert.alert("", `${mobileNumber} is not a valid phone number`);
+          Alert.alert("", `Not a valid phone number`);
         }
       }
     } else {
-      Alert.alert("", `${mobileNumber} is not a valid number`);
+      Alert.alert("", `Not a valid number`);
     }
   };
 

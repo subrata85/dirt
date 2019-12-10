@@ -226,7 +226,7 @@ export default class CompletedCircleDetails extends Component {
                         : null}
                     </View>
                   </View>
-                  <View style={{ flexDirection: "row" }}>
+                  {/* <View style={{ flexDirection: "row" }}>
                     <View style={onGoingCircleStyle.rowViewLeftItem}>
                       <Text style={onGoingCircleStyle.rowText}>Progress:</Text>
                     </View>
@@ -249,8 +249,8 @@ export default class CompletedCircleDetails extends Component {
                         </Text>
                       ) : null}
                     </View>
-                  </View>
-                  <View style={{ flexDirection: "row", paddingTop: 3 }}>
+                  </View> */}
+                  {/* <View style={{ flexDirection: "row", paddingTop: 3 }}>
                     <View style={onGoingCircleStyle.rowViewLeftItem}>
                       <Text style={onGoingCircleStyle.rowText}>End date:</Text>
                     </View>
@@ -261,7 +261,7 @@ export default class CompletedCircleDetails extends Component {
                         </Text>
                       ) : null}
                     </View>
-                  </View>
+                  </View> */}
                 </View>
 
                 <View style={onGoingCircleStyle.tableContent}>
@@ -274,108 +274,36 @@ export default class CompletedCircleDetails extends Component {
                             { fontWeight: "bold" }
                           ]}
                         >
-                          Round Completed:{" "}
-                        </Text>
-                        <Text
-                          style={[
-                            onGoingCircleStyle.tableText,
-                            { color: "#24D19B" }
-                          ]}
-                          numberOfLines={1}
-                        >
-                          {item.completed_round}
+                          Circle is rejected by:{" "}
                         </Text>
                       </Text>
                       {item.get_users !== undefined ? (
                         <View>
-                          {item.get_users.map((user_item, user_index) => (
-                            <View
-                              key={user_index}
-                              style={onGoingCircleStyle.rowView}
-                            >
-                              <View style={onGoingCircleStyle.rowViewLeftItem}>
-                                <Text style={onGoingCircleStyle.rowTextValue}>
-                                  {user_item.username}
-                                  {user_item.reject_reason !== " "
-                                    ? ":" + " " + user_item.reject_reason
-                                    : null}
-                                </Text>
-                              </View>
-                            </View>
-                          ))}
+                          {item.get_users.map((user, index) => {
+                            if (user.reject_reason !== "") {
+                              return (
+                                <View
+                                  key={index}
+                                  style={onGoingCircleStyle.rowView}
+                                >
+                                  <View
+                                    style={onGoingCircleStyle.rowViewLeftItem}
+                                  >
+                                    <Text
+                                      style={onGoingCircleStyle.rowTextValue}
+                                    >
+                                      {user.username}: {user.reject_reason}
+                                    </Text>
+                                  </View>
+                                </View>
+                              );
+                            }
+                          })}
                         </View>
                       ) : null}
-                      {/* <Text style={{ fontWeight: "bold" }}>
-                        Start date : {item.previous_round_payment_date}
-                      </Text>
-                      <Text style={{ fontWeight: "bold" }}>
-                        End date : {item.expected_next_payment_date}
-                      </Text> */}
                     </View>
                   </ScrollView>
                 </View>
-
-                {/* {item.userWillRecieveCurrentRound != "" ? (
-                  <View style={onGoingCircleStyle.tableContentReceiverHistory}>
-                    <Text style={onGoingCircleStyle.titleTextValue}>
-                      {item.userWillRecieveCurrentRound}
-                    </Text>
-                  </View>
-                ) : null} */}
-                {/* {item.login_user_current_round_payment_status == 0 &&
-                this.state.paybuttonVisible ? ( //
-                  <View style={onGoingCircleStyle.paymentButtonView}>
-                    <TouchableOpacity
-                      onPress={() =>
-                        this.props.navigation.navigate("bankDetailsPage", {
-                          result: this.state.details,
-                          navigate_from: "on_going_details"
-                        })
-                      }
-                      style={[onGoingCircleStyle.paymentButton]}
-                    >
-                      <Text style={onGoingCircleStyle.paymentText}>
-                        Pay your Round
-                      </Text>
-                    </TouchableOpacity>
-                  </View>
-                ) : null} */}
-
-                {/* {item.round_complete
-                  .map((user_round, round_index) => (
-                    <View key={round_index} style={onGoingCircleStyle.roundRow}>
-                      <View style={onGoingCircleStyle.tablePart}>
-                        <Text style={onGoingCircleStyle.baseText}>
-                          <Text
-                            style={[
-                              onGoingCircleStyle.tableText,
-                              { fontWeight: "bold" }
-                            ]}
-                          >
-                            Round {user_round.round}-{" "}
-                          </Text>
-                          <Text
-                            style={[
-                              onGoingCircleStyle.tableText,
-                              { color: "#20CC94" }
-                            ]}
-                            numberOfLines={5}
-                          >
-                            Completed
-                          </Text>
-                        </Text>
-                        <View style={onGoingCircleStyle.rowView}>
-                          <View style={onGoingCircleStyle.rowViewLeftItem}>
-                            {user_round.reciever_msg ? (
-                              <Text>{user_round.reciever_msg}</Text>
-                            ) : null}
-                            <Text>On {user_round.completion_date}</Text>
-                          </View>
-                        </View>
-                      </View>
-                    </View>
-                  ))
-                  .reverse()} */}
               </View>
             </View>
           )}
