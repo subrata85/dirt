@@ -82,7 +82,8 @@ export default class BlockCercleOneScreen extends Component {
 			authtoken:token
 		};
 
-		httpService.postHttpCall(payload).then((res)=>{
+		httpService.postHttpCall(payload).then((res) => {
+			console.log("block details", res)
 		Loading.hide(this.loading);
 		if(res.status !== undefined){
 			if (res.status == 100) {
@@ -179,7 +180,7 @@ export default class BlockCercleOneScreen extends Component {
 }
 
 	onRequstToTerminate = () =>{
-		Alert.alert("Terminate confirmation", `Do you want to request to Terminate '${this.state.cicle_code}' Circle ?`, [
+		Alert.alert("Terminate confirmation", `Do you want to request to Terminate '${this.state.details.circle_code}' Circle ?`, [
 			{ text: "No", onPress: () => (No = "no") },
 			{ text: "Yes", onPress: () => this.requstToTerminate() }
 		  ]);	
@@ -264,6 +265,7 @@ onSendReminder = (userType, screen) =>{
 }
 	render(){
 		const item = this.state.details;
+		console.log("item",item)
 		return(
 			<Container>
 				<Content>
