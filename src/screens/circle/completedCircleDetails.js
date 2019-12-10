@@ -226,7 +226,7 @@ export default class CompletedCircleDetails extends Component {
                         : null}
                     </View>
                   </View>
-                  {/* <View style={{ flexDirection: "row" }}>
+                  <View style={{ flexDirection: "row" }}>
                     <View style={onGoingCircleStyle.rowViewLeftItem}>
                       <Text style={onGoingCircleStyle.rowText}>Progress:</Text>
                     </View>
@@ -249,7 +249,7 @@ export default class CompletedCircleDetails extends Component {
                         </Text>
                       ) : null}
                     </View>
-                  </View> */}
+                  </View>
                   {/* <View style={{ flexDirection: "row", paddingTop: 3 }}>
                     <View style={onGoingCircleStyle.rowViewLeftItem}>
                       <Text style={onGoingCircleStyle.rowText}>End date:</Text>
@@ -263,47 +263,48 @@ export default class CompletedCircleDetails extends Component {
                     </View>
                   </View> */}
                 </View>
-
-                <View style={onGoingCircleStyle.tableContent}>
-                  <ScrollView>
-                    <View style={onGoingCircleStyle.tablePart}>
-                      <Text style={onGoingCircleStyle.baseText}>
-                        <Text
-                          style={[
-                            onGoingCircleStyle.tableText,
-                            { fontWeight: "bold" }
-                          ]}
-                        >
-                          Circle is rejected by:{" "}
+                {item.status === 4 ? (
+                  <View style={onGoingCircleStyle.tableContent}>
+                    <ScrollView>
+                      <View style={onGoingCircleStyle.tablePart}>
+                        <Text style={onGoingCircleStyle.baseText}>
+                          <Text
+                            style={[
+                              onGoingCircleStyle.tableText,
+                              { fontWeight: "bold" }
+                            ]}
+                          >
+                            Circle is rejected by:{" "}
+                          </Text>
                         </Text>
-                      </Text>
-                      {item.get_users !== undefined ? (
-                        <View>
-                          {item.get_users.map((user, index) => {
-                            if (user.reject_reason !== "") {
-                              return (
-                                <View
-                                  key={index}
-                                  style={onGoingCircleStyle.rowView}
-                                >
+                        {item.get_users !== undefined ? (
+                          <View>
+                            {item.get_users.map((user, index) => {
+                              if (user.reject_reason !== "") {
+                                return (
                                   <View
-                                    style={onGoingCircleStyle.rowViewLeftItem}
+                                    key={index}
+                                    style={onGoingCircleStyle.rowView}
                                   >
-                                    <Text
-                                      style={onGoingCircleStyle.rowTextValue}
+                                    <View
+                                      style={onGoingCircleStyle.rowViewLeftItem}
                                     >
-                                      {user.username}: {user.reject_reason}
-                                    </Text>
+                                      <Text
+                                        style={onGoingCircleStyle.rowTextValue}
+                                      >
+                                        {user.username}: {user.reject_reason}
+                                      </Text>
+                                    </View>
                                   </View>
-                                </View>
-                              );
-                            }
-                          })}
-                        </View>
-                      ) : null}
-                    </View>
-                  </ScrollView>
-                </View>
+                                );
+                              }
+                            })}
+                          </View>
+                        ) : null}
+                      </View>
+                    </ScrollView>
+                  </View>
+                ) : null}
               </View>
             </View>
           )}
