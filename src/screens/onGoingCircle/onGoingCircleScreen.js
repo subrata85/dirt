@@ -34,7 +34,6 @@ export default class OnGoingCircleScreen extends Component {
 	}
 
 	componentDidMount() {
-		console.log("asdfklas")
 		this._bootstrapAsync();
 	}
 
@@ -142,7 +141,7 @@ export default class OnGoingCircleScreen extends Component {
 	};
 
 	render(){
-		 const item = this.state.details;
+		const item = this.state.details;
 		return(
 			<Container>
 				<Content>
@@ -303,10 +302,11 @@ export default class OnGoingCircleScreen extends Component {
 												}
 														</View>
 														<Text style={{fontWeight: 'bold'}}>
-																Start date : {item.previous_round_payment_date}
+															Start date :
+											{item.previous_round_payment_date ==""?CommonService.formatDate(item.start_date):item.previous_round_payment_date}
 														</Text>
 														<Text style={{fontWeight: 'bold'}}>
-																End date : {item.expected_next_payment_date}
+															End date :{item.expected_next_payment_date}
 														</Text>
 														{
 									item.userWillRecieveCurrentRound != ''?
@@ -341,14 +341,16 @@ export default class OnGoingCircleScreen extends Component {
 												<Text style={[onGoingCircleStyle.tableText,{fontWeight: 'bold'}]}>Round {user_round.round}- </Text>
 												<Text style={[onGoingCircleStyle.tableText,{color:'#20CC94'}]} numberOfLines={5}>Completed</Text>
 											</Text>
-											<View style={onGoingCircleStyle.rowView}>
+											{/* <View style={onGoingCircleStyle.rowView}>
 												<View style={onGoingCircleStyle.rowViewLeftItem}>
 														{user_round.reciever_msg ?
 															<Text>{user_round.reciever_msg}</Text> : null}
-														<Text>On {user_round.completion_date}</Text>
+														<Text>On {" "}
+														{user_round.completion_date}
+															</Text>
 													</View>
 													
-											</View>
+											</View> */}
 										</View>
 									</View>
 									).reverse()

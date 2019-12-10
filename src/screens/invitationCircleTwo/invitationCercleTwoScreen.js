@@ -186,7 +186,6 @@ export default class InvitationCercleTwoScreen extends Component {
 
 	render(){
 		const item = this.state.details;
-		console.log("waitin item", item)
 		// if(item.start_date !== undefined && !flag){
 		// 	flag = true;
 		// 	let oldDate = CommonService.allInOneFormatDate(item.start_date,'/','-','reverse');
@@ -326,11 +325,13 @@ export default class InvitationCercleTwoScreen extends Component {
 											</View>
 												</View>
 												<View style={{flexDirection: 'row'}}>
-											<View style={invitationCercleTwoStyle.rowViewLeftItem}>
+											<View style={invitationCercleTwoStyle.rowViewLeftItem}> 
 												<Text style={invitationCercleTwoStyle.rowText}>Expected payment receive:</Text>
 											</View>
 											<View style={invitationCercleTwoStyle.rowViewRightItem}>
-												<Text style={invitationCercleTwoStyle.rowTextValue}>{item.expected_payable_date}</Text>
+														<Text style={invitationCercleTwoStyle.rowTextValue}>
+														{item.expected_payable_date}
+														</Text>
 											</View>
 										</View>
 										<View style={invitationCercleTwoStyle.rowView}>

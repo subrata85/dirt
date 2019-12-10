@@ -19,8 +19,8 @@ class CommonService {
   };
 
   formatDate(date) {
-    let newdate = date.split("-");
-    return newdate[2] + "." + newdate[1] + "." + newdate[0];
+    let newdate = date.split(/-|\./);
+    return newdate[2] + "/" + newdate[1] + "/" + newdate[0];
   }
 
   allInOneFormatDate(date, delimiter, separator, order) {
