@@ -303,10 +303,10 @@ export default class OnGoingCircleScreen extends Component {
 														</View>
 														<Text style={{fontWeight: 'bold'}}>
 															Start date :
-											{item.previous_round_payment_date ==""?CommonService.formatDate(item.start_date):item.previous_round_payment_date}
+											{item.round_start_date}
 														</Text>
 														<Text style={{fontWeight: 'bold'}}>
-															End date :{item.expected_next_payment_date}
+															End date :{item.round_end_date}
 														</Text>
 														{
 									item.userWillRecieveCurrentRound != ''?
