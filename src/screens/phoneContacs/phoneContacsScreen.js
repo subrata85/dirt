@@ -144,9 +144,7 @@ export default class PhoneContacsScreen extends Component {
         );
       }
     } else if (listItem.mobile.slice(0, 3) === this.state.mobile_country_code) {
-      if (listItem.mobile[3] === "6" || listItem.mobile[3] === "7") {
-        mobileNumber = listItem.mobile;
-      }
+      mobileNumber = listItem.mobile;
     }
     // else if (listItem.mobile.slice(0, 3) !== "+33") {
     //   if (listItem.mobile[0] === "6" || listItem.mobile[0] === "7") {
