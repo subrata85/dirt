@@ -319,6 +319,11 @@ export default class RegisterTwoScreen extends Component {
                     ["last_name", response.result.last_name],
                     ["dob", response.result.dob],
                     ["email", response.result.email],
+                    ["iban", response.result.iban],
+                    [
+                      "mobile_country_code",
+                      response.result.mobile_country_code
+                    ],
                     ["mobile_number", response.result.mobile_number.toString()],
                     ["avatar_location", response.result.avatar_location]
                   ],

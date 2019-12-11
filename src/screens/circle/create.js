@@ -99,6 +99,7 @@ export default class CreateCircleScreen extends Component {
       "circle_code",
       "first_name",
       "avatar_location",
+      "mobile_country_code",
       "mobile_number"
     ]).then(response => {
       this.setState({
@@ -108,7 +109,8 @@ export default class CreateCircleScreen extends Component {
         avatar_location: {
           uri: ApiConfig.public_url + "storage/" + response[3][1]
         },
-        mobile_number: response[4][1]
+        mobile_country_code: response[4][1],
+        mobile_number: response[5][1]
       });
     });
   };
@@ -720,6 +722,7 @@ export default class CreateCircleScreen extends Component {
                             style={[styles.frmLabelRight, { marginTop: 5 }]}
                           >
                             {"1"}. {this.state.first_name}(Admin) (
+                            {this.state.mobile_country_code}
                             {this.state.mobile_number})
                           </Text>
                           {/* {joinParticipantList} */}

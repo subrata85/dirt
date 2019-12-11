@@ -24,7 +24,8 @@ export default class PhoneContacsScreen extends Component {
       defaultIcon: true,
       selectedLists: [],
       isChecked: [],
-      mobile_number: ""
+      mobile_number: "",
+      mobile_country_code: ""
     };
   }
 
@@ -37,11 +38,15 @@ export default class PhoneContacsScreen extends Component {
     this.setState({
       selectedLists: global.contacts_data
     });
-    AsyncStorage.multiGet(["mobile_number"]).then(response => {
-      this.setState({
-        mobile_number: response[0][1]
-      });
-    });
+    AsyncStorage.multiGet(["mobile_number", "mobile_country_code"]).then(
+      response => {
+        console.log("mobile", response);
+        this.setState({
+          mobile_number: response[0][1],
+          mobile_country_code: response[1][1]
+        });
+      }
+    );
     this.getContactList();
   }
 
@@ -130,17 +135,16 @@ export default class PhoneContacsScreen extends Component {
   };
 
   chooseContact = (listItem, mobile, index) => {
+    console.log("numb ereee ");
     let mobileNumber = "";
     if (listItem.mobile[0] === "0") {
       if (listItem.mobile[1] === "6" || listItem.mobile[1] === "7") {
-        mobileNumber = listItem.mobile.replace("0", "+33");
+        mobileNumber = listItem.mobile.replace(
+          "0",
+          this.state.mobile_country_code
+        );
       }
-    }
-    if (listItem.mobile[0] === "+") {
-      if (listItem.mobile[1] === "3" || listItem.mobile[2] === "3") {
-        mobileNumber = listItem.mobile;
-      }
-    } else if (listItem.mobile.slice(0, 2) === "+33") {
+    } else if (listItem.mobile.slice(0, 2) === this.state.mobile_country_code) {
       if (listItem.mobile[3] === "6" || listItem.mobile[3] === "7") {
         mobileNumber = listItem.mobile;
       }
@@ -148,6 +152,12 @@ export default class PhoneContacsScreen extends Component {
     // else if (listItem.mobile.slice(0, 3) !== "+33") {
     //   if (listItem.mobile[0] === "6" || listItem.mobile[0] === "7") {
     //     mobileNumber = "+33" + listItem.mobile;
+    //   }
+    // }
+
+    // if (listItem.mobile[0] === "+") {
+    //   if (listItem.mobile[1] === "3" || listItem.mobile[2] === "3") {
+    //     mobileNumber = listItem.mobile;
     //   }
     // }
 
@@ -196,19 +206,20 @@ export default class PhoneContacsScreen extends Component {
     this.props.navigation.goBack();
   };
 
-  onWillFocus() {
-    if (global.contacts_data.length) {
-      global.contacts_data.forEach((ele, i) => {
-        this.chooseContact(ele, ele.mobile);
-      });
-    }
-  }
+  // onWillFocus() {
+  //   if (global.contacts_data.length) {
+  //     global.contacts_data.forEach((ele, i) => {
+  //       this.chooseContact(ele, ele.mobile);
+  //     });
+  //   }
+  // }
 
   render() {
+    console.log("mobile_country_code", this.state.mobile_country_code);
     return (
       <Container>
         <Content>
-          <NavigationEvents onWillFocus={() => this.onWillFocus()} />
+          {/* <NavigationEvents onWillFocus={() => this.onWillFocus()} /> */}
           <StatusBarComponent />
           <View style={{ flex: 1, position: "relative", height: 120 }}>
             {this.state.defaultIcon ? (

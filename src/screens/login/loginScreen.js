@@ -90,6 +90,7 @@ export default class LoginScreen extends Component {
           httpService
             .postHttpCall(obj)
             .then(response => {
+              console.log("res", response);
               if (response.status == 300) {
                 that.setState(
                   {
@@ -110,6 +111,7 @@ export default class LoginScreen extends Component {
                   ["dob", response.result.dob],
                   ["email", response.result.email],
                   ["iban", response.result.iban],
+                  ["mobile_country_code", response.result.mobile_country_code],
                   ["mobile_number", response.result.mobile_number.toString()],
                   ["avatar_location", response.result.avatar_location],
                   ["loggedIn", "success"]
