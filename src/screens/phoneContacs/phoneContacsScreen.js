@@ -135,7 +135,6 @@ export default class PhoneContacsScreen extends Component {
   };
 
   chooseContact = (listItem, mobile, index) => {
-    console.log("numb ereee ");
     let mobileNumber = "";
     if (listItem.mobile[0] === "0") {
       if (listItem.mobile[1] === "6" || listItem.mobile[1] === "7") {
@@ -144,7 +143,7 @@ export default class PhoneContacsScreen extends Component {
           this.state.mobile_country_code
         );
       }
-    } else if (listItem.mobile.slice(0, 2) === this.state.mobile_country_code) {
+    } else if (listItem.mobile.slice(0, 3) === this.state.mobile_country_code) {
       if (listItem.mobile[3] === "6" || listItem.mobile[3] === "7") {
         mobileNumber = listItem.mobile;
       }
