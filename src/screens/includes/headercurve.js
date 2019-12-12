@@ -12,7 +12,7 @@ import FeatherIcon from "react-native-vector-icons/Feather";
 import Modal from "react-native-modal";
 let tabIndex = 0;
 
-export default class App extends Component {
+export default class HeaderCurve extends Component {
   constructor(props) {
     super(props);
     this.state = {

@@ -404,8 +404,14 @@ export default class EditProfileScreen extends Component {
                     ["loggedIn", "success"],
                     ["first_name", response.result.first_name],
                     ["last_name", response.result.last_name],
+                    ["email", response.result.email],
                     ["iban", response.result.iban],
                     ["dob", response.result.dob],
+                    [
+                      "mobile_country_code",
+                      response.result.mobile_country_code
+                    ],
+                    ["mobile_number", response.result.mobile_number.toString()],
                     ["avatar_location", response.result.avatar_location]
                   ],
                   function(error) {
