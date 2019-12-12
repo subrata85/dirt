@@ -10,13 +10,11 @@ import {
   ActivityIndicator,
   FlatList
 } from "react-native";
-import EventEmitter from "react-native-eventemitter";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from "react-native-responsive-screen";
-import ProgressCircle from "react-native-progress-circle";
 import AsyncStorage from "@react-native-community/async-storage";
 import Loading from "react-native-loader-overlay";
 import HeaderCurve from "../includes/headercurve";
@@ -28,20 +26,14 @@ const width = Math.round(Dimensions.get("window").width);
 const height = Math.round(Dimensions.get("window").height);
 const statusBarBackgroundColor = "#1CCBE6";
 const barStyle = "light-content";
-let tabIndex = 0;
 import URL from "../../config/url";
 const ApiConfig = URL;
-import { withNavigationFocus } from "react-navigation";
 
 class CompletedCircle extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loader: false,
-      ongoingApiCalled: false,
-      waitingApiCalled: true,
-      blockedApiCalled: false,
-      suspendApiCalled: false,
+      loader: true,
       rememberToken: null,
       errorText: "",
       subMessage: "",
@@ -71,8 +63,7 @@ class CompletedCircle extends Component {
         first_name: response[2][1],
         avatar_location: {
           uri: ApiConfig.public_url + "storage/" + response[3][1]
-        },
-        loader: false
+        }
       });
     });
   };
@@ -157,8 +148,8 @@ class CompletedCircle extends Component {
                 //title={"Completed Circle"}
                 first_name={this.state.first_name}
                 avatar_location={this.state.avatar_location}
-                navigation={this.navigation}
-                backButton={false}
+                navigation={this.props.navigation}
+                backButton={true}
                 bellIcon={false}
                 props={this.props}
               />
@@ -173,7 +164,9 @@ class CompletedCircle extends Component {
                   }}
                 >
                   {/* ----------------feature buttons----------------*/}
-
+                  {this.state.loader ? (
+                    <ActivityIndicator color={"#45BA96"} size="large" />
+                  ) : null}
                   {this.state.errorText != "" ? (
                     <View style={{ alignItems: "center", marginTop: "47%" }}>
                       <ErrorTemplate
@@ -298,6 +291,7 @@ class CompletedCircle extends Component {
             </View>
             <View style={{ marginTop: 20 }} />
           </KeyboardAwareScrollView>
+
           <FooterTabComponent props={this.props} />
         </View>
       </Container>

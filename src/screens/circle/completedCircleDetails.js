@@ -2,13 +2,11 @@ import React, { Component } from "react";
 import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import { Container, Content } from "native-base";
 import onGoingCircleStyle from "../onGoingCircle/onGoingCircleStyle";
-var moment = require("moment");
 import URL from "../../config/url";
 import AsyncStorage from "@react-native-community/async-storage";
 import HeaderCurve from "../includes/headercurve";
 import CommonService from "../../services/common/commonService";
-import httpService from "../../services/http/httpService";
-import Loading from "react-native-loader-overlay";
+import FeatherIcon from "react-native-vector-icons/Feather";
 import { ErrorTemplate } from "../../components/error/errorComponent";
 let flag = false;
 let paybutton = false;
@@ -69,10 +67,9 @@ export default class CompletedCircleDetails extends Component {
             backButton={true}
             first_name={this.state.first_name}
             admin={item.is_admin}
-            bellIcon={true}
+            bellIcon={false}
             props={this.props}
           />
-
           {this.state.errorText != "" ? (
             <View style={{ alignItems: "center", marginTop: "50%" }}>
               <ErrorTemplate
