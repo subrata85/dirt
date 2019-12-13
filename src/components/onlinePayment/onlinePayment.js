@@ -11,6 +11,7 @@ import {
 import axios from "axios";
 import Stripe from "react-native-stripe-api";
 import moment from "moment";
+import CreateCircle from "../../components/createCircle";
 // const apiKey = "";
 // const client = new Stripe(apiKey);
 
@@ -143,6 +144,8 @@ export default class OnlinePaymentModal extends Component {
             stripeToken: token.id
           };
         }
+
+        console.log("paydddd", paymentdata);
         axios
           .post(onlinePaymentUrl, JSON.stringify(paymentdata), {
             headers: {
@@ -151,6 +154,8 @@ export default class OnlinePaymentModal extends Component {
           })
           .then(res => {
             if (res.data.status === 100) {
+              console.log("payment");
+              CreateCircle.create(this.props.details, this.props.token);
               this.setState({ loader: false });
               ToastAndroid.show(res.data.message, ToastAndroid.LONG);
               this.props.navigation.navigate("dashboardPage");

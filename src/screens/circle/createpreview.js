@@ -117,10 +117,6 @@ export default class CreateCirclePreviewScreen extends Component {
         errorMessage: "The duration of circle should not go above 6 months"
       });
     } else {
-      this.setState({
-        loader: true
-      });
-
       // let obj = {
       //   circle_code: this.state.cicle_code,
       //   target_achive: this.props.navigation.getParam("target_achive", "0"),
