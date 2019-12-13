@@ -145,7 +145,8 @@ export default class CreateCirclePreviewScreen extends Component {
         reason_for_circle: this.props.navigation.getParam(
           "reason_for_circle",
           "0"
-        )
+        ),
+        unsafe_participants: this.props.navigation.getParam("participants")
       };
 
       this.props.navigation.navigate("bankDetailsPage", {

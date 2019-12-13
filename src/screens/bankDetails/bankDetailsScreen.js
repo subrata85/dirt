@@ -4,6 +4,7 @@ import {Container,Content,Icon} from 'native-base';
 import bankDetailsStyle from './bankDetailsStyle';
 import moment from "moment";
 import URL from '../../config/url';
+const ApiConfig = URL;
 import AsyncStorage from '@react-native-community/async-storage';
 import HeaderCurve from '../includes/headercurve';
 import CommonService from '../../services/common/commonService';
@@ -11,6 +12,7 @@ import httpService from '../../services/http/httpService';
 import Loading from 'react-native-loader-overlay';
 import { ErrorTemplate } from '../../components/error/errorComponent';
 import OnlinePaymentModal from "../../components/onlinePayment/onlinePayment"
+import EventEmitter from "react-native-eventemitter";
  let selectedId = 0;
 
 export default class BankDetailsScreen extends Component {
@@ -129,15 +131,67 @@ export default class BankDetailsScreen extends Component {
 			authtoken:this.state.rememberToken 
 		};
 		console.log("pyalodddd", payload)
+		
 		httpService.postHttpCall(payload).then((res)=>{
 		Loading.hide(this.loading);
 		if(res.status !== undefined){
 			if (res.status == 100) {
-				CommonService.showConfirmAlert(res.message,(response)=>{
-					if(response){
-						this.props.navigation.navigate('dashboardPage');
+				if (item.unsafe_participants !== undefined) {
+					let obj = {
+						circle_code: item.circle_code,
+						target_achive: item.target_achive,
+						round_set: item.round_set,
+						p_round: item.p_round,
+						start_date: item.start_date,
+						reason_for_circle: item.reason_for_circle
+						};
+					console.log("booooo", obj)
+					let that = this;
+		  axios
+			.post(ApiConfig.base_url + "create-circle", JSON.stringify(obj), {
+			  headers: {
+				Authorization: "Bearer " + this.state.rememberToken
+			  }
+			})
+			.then(function(response) {
+			  EventEmitter.emit("validatedCircleCreation", true);
+			  CommonService.getSmsPermission(res => {
+				if (res) {
+				  item.unsafe_participants.forEach(element => {
+					if (
+					  element.mobile_number.toString() !=
+					  that.state.mobile_number.toString()
+					) {
+					  CommonService.sendDirectSms(
+						element.mobile_number.toString(),
+						"Hello,\nI have added you to a new circle(" +
+						  that.state.cicle_code +
+						  ")"
+					  );
 					}
-				});
+				  });
+				}
+			  });
+			  CommonService.showConfirmAlert(res.message,(response)=>{
+				if(response){
+					this.props.navigation.navigate('dashboardPage');
+				}
+			});
+			})
+			.catch(function(error) {})
+			.finally(function() {
+			  that.setState({
+				loader: false
+			  });
+			});
+				} else {
+					CommonService.showConfirmAlert(res.message,(response)=>{
+						if(response){
+							this.props.navigation.navigate('dashboardPage');
+						}
+					});
+				}
+					
 			}else{
 				this.setState({errPaymentMsg: res.message});
 			}
