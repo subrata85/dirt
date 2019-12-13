@@ -121,8 +121,23 @@ export default class CreateCirclePreviewScreen extends Component {
         loader: true
       });
 
+      // let obj = {
+      //   circle_code: this.state.cicle_code,
+      //   target_achive: this.props.navigation.getParam("target_achive", "0"),
+      //   round_set: this.props.navigation.getParam("round_set", "0"),
+      //   p_round: this.props.navigation.getParam("p_round", "0"),
+      //   start_date: this.props.navigation.getParam("start_date", "0"),
+      //   reason_for_circle: this.props.navigation.getParam(
+      //     "reason_for_circle",
+      //     "0"
+      //   )
+      // };
+
       let obj = {
         circle_code: this.state.cicle_code,
+        admin: this.state.first_name,
+        admin_mobile: this.state.mobile_number,
+        login_user_mobile: this.state.mobile_number,
         target_achive: this.props.navigation.getParam("target_achive", "0"),
         round_set: this.props.navigation.getParam("round_set", "0"),
         p_round: this.props.navigation.getParam("p_round", "0"),
@@ -133,40 +148,47 @@ export default class CreateCirclePreviewScreen extends Component {
         )
       };
 
-      let that = this;
-      axios
-        .post(ApiConfig.base_url + "create-circle", JSON.stringify(obj), {
-          headers: {
-            Authorization: "Bearer " + that.state.rememberToken
-          }
-        })
-        .then(function(response) {
-          EventEmitter.emit("validatedCircleCreation", true);
-          commonService.getSmsPermission(res => {
-            if (res) {
-              unsafe_participants.forEach(element => {
-                if (
-                  element.mobile_number.toString() !=
-                  that.state.mobile_number.toString()
-                ) {
-                  commonService.sendDirectSms(
-                    element.mobile_number.toString(),
-                    "Hello,\nI have added you to a new circle(" +
-                      that.state.cicle_code +
-                      ")"
-                  );
-                }
-              });
-            }
-          });
-          that.props.navigation.navigate("dashboardPage");
-        })
-        .catch(function(error) {})
-        .finally(function() {
-          that.setState({
-            loader: false
-          });
-        });
+      this.props.navigation.navigate("bankDetailsPage", {
+        result: obj,
+        reason_id: "",
+        other_reason: "",
+        navigate_from: "accept_screen"
+      });
+
+      // let that = this;
+      // axios
+      //   .post(ApiConfig.base_url + "create-circle", JSON.stringify(obj), {
+      //     headers: {
+      //       Authorization: "Bearer " + that.state.rememberToken
+      //     }
+      //   })
+      //   .then(function(response) {
+      //     EventEmitter.emit("validatedCircleCreation", true);
+      //     commonService.getSmsPermission(res => {
+      //       if (res) {
+      //         unsafe_participants.forEach(element => {
+      //           if (
+      //             element.mobile_number.toString() !=
+      //             that.state.mobile_number.toString()
+      //           ) {
+      //             commonService.sendDirectSms(
+      //               element.mobile_number.toString(),
+      //               "Hello,\nI have added you to a new circle(" +
+      //                 that.state.cicle_code +
+      //                 ")"
+      //             );
+      //           }
+      //         });
+      //       }
+      //     });
+      //     that.props.navigation.navigate("dashboardPage");
+      //   })
+      //   .catch(function(error) {})
+      //   .finally(function() {
+      //     that.setState({
+      //       loader: false
+      //     });
+      //   });
     }
   };
 
@@ -382,7 +404,9 @@ export default class CreateCirclePreviewScreen extends Component {
                     onPress={() => this._doSubmitFinal()}
                     disabled={this.state.loader}
                   >
-                    <Text style={styles.validateButtonText}>Validate</Text>
+                    <Text style={styles.validateButtonText}>
+                      Pay My Deposit
+                    </Text>
 
                     {this.state.loader ? (
                       <View style={styles.loading}>

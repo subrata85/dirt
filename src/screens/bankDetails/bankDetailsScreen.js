@@ -128,6 +128,7 @@ export default class BankDetailsScreen extends Component {
 			},
 			authtoken:this.state.rememberToken 
 		};
+		console.log("pyalodddd", payload)
 		httpService.postHttpCall(payload).then((res)=>{
 		Loading.hide(this.loading);
 		if(res.status !== undefined){
