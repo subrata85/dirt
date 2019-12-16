@@ -49,11 +49,13 @@ export default class InvitationCercleTwoScreen extends Component {
 			let CurrentDate = new Date();
 			oldDate = new Date(oldDate);
 			let formatdate = moment(oldDate).format('llll');
-			if(CurrentDate > formatdate){
+			if (CurrentDate > formatdate) {
+				console.log("false")
 				buttons = true;
 				this.setState({visiblityButton:false})
 			} else {
-				this.setState({visiblityButton:true})
+				this.setState({ visiblityButton: true })
+				console.log("true")
 				buttons = false;
 			}
 		}
@@ -200,6 +202,8 @@ export default class InvitationCercleTwoScreen extends Component {
 		// 		buttons = false;
 		// 	}
 		// }
+
+		console.log("item", item)
 		return(
 			<Container>
 				<Content>

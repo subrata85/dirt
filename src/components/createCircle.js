@@ -7,6 +7,7 @@ import CommonService from "../services/common/commonService";
 class CreateCircle {
   create(item, token, navigation) {
     let obj = {
+      circle_user_id: item.circle_user_id,
       circle_code: item.circle_code,
       target_achive: item.target_achive,
       round_set: item.round_set,
@@ -14,6 +15,9 @@ class CreateCircle {
       start_date: item.start_date,
       reason_for_circle: item.reason_for_circle
     };
+
+    console.log("boh", obj);
+
     let that = this;
     axios
       .post(ApiConfig.base_url + "create-circle", JSON.stringify(obj), {
