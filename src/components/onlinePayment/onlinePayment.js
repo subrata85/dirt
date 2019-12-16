@@ -86,6 +86,7 @@ export default class OnlinePaymentModal extends Component {
           onlinePaymentUrl =
             "https://nodejsdapldevelopments.com/dart/public/api/circle-request-accept";
           paymentdata = {
+            circle_user_id: this.props.item.circle_user_id,
             circle_code: this.props.circle_code,
             trn_id: "",
             trn_status: "0",
@@ -153,15 +154,26 @@ export default class OnlinePaymentModal extends Component {
             }
           })
           .then(res => {
+            console.log("online pay", res);
             if (res.data.status === 100) {
-              console.log("payment");
-              CreateCircle.create(this.props.details, this.props.token);
-              this.setState({ loader: false });
-              ToastAndroid.show(res.data.message, ToastAndroid.LONG);
-              this.props.navigation.navigate("dashboardPage");
+              if (
+                this.props.item.circle_user_id !== undefined ||
+                this.props.item.circle_user_id === 1
+              ) {
+                CreateCircle.create(
+                  this.props.item,
+                  this.props.token,
+                  this.props.navigation
+                );
+              } else {
+                this.setState({ loader: false });
+                ToastAndroid.show(res.data.message, ToastAndroid.LONG);
+                this.props.navigation.navigate("dashboardPage");
+              }
             }
           })
           .catch(err => {
+            console.log("err", err);
             this.setState({ loader: false });
           });
       }

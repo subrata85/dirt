@@ -406,7 +406,7 @@ export default class BankDetailsScreen extends Component {
 														token = {this.state.rememberToken }
 														navigation={this.props.navigation}
 																		current_round={this.state.details.current_round}
-																		unsafe_participants={item.unsafe_participants}
+																		item={item}
 														/>
 														:
 														this.state.navigateFrom == 'on_going_details'?
