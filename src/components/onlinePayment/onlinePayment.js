@@ -77,7 +77,6 @@ export default class OnlinePaymentModal extends Component {
         exp_year: exp_year,
         cvc: cvc
       });
-
       if (token.error) {
         ToastAndroid.show(token.error.message, ToastAndroid.LONG);
         this.setState({ loader: false });
@@ -146,7 +145,6 @@ export default class OnlinePaymentModal extends Component {
           };
         }
 
-        console.log("paydddd", paymentdata);
         axios
           .post(onlinePaymentUrl, JSON.stringify(paymentdata), {
             headers: {
@@ -154,7 +152,6 @@ export default class OnlinePaymentModal extends Component {
             }
           })
           .then(res => {
-            console.log("online pay", res);
             if (res.data.status === 100) {
               if (
                 this.props.item.circle_user_id !== undefined ||
@@ -173,7 +170,6 @@ export default class OnlinePaymentModal extends Component {
             }
           })
           .catch(err => {
-            console.log("err", err);
             this.setState({ loader: false });
           });
       }
