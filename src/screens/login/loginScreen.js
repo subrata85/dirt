@@ -90,7 +90,6 @@ export default class LoginScreen extends Component {
           httpService
             .postHttpCall(obj)
             .then(response => {
-              console.log("res", response);
               if (response.status == 300) {
                 that.setState(
                   {
@@ -99,6 +98,14 @@ export default class LoginScreen extends Component {
                   },
                   () => {
                     that.setState({ errorMessage: response.message });
+                    if (
+                      response.otp_verified !== undefined &&
+                      response.otp_verified === 0
+                    ) {
+                      setTimeout(() => {
+                        this.props.navigation.navigate("otpVerifyPage");
+                      }, 2000);
+                    }
                   }
                 );
               } else {
