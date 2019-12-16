@@ -130,6 +130,7 @@ export default class CreateCirclePreviewScreen extends Component {
       // };
 
       let obj = {
+        circle_user_id: 1,
         circle_code: this.state.cicle_code,
         admin: this.state.first_name,
         admin_mobile: this.state.mobile_number,
@@ -144,6 +145,8 @@ export default class CreateCirclePreviewScreen extends Component {
         ),
         unsafe_participants: this.props.navigation.getParam("participants")
       };
+
+      console.log("objjjj", obj);
 
       this.props.navigation.navigate("bankDetailsPage", {
         result: obj,

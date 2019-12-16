@@ -5,7 +5,7 @@ import EventEmitter from "react-native-eventemitter";
 import CommonService from "../services/common/commonService";
 
 class CreateCircle {
-  create(item, token) {
+  create(item, token, navigation) {
     let obj = {
       circle_code: item.circle_code,
       target_achive: item.target_achive,
@@ -15,6 +15,7 @@ class CreateCircle {
       reason_for_circle: item.reason_for_circle
     };
     console.log("booooo", obj);
+    console.log("create circle token", token);
     let that = this;
     axios
       .post(ApiConfig.base_url + "create-circle", JSON.stringify(obj), {
@@ -23,8 +24,10 @@ class CreateCircle {
         }
       })
       .then(function(response) {
+        console.log("crete response", response);
         EventEmitter.emit("validatedCircleCreation", true);
         CommonService.getSmsPermission(res => {
+          console.log("sms res", res);
           if (res) {
             item.unsafe_participants.forEach(element => {
               if (
@@ -40,11 +43,14 @@ class CreateCircle {
               }
             });
           }
-        });
-        CommonService.showConfirmAlert(res.message, response => {
-          if (response) {
-            this.props.navigation.navigate("dashboardPage");
-          }
+          CommonService.showConfirmAlert(
+            "Circle created successfully",
+            response => {
+              if (response) {
+                navigation.navigate("dashboardPage");
+              }
+            }
+          );
         });
       })
       .catch(function(error) {

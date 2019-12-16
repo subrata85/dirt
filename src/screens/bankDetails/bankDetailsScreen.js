@@ -127,7 +127,8 @@ export default class BankDetailsScreen extends Component {
 				reason_id			:	this.state.reasonId,
 				other_reason		:	this.state.otherReason,
 				payment_mode: selectedId,
-				payment_reason: this.state.randamCircleNum
+				payment_reason: this.state.randamCircleNum,
+				circle_user_id:item.circle_user_id
 			},
 			authtoken:this.state.rememberToken 
 		};
@@ -137,8 +138,9 @@ export default class BankDetailsScreen extends Component {
 		Loading.hide(this.loading);
 		if(res.status !== undefined){
 			if (res.status == 100) {
-				if (item.unsafe_participants !== undefined) {
-					CreateCircle.create(this.state.details, this.state.rememberToken)
+				if (item.circle_user_id === 1) {
+					console.log("unssafe participants")
+					CreateCircle.create(this.state.details, this.state.rememberToken, this.props.navigation)
 				} else {
 					CommonService.showConfirmAlert(res.message,(response)=>{
 						if(response){
