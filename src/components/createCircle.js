@@ -14,8 +14,6 @@ class CreateCircle {
       start_date: item.start_date,
       reason_for_circle: item.reason_for_circle
     };
-    console.log("booooo", obj);
-    console.log("create circle token", token);
     let that = this;
     axios
       .post(ApiConfig.base_url + "create-circle", JSON.stringify(obj), {
@@ -24,10 +22,8 @@ class CreateCircle {
         }
       })
       .then(function(response) {
-        console.log("crete response", response);
         EventEmitter.emit("validatedCircleCreation", true);
         CommonService.getSmsPermission(res => {
-          console.log("sms res", res);
           if (res) {
             item.unsafe_participants.forEach(element => {
               if (

@@ -132,14 +132,11 @@ export default class BankDetailsScreen extends Component {
 			},
 			authtoken:this.state.rememberToken 
 		};
-		console.log("pyalodddd", payload)
-		
 		httpService.postHttpCall(payload).then((res)=>{
 		Loading.hide(this.loading);
 		if(res.status !== undefined){
 			if (res.status == 100) {
-				if (item.circle_user_id === 1) {
-					console.log("unssafe participants")
+				if (item.circle_user_id !== undefined || item.circle_user_id===1) {
 					CreateCircle.create(this.state.details, this.state.rememberToken, this.props.navigation)
 				} else {
 					CommonService.showConfirmAlert(res.message,(response)=>{
