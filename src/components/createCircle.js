@@ -17,6 +17,9 @@ class CreateCircle {
     };
 
     console.log("boh", obj);
+    console.log("login_user_mobile", item.login_user_mobile);
+
+    console.log("unsafe_participants create", item.unsafe_participants);
 
     let that = this;
     axios
@@ -28,16 +31,18 @@ class CreateCircle {
       .then(function(response) {
         EventEmitter.emit("validatedCircleCreation", true);
         CommonService.getSmsPermission(res => {
+          console.log("create permission");
           if (res) {
+            console.log(" if condition create permission");
             item.unsafe_participants.forEach(element => {
               if (
-                element.mobile_number.toString() !=
-                that.state.mobile_number.toString()
+                element.mobile_number.toString() !==
+                item.login_user_mobile.toString()
               ) {
                 CommonService.sendDirectSms(
                   element.mobile_number.toString(),
                   "Hello,\nI have added you to a new circle(" +
-                    that.state.cicle_code +
+                    item.circle_code +
                     ")"
                 );
               }

@@ -34,7 +34,11 @@ export default class ChangeOrderParticipantsScreen extends Component {
     this.state = {
       participantList: [],
       loadingContent: true,
-      newOrder: []
+      newOrder: [],
+      cicle_code: "",
+      first_name: "",
+      avatar_location: "",
+      rememberToken: ""
     };
   }
 
@@ -57,17 +61,21 @@ export default class ChangeOrderParticipantsScreen extends Component {
   }
 
   _bootstrapAsync = async () => {
+    console.log("get user info");
     AsyncStorage.multiGet([
       "rememberToken",
       "circle_code",
       "first_name",
       "avatar_location"
     ]).then(response => {
+      console.log("re", response);
       this.setState({
         rememberToken: response[0][1],
         cicle_code: response[1][1],
         first_name: response[2][1],
-        avatar_location: response[3][1]
+        avatar_location: {
+          uri: ApiConfig.public_url + "storage/" + response[3][1]
+        }
       });
     });
   };
@@ -143,6 +151,8 @@ export default class ChangeOrderParticipantsScreen extends Component {
   };
 
   render() {
+    console.log("fnaem");
+    console.log("avatar_location", this.state.avatar_location);
     return (
       <View style={styles.container}>
         <StatusBar
@@ -161,12 +171,10 @@ export default class ChangeOrderParticipantsScreen extends Component {
               backButton={true}
               //title={"Create Circle"}
               navigation={this.props.navigation}
-              avatar_location={
-                ApiConfig.public_url + "storage/" + this.state.avatar_location
-              }
+              avatar_location={this.state.avatar_location}
               first_name={this.state.first_name}
               //admin={item.is_admin}
-              bellIcon={true}
+              bellIcon={false}
             />
 
             <View

@@ -154,8 +154,8 @@ export default class OnlinePaymentModal extends Component {
           .then(res => {
             if (res.data.status === 100) {
               if (
-                this.props.item.circle_user_id !== undefined ||
-                this.props.item.circle_user_id === 1
+                paymentdata.circle_user_id !== undefined ||
+                paymentdata.circle_user_id === 1
               ) {
                 CreateCircle.create(
                   this.props.item,

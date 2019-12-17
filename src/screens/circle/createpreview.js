@@ -237,7 +237,7 @@ export default class CreateCirclePreviewScreen extends Component {
               avatar_location={this.state.avatar_location}
               backButton={true}
               first_name={this.state.first_name}
-              bellIcon={true}
+              bellIcon={false}
             />
             {/* <HeaderCurve /> */}
 

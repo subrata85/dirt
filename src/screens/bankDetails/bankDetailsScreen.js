@@ -132,11 +132,11 @@ export default class BankDetailsScreen extends Component {
 			},
 			authtoken:this.state.rememberToken 
 		};
-		httpService.postHttpCall(payload).then((res)=>{
+		httpService.postHttpCall(payload).then((res) => {
 		Loading.hide(this.loading);
 		if(res.status !== undefined){
 			if (res.status == 100) {
-				if (item.circle_user_id !== undefined || item.circle_user_id===1) {
+				if (payload.data.circle_user_id !== undefined || payload.data.circle_user_id === 1) {
 					CreateCircle.create(this.state.details, this.state.rememberToken, this.props.navigation)
 				} else {
 					CommonService.showConfirmAlert(res.message,(response)=>{
