@@ -13,6 +13,7 @@ import httpService from '../../services/http/httpService';
 import Loading from 'react-native-loader-overlay';
 import { ErrorTemplate } from '../../components/error/errorComponent';
 import { Circle } from 'react-native-svg';
+import onGoingCircleStyle from '../onGoingCircle/onGoingCircleStyle';
 var moment = require('moment');
 
 export default class BlockCercleOneScreen extends Component {
@@ -265,7 +266,6 @@ onSendReminder = (userType, screen) =>{
 }
 	render(){
 		const item = this.state.details;
-		console.log("item",item)
 		return(
 			<Container>
 				<Content>
@@ -299,41 +299,141 @@ onSendReminder = (userType, screen) =>{
 										<Text>N° {item.circle_code}</Text>
 									</View>
 								
-								
-								<View style={[blockCircleOneStyle.tableContent]}>
-									<ScrollView>
-										<View style={blockCircleOneStyle.tablePart}>
-											<Text style={blockCircleOneStyle.baseText}>
-												<Text style={blockCircleOneStyle.titleText}>Round {item.current_round}- </Text>
-												<Text style={blockCircleOneStyle.tableText} numberOfLines={5}>Overdue</Text>
-											</Text>
-											
+											{/* //NEW PASTED */}
 											<View>
+								<View style={{borderBottomWidth:1,borderColor:'#ccc',padding:5}}>
+									<View style={onGoingCircleStyle.rowView}>
+										<View style={onGoingCircleStyle.rowViewLeftItem}>
+											<Text style={onGoingCircleStyle.rowText}>Circle Admin:</Text>
+										</View>
+										<View style={[onGoingCircleStyle.rowViewRightItem,{flexDirection:'row'}]}>
+											<Text style={[onGoingCircleStyle.rowTextValue,{marginRight:10}]}>{item.admin}</Text>
+										</View>
+									</View>
+									<View style={onGoingCircleStyle.rowView}>
+										<View style={onGoingCircleStyle.rowViewLeftItem}>
+											<Text style={onGoingCircleStyle.rowText}>Total amount:</Text>
+										</View>
+										<View style={onGoingCircleStyle.rowViewRightItem}>
+											<Text style={onGoingCircleStyle.rowTextValue}>€{item.target_achive}</Text>
+										</View>
+									</View>
+									<View style={onGoingCircleStyle.rowView}>
+										<View style={onGoingCircleStyle.rowViewLeftItem}>
+											<Text style={onGoingCircleStyle.rowText}>Round amount:</Text>
+										</View>
+										<View style={onGoingCircleStyle.rowViewRightItem}>
+											<Text style={onGoingCircleStyle.rowTextValue}>€{item.round_set}</Text>
+										</View>
+										</View>
+												
+										<View style={onGoingCircleStyle.rowView}>
+										<View style={onGoingCircleStyle.rowViewLeftItem}>
+											<Text style={onGoingCircleStyle.rowText}>Periodicity:</Text>
+										</View>
+										<View style={onGoingCircleStyle.rowViewRightItem}>
+											<Text style={onGoingCircleStyle.rowTextValue}>{item.p_round}</Text>
+										</View>
+									</View>
+									
+									<View style={onGoingCircleStyle.rowView}>
+										<View style={onGoingCircleStyle.rowViewLeftItem}>
+											<Text style={onGoingCircleStyle.rowText}>Start date:</Text>
+										</View>
+										<View style={onGoingCircleStyle.rowViewRightItem}>
+											<Text style={onGoingCircleStyle.rowTextValue}>{CommonService.formatDate(item.start_date)}</Text>
+										</View>
+										</View>
+												
+												<View style={onGoingCircleStyle.rowView}>
+										<View style={onGoingCircleStyle.rowViewLeftItem}>
+											<Text style={onGoingCircleStyle.rowText}>End date:</Text>
+										</View>
+										<View style={onGoingCircleStyle.rowViewRightItem}>
+											<Text style={onGoingCircleStyle.rowTextValue}>{CommonService.formatDate(item.end_date)}</Text>
+										</View>
+									</View>
+									<View style={{paddingTop:20}}>
+										<Text style={onGoingCircleStyle.rowText}>Circle participants:</Text>
+										<View style={[onGoingCircleStyle.rowViewNew,{paddingBottom:20}]}>
 											{
+												item.circleUsers !== undefined ?
 												item.circleUsers.map((user_item,user_index) => 
-												<View key={user_index} style={blockCircleOneStyle.rowView}>
-													<View style={blockCircleOneStyle.rowViewLeftItem}>
-														<Text>{user_item.username}</Text>
-													</View>
-													<View style={blockCircleOneStyle.rowViewRightItem}>
-														{
-															user_item.current_round_payment_status == 0 ?
-															<Text style={{color:'#E15862'}}>Not paid yet</Text>:
-															user_item.current_round_payment_status == 3 ?
-															<Text style={{color:'#E15862'}}>Pending</Text>:
-															user_item.current_round_payment_status == 1 ?
-															<Text style={{color:'#23CB97'}}>Paid</Text>:null
-														}
+												<View key={user_index} style={{flexDirection:'row'}}>
+													<View style={onGoingCircleStyle.nextRowViewLeftItem}>
+													<Text style={onGoingCircleStyle.rowTextValue}>{user_index+1}.{user_item.username}({user_item.mobile_country_code}{user_item.mobile_number})</Text>
 													</View>
 												</View>
-												)
+												):null
 											}
-											</View>
 										</View>
-									</ScrollView>
+									</View>
+									<View style={{flexDirection: 'row'}}>
+										<View style={onGoingCircleStyle.rowViewLeftItem}>
+											<Text style={onGoingCircleStyle.rowText}>Progress:</Text>
+										</View>
+										<View style={onGoingCircleStyle.rowViewRightItem}>
+										{
+											item.completed_round == item.estimate_round ?
+											<Text style={onGoingCircleStyle.rowTextValue}>Completed</Text>:
+											item.completed_round > 1 ?
+											<Text style={onGoingCircleStyle.rowTextValue}>{item.completed_round+' rounds over out of '+item.estimate_round}</Text>:
+											item.completed_round < 2 ?
+											<Text style={onGoingCircleStyle.rowTextValue}>{item.completed_round+' round over out of '+item.estimate_round}</Text>:null
+										}
+										</View>
+									</View>
+									<View style={{flexDirection: 'row',paddingTop:3}}>
+										<View style={onGoingCircleStyle.rowViewLeftItem}>
+											<Text style={onGoingCircleStyle.rowText}>End date:</Text>
+										</View>
+										<View style={onGoingCircleStyle.rowViewRightItem}>
+											<Text style={onGoingCircleStyle.rowTextValue}>{CommonService.formatDate(item.end_date)}</Text>
+										</View>
+									</View>
 								</View>
 								
-								<View style={blockCircleOneStyle.tableContentPaymentHistory}>
+								<View style={onGoingCircleStyle.tableContent}>
+									<ScrollView>
+										<View style={onGoingCircleStyle.tablePart}>
+											<Text style={onGoingCircleStyle.baseText}>
+												<Text style={[onGoingCircleStyle.tableText,{fontWeight: 'bold'}]}>Round {item.current_round}- </Text>
+															<Text style={[onGoingCircleStyle.tableText, { color: '#000000', fontWeight:"bold" }]} numberOfLines={1}>Overdue
+															</Text>
+												</Text>
+												
+											<View>
+												{
+													item.circleUsers.map((user_item,user_index) => 
+													<View key={user_index} style={onGoingCircleStyle.rowView}>
+														<View style={onGoingCircleStyle.rowViewLeftItem}>
+																<Text style={onGoingCircleStyle.rowTextValue}>{user_item.username}</Text>
+																
+														</View>
+														<View style={onGoingCircleStyle.rowViewRightItem}>
+															{
+																user_item.current_round_payment_status == 0 ?
+																<Text style={{color:'#E15862'}}>Not paid yet</Text>:
+																user_item.current_round_payment_status == 3 ?
+																<Text style={{color:'#E15862'}}>Pending</Text>:
+																user_item.current_round_payment_status == 1 ?
+																<Text style={{color:'#23CB97'}}>Paid</Text>:null
+															}
+														</View>
+													</View>
+													)
+												}
+														</View>
+														<Text style={{fontWeight: 'bold'}}>
+															Start date :
+											{item.round_start_date}
+														</Text>
+														<Text style={{fontWeight: 'bold'}}>
+															End date :{item.round_end_date}
+														</Text>
+														
+									
+														<View style={blockCircleOneStyle.tableContentPaymentHistory}>
 									<ScrollView>
 										<View style={blockCircleOneStyle.tablePart}>
 											<Text style={blockCircleOneStyle.baseText}>
@@ -359,7 +459,12 @@ onSendReminder = (userType, screen) =>{
 											}
 										</View>
 									</ScrollView>
+											</View>
+								
+										</View>
+									</ScrollView>
 								</View>
+							</View>
 								
 								{
 									(item.is_admin == 1 && item.login_user_current_round_payment_status == 0)?
