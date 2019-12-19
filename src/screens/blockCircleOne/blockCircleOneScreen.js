@@ -442,7 +442,7 @@ onSendReminder = (userType, screen) =>{
 												{
 													this.getNumberOfDays(CommonService.getDateMonthFirst(),CommonService.formatDateMontFirst(item.current_round_payment_date))
 												}
-												days ago from</Text>
+												{" "}days ago from</Text>
 											</Text>
 											{
 												item.circleUsers.map((user_item,user_index) => 
