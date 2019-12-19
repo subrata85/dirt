@@ -53,6 +53,7 @@ export default class PhoneContacsScreen extends Component {
   getContactList() {
     this.loading = Loading.show(CommonService.loaderObj);
     Contacts.getAll((err, contacts) => {
+      console.log("get all contacts", contacts);
       if (err !== null) {
         ToastAndroid.showWithGravity(
           err,
@@ -62,9 +63,9 @@ export default class PhoneContacsScreen extends Component {
       } else {
         try {
           let sortedContact = contacts.sort(function(a, b) {
-            if (a.displayName != null && b.displayName != null) {
-              var nameA = a.displayName.toUpperCase(); // ignore upper and lowercase
-              var nameB = b.displayName.toUpperCase();
+            if (a.givenName != null && b.givenName != null) {
+              var nameA = a.givenName.toUpperCase(); // ignore upper and lowercase
+              var nameB = b.givenName.toUpperCase();
               if (nameA < nameB) {
                 return -1;
               } else {
@@ -78,10 +79,10 @@ export default class PhoneContacsScreen extends Component {
             if (ele.phoneNumbers.length) {
               if (!regex.test(ele.phoneNumbers[0].number)) {
                 if (
-                  ele.displayName != "" &&
-                  ele.displayName != null &&
-                  ele.displayName != undefined &&
-                  ele.displayName.toLowerCase() != "unknown"
+                  ele.givenName != "" &&
+                  ele.givenName != null &&
+                  ele.givenName != undefined &&
+                  ele.givenName.toLowerCase() != "unknown"
                 ) {
                   let phone = ele.phoneNumbers[0].number;
                   phone = phone.split(".").join("");
@@ -90,7 +91,7 @@ export default class PhoneContacsScreen extends Component {
                   phone = phone.split("(").join("");
                   phone = phone.split(")").join("");
                   let obj = {
-                    username: ele.displayName,
+                    username: ele.givenName,
                     mobile: phone,
                     rawContactId: ele.rawContactId
                   };
@@ -189,11 +190,11 @@ export default class PhoneContacsScreen extends Component {
             });
           }
         } else {
-          Alert.alert("", `Not a valid phone number`);
+          Alert.alert(listData.mobile, `Not a valid phone number`);
         }
       }
     } else {
-      Alert.alert("", `Not a valid number`);
+      Alert.alert(listItem.mobile, `Not a valid number`);
     }
   };
 
