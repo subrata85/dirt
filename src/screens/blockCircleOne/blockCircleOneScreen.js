@@ -266,6 +266,7 @@ onSendReminder = (userType, screen) =>{
 }
 	render(){
 		const item = this.state.details;
+		console.log("block item", item)
 		return(
 			<Container>
 				<Content>
@@ -398,8 +399,8 @@ onSendReminder = (userType, screen) =>{
 										<View style={onGoingCircleStyle.tablePart}>
 											<Text style={onGoingCircleStyle.baseText}>
 												<Text style={[onGoingCircleStyle.tableText,{fontWeight: 'bold'}]}>Round {item.current_round}- </Text>
-															<Text style={[onGoingCircleStyle.tableText, { color: '#000000', fontWeight:"bold" }]} numberOfLines={1}>Overdue
-															</Text>
+													<Text style={[onGoingCircleStyle.tableText, { color: '#000000', fontWeight:"bold" }]} numberOfLines={1}>Overdue
+													</Text>
 												</Text>
 												
 											<View>
@@ -465,9 +466,9 @@ onSendReminder = (userType, screen) =>{
 									</ScrollView>
 								</View>
 							</View>
-								
+								{/* && item.login_user_current_round_payment_status == 0) */}
 								{
-									(item.is_admin == 1 && item.login_user_current_round_payment_status == 0)?
+									item.is_admin == 1 ?
 									<View style={blockCircleOneStyle.paymentButtonView}>
 										<TouchableOpacity style={blockCircleOneStyle.paymentButton}
 											onPress={()=>this.onSendReminder(1,2)}
