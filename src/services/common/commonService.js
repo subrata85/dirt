@@ -135,7 +135,6 @@ class CommonService {
   };
 
   async getSmsPermission(cb) {
-    console.log("cb", cb);
     try {
       const granted = await PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.SEND_SMS

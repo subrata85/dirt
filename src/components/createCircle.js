@@ -16,11 +16,6 @@ class CreateCircle {
       reason_for_circle: item.reason_for_circle
     };
 
-    console.log("boh", obj);
-    console.log("login_user_mobile", item.login_user_mobile);
-
-    console.log("unsafe_participants create", item.unsafe_participants);
-
     let that = this;
     axios
       .post(ApiConfig.base_url + "create-circle", JSON.stringify(obj), {
@@ -31,16 +26,15 @@ class CreateCircle {
       .then(function(response) {
         EventEmitter.emit("validatedCircleCreation", true);
         CommonService.getSmsPermission(res => {
-          console.log("create permission");
           if (res) {
-            console.log(" if condition create permission");
             item.unsafe_participants.forEach(element => {
               if (
                 element.mobile_number.toString() !==
                 item.login_user_mobile.toString()
               ) {
                 CommonService.sendDirectSms(
-                  element.mobile_number.toString(),
+                  element.mobile_country_code.toString() +
+                    element.mobile_number.toString(),
                   "Hello,\nI have added you to a new circle(" +
                     item.circle_code +
                     ")"
