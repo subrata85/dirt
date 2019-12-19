@@ -142,6 +142,7 @@ export default class OnGoingCircleScreen extends Component {
 
 	render(){
 		const item = this.state.details;
+		console.log("ongoing item", item)
 		return(
 			<Container>
 				<Content>
@@ -341,16 +342,22 @@ export default class OnGoingCircleScreen extends Component {
 												<Text style={[onGoingCircleStyle.tableText,{fontWeight: 'bold'}]}>Round {user_round.round}- </Text>
 												<Text style={[onGoingCircleStyle.tableText,{color:'#20CC94'}]} numberOfLines={5}>Completed</Text>
 											</Text>
-											{/* <View style={onGoingCircleStyle.rowView}>
-												<View style={onGoingCircleStyle.rowViewLeftItem}>
+											<View style={onGoingCircleStyle.rowView}>
+											
 														{user_round.reciever_msg ?
-															<Text>{user_round.reciever_msg}</Text> : null}
-														<Text>On {" "}
+															<Text style={{fontWeight:"bold"}}>{user_round.reciever_msg}</Text> : null}
+														{/* <Text>On {" "}
 														{user_round.completion_date}
+															</Text> */}
+												</View>
+												<View style={onGoingCircleStyle.rowView}>
+												<View style={onGoingCircleStyle.rowViewLeftItem}>
+														<Text style={{fontWeight:"bold"}}>End Date: {""}
+														{user_round.completion_date!==undefined?user_round.completion_date:null}
 															</Text>
 													</View>
 													
-											</View> */}
+											</View>
 										</View>
 									</View>
 									).reverse()
